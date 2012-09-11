@@ -29,18 +29,12 @@ class User
   end
 
   def dojo_points
-    i = 1
-    dojo_array = [0]
     self.dojos.map do |dojo|
-      if i > 3
-        dojo_array.push([(dojo.p0_scores[self.id.to_s] || 0),
+      [(dojo.p0_scores[self.id.to_s] || 0),
        (dojo.p1_scores[self.id.to_s] || 0),
        (dojo.p2_scores[self.id.to_s] || 0),
-       (dojo.p3_scores[self.id.to_s] || 0)].sum)
-      end
-      i = i + 1
-    end
-    return dojo_array.sum
+       (dojo.p3_scores[self.id.to_s] || 0)].sum
+    end.sum
   end
 
   def raffle_score
@@ -64,7 +58,7 @@ class User
   end
 
   def total_score
-    count = self.dojo_points
+    count = 0
     self.achievements.map do |achievement|
       if achievement.year != 2011
         count = count + achievement.value
