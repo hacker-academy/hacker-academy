@@ -1,3 +1,8 @@
+%h1{:class => "leaderboard_title"} 
+  Leaderboard 2012 
+  %a{:class => "past_year", :href=>"/leaderboard_2011"} 2011 Leaderboard
+  
+
 %table
   - @users = User.where(:is_admin => false).sort_by(&:total_score).reverse
   - max_score = @users[0].total_score

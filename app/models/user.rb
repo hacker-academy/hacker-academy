@@ -58,7 +58,23 @@ class User
   end
 
   def total_score
-    self.achievements.map(&:value).sum + self.dojo_points
+    count = 0
+    self.achievements.map do |achievement|
+      if achievement.year != 2011
+        count = count + achievement.value
+      end
+    end
+    return count
+  end
+
+  def total_score2011
+    count = self.dojo_points
+    self.achievements.map do |achievement|
+      if achievement.year == 2011
+        count = count + achievement.value
+      end
+    end
+    return count
   end
 
   def level

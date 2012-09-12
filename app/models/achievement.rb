@@ -3,6 +3,7 @@ class Achievement
   field :name, :type => String
   field :description, :type => String
   field :value, :type => Integer
+  field :year, :type => Integer
   field :current, :type => Boolean
   field :code, :type => String
 

@@ -1,0 +1,15 @@
+%h1{:class => "leaderboard_title"} 
+  Leaderboard 2011 
+  %a{:class => "past_year", :href=>"/leaderboard"} 2012 Leaderboard
+
+%table
+  - @users = User.where(:is_admin => false).sort_by(&:total_score2011).reverse
+  - max_score = @users[0].total_score2011
+  - bar_width = 150
+  - @users.each do |user|
+    %tr
+      %td= link_to shorten(user.name,20), user
+      %td= "Lvl. #{user.level}"
+      %td
+        .bar(style="width:#{bar_width*user.total_score2011/max_score}px")
+          = "#{user.total_score2011}" 
