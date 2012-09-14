@@ -16,6 +16,7 @@ gem 'devise', '1.3.4'
 gem 'cancan', '~> 1.6'
 gem 'redcarpet', '1.17.2'
 gem 'pony'
+gem "gibbon", "~> 0.3.5"
 
 group :development, :test do
   gem 'barista', '~> 1.2'

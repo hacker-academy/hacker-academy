@@ -6,11 +6,9 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    res = Net::HTTP.post_form(
-      URI.parse('http://tinyletter.com/hackeracademy'), {
-      :emailaddress => params['user']['email'],
-      :embed => 1
-    })
+    email = params[:user][:email]
+    g = Gibbon.new('5aa23572992b0f657957cb3e891c9d10-us5')
+    g.listSubscribe(:id => 'a2855df226', :email_address => email)
     super
   end
 
