@@ -36,6 +36,8 @@
             = link_to 'Talks', '/talks'
           %li(class="#{'active' if current_page?(contests_path)}")
             = link_to 'Dojo', contests_path
+          %li(class="#{'active' if current_page?("/c3")}")
+            = link_to 'C3', "/c3"
           %li &nbsp;
           %li(class="#{'active' if current_page?('/about')}")
             = link_to 'About', '/about'
