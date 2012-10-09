@@ -12,6 +12,8 @@
     - elsif @level > 0
       = hidden_field_tag :searches, @prob[:searches].map{|x| x[0]}.join('+')
       = hidden_field_tag :locations, @prob[:locations].join('+')
+  - elsif @contest.puzzle_ident == 4
+    = hidden_field_tag :riddle, @prob[:riddle]
   .field
     = label_tag :solution
     %br

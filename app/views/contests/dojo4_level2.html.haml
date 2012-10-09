@@ -1,0 +1,42 @@
+= render partial: 'problem_header'
+%p
+  It has been seven years since the last Mr. Toe message, but another Tic Tac Toe riddle has
+  been discovered at the summit of Mount Kilimanjaro.
+
+%p
+  You are given what looks like a gigantic Tic Tac Toe game, which you believe contains
+  some sort of numerical message. If you uncover the game's longest Tic Tac Toe line before the lunar
+  eclipse (which is REALLY SOON so hurry up :D), legend has it that you will uncover the 
+  legendary Tic Tac Toe Treasure.
+
+  %br
+  Return the length of the longest X/O substring, which can be either horiztonal, vertical, or diagonal.
+  %br
+
+%h2 Sample Problem
+%h4 Input
+.data
+  %code
+    XXXOX
+    OOXXO
+    XXXXO
+    OOXOO
+    XOOOO
+
+%h4 Solution
+.data
+  %code
+    4
+
+%h2 Actual Problem
+%h4 Needles
+.data
+  %code
+    - @prob[:words].each do |word|
+      = word
+      %br
+%h4 Haystack
+.data
+  %code= @prob[:puzzle]
+
+= render partial: 'submit'

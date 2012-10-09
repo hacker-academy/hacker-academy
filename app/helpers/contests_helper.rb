@@ -32,6 +32,63 @@ module ContestsHelper
 
   WORDS = Marshal.load(open('lib/words2.dump'))
 
+  module Dojo4
+    KEYS = [
+              'Fifty-paces-NE-of-farm',
+              'Ninety-feet-S-of-church',
+              'One-mile-N-of-school',
+              'Three-miles-S-of-circus',
+              'Sixty-paces-SW-of-mill',
+              'Five-miles-E-of-factory'
+            ]
+
+    # Level 0: 1st Tic Tac Toe Cipher
+    def self.generate_level0
+      phrase = KEYS[rand(KEYS.length)].upcase
+
+      bit = 'X'
+      riddle = ''
+
+      phrase.each_byte.each do |i|
+        if i == 45
+          riddle = riddle + '-'
+        else
+          quant = i - 64
+          riddle = riddle + (bit * quant)
+          if bit == 'X'
+            bit = 'O'
+          else bit = 'X'
+          end
+        end
+      end
+
+      return {riddle: riddle, phrase: phrase}
+    end
+
+    def self.verify_level0 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+
+    def self.generate_puzzle(level, *args)
+      return self.send("generate_level#{level}", *args)
+    end
+
+    def self.verify_puzzle(level, *args)
+      return self.send("verify_level#{level}", *args)
+    end
+
+    def self.random_letter
+      letters = "XO"
+      letters[rand letters.length]
+    end
+
+    def self.random_letters num
+      (1..num).collect do
+        random_letter
+      end
+    end
+  end
+
   module Dojo3
 
     TEXT = open('lib/corpus.txt').readlines.map(&:chomp).map(&:downcase)

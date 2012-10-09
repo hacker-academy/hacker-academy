@@ -1,0 +1,55 @@
+= render partial: 'problem_header'
+%p
+  Another riddle from Mr. Toe has surfaced! This one seems to be a little trickier though!
+
+%p
+  You are given a series of (what appears to be) Tic Tac Toe games, which you believe contains
+  some sort of numerical message. Your hunch is that it's a five digit US zip code, but who knows
+  what secrets this riddle contains?
+
+  %br
+  Return a string of numerical characters representing the amount of Tic Tac Toe solutions
+  present in each of the games.
+  %br
+
+%h2 Sample Problem
+%h4 Input
+.data
+  %code
+    XXX
+    OOO
+    XXX
+
+    XOX
+    XXX
+    XOX
+
+    XOX
+    OXX
+    OXO
+
+    OOX
+    OXO
+    XOO
+
+    XXX
+    XXX
+    XXX
+
+%h4 Solution
+.data
+  %code
+    34018
+
+%h2 Actual Problem
+%h4 Needles
+.data
+  %code
+    - @prob[:words].each do |word|
+      = word
+      %br
+%h4 Haystack
+.data
+  %code= @prob[:puzzle]
+
+= render partial: 'submit'

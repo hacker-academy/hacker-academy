@@ -71,6 +71,11 @@ class ContestsController < ApplicationController
         redirect_to @contest, alert: "Invalid level"
         return
       end
+    elsif contest_ident == 4
+      unless (0..2).member? @level
+        redirect_to @contest, alert: "Invalid level"
+        return
+      end
       @max_time_allowed = case @level
                           when 0 then 120
                           when 1 then 120
@@ -106,6 +111,8 @@ class ContestsController < ApplicationController
       cipher << aes.final
       session[:soln] = cipher.unpack('H*').join
       msg = ''
+    elsif contest_ident == 4
+      msg = @prob[:riddle]
     end
     key = ENV['HMAC_KEY'] || "derp"
     session[:key] = OpenSSL::HMAC.hexdigest('sha256', msg, key)
@@ -118,7 +125,62 @@ class ContestsController < ApplicationController
     correct = false
     perf = -1
 
-    if contest.puzzle_ident == 3
+    if contest.puzzle_ident == 4
+      /
+      riddle = params[:riddle]
+      key = ENV['HMAC_KEY'] || "derp"
+      hmac = OpenSSL::HMAC.hexdigest('sha256', riddle, key)
+      if hmac != session[:key]
+        redirect_to contest, alert: 'Cheating detected...'
+        return
+      end
+      session.delete :key
+      /
+      level = params[:level]
+
+      time_elapsed = Time.now.to_i - session[:time]
+      session.delete :time
+      if time_elapsed > 120
+        redirect_to contest,
+          alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
+        return
+      end
+
+      if level == '0'
+        solution = ''
+        solver = params[:riddle]
+        last = nil
+        counter = 0
+
+        solver.each_byte.each do |i|
+          if i == 45
+            if counter != 0
+              bit = 64 + counter + 1
+                          counter = 0
+                          solution = solution + bit.chr
+                      end
+                      solution = solution + '-'
+                elsif i != last && last != nil && last != 45
+                      bit = 64 + counter + 1
+                      counter = 0
+                      solution = solution + bit.chr
+                else
+            if last != 45 && last != nil
+                        counter = counter + 1
+            end
+                end
+          last = i
+        end
+
+        bit = 64 + counter + 1
+        solution = solution + bit.chr
+
+        correct = ContestsHelper::Dojo4.verify_level0(
+            params[:solution], solution
+          )
+      end
+
+    elsif contest.puzzle_ident == 3
       session.delete :key
 
       time_elapsed = Time.now.to_i - session[:time]
