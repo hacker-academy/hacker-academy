@@ -188,7 +188,7 @@ class ContestsController < ApplicationController
         phrase = ''
         riddle = params[:riddle]
 
-        30.times do |i|
+        50.times do |i|
           solution = 0
           if (riddle[i*13] == riddle[i*13+1]) && (riddle[i*13] == riddle[i*13+2])
               solution = solution + 1
