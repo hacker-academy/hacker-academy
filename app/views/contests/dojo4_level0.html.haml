@@ -1,28 +1,22 @@
 = render partial: 'problem_header'
 %p
-  You believe you've uncovered a secret memo from the desk of Mr. Toe, heir of the legendary Tic Tac Toe fortune. 
-  Solve the riddle and fortunes may await!
+  The Tic Tac Toe Company needs help recovering crucial information from an internal memo, which has accidentally gone through one of the companies mysterious alphabet processing machines.
+%br
+  Crack the code and fortunes may await!
 
 %p
-  You are given a string of X's and O's, and must crack the code to discover
-  the hidden message.
-  %br
-  Return the index for the first character of each word, with the words in
-  alphabetical order. Return -1 if a word is not found.
-  %br
-  Hint: Continuous substrings of X's and O's do not appear to be more than 26 character's long.
+  You are given a string containing X's, O's and hyphens. You must process the string and return the decoded message.
 
 %h2 Sample Problem
 %h4 Input
 .data
   %code XXXXXXXXX-OXXXXXXXXXXXXX-OOOOOOOOOOOOOOOOOOOOXXXXXXXXXOOO-XXXXXXXXXXXXXXXXXXXXOXXX-OOOOOOOOOOOOOOOOOOOOXXXXXXXXXXXXXXXOOOOO
-    
 %h4 Solution
 .data
   %code I-AM-TIC-TAC-TOE
 
 %h2 Actual Problem
-%h4 Needles
+%h4 Encoded Memo
 .data
   %code= @prob[:riddle]
 

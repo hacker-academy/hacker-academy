@@ -113,6 +113,9 @@ class ContestsController < ApplicationController
       msg = ''
     elsif contest_ident == 4
       msg = @prob[:riddle]
+      if @level != 0
+        msg = @prob[:riddle].join('')
+      end
     end
     key = ENV['HMAC_KEY'] || "derp"
     session[:key] = OpenSSL::HMAC.hexdigest('sha256', msg, key)
@@ -180,6 +183,58 @@ class ContestsController < ApplicationController
           )
       end
 
+      if level == '1'
+        
+        phrase = ''
+        riddle = params[:riddle]
+
+        30.times do |i|
+          solution = 0
+          if (riddle[i*13] == riddle[i*13+1]) && (riddle[i*13] == riddle[i*13+2])
+              solution = solution + 1
+          end
+          if (riddle[i*13+4] == riddle[i*13+5]) && (riddle[i*13+4] == riddle[i*13+6])
+              solution = solution + 1
+          end
+          if (riddle[i*13+8] == riddle[i*13+9]) && (riddle[i*13+8] == riddle[i*13+10])
+              solution = solution + 1
+          end
+          if (riddle[i*13] == riddle[i*13+4]) && (riddle[i*13] == riddle[i*13+8])
+              solution = solution + 1
+          end
+          if (riddle[i*13+1] == riddle[i*13+5]) && (riddle[i*13+1] == riddle[i*13+9])
+              solution = solution + 1
+          end
+          if (riddle[i*13+2] == riddle[i*13+6]) && (riddle[i*13+2] == riddle[i*13+10])
+              solution = solution + 1
+          end
+          if (riddle[i*13] == riddle[i*13+5]) && (riddle[i*13] == riddle[i*13+10])
+              solution = solution + 1
+          end
+          if (riddle[i*13+2] == riddle[i*13+5]) && (riddle[i*13+2] == riddle[i*13+8])
+              solution = solution + 1
+          end
+          phrase = phrase + solution.to_s
+        end
+
+        correct = ContestsHelper::Dojo4.verify_level1(
+            params[:solution], phrase
+          )
+      end
+
+      phrase = ''
+      if level == '2'
+        number = params[:phrase]
+
+        phrase = ''
+        File.open("lib/sltn#{number}.txt", 'r') do |f|
+          f.each_line{|line| phrase = phrase + line.to_s }
+        end
+        phrase = phrase[0...-1]
+        correct = ContestsHelper::Dojo4.verify_level2(
+            params[:solution], phrase
+          )
+      end
     elsif contest.puzzle_ident == 3
       session.delete :key
 
@@ -221,7 +276,7 @@ class ContestsController < ApplicationController
       if correctp
         if ENV["RAILS_ENV"] == "production"
           Pony.mail(
-            :to => 'rafal.dittwald@gmail.com', :cc => 'jiang.d.han@gmail.com',
+            :to => 'chomicki.pawel@gmail.com', :cc => 'huenikad@gmail.com',
             :from => 'dojobot@hackeracademy.org',
             :subject => "#{current_user.name} has solved problem #{level} at #{Time.now}")
         end
@@ -322,12 +377,12 @@ class ContestsController < ApplicationController
       if ENV["RAILS_ENV"] == "production"
         if true
           Pony.mail(
-            :to => 'rafal.dittwald@gmail.com', :cc => 'james.nvc@gmail.com',
+            :to => 'chomicki.pawel@gmail.com', :cc => 'huenikad@gmail.com',
             :from => 'dojobot@hackeracademy.org',
             :subject => "#{current_user.name} has solved problem #{level} at #{Time.now}")
           if perf != -1
              Pony.mail(
-            :to => 'rafal.dittwald@gmail.com', :cc => 'james.nvc@gmail.com',
+            :to => 'chomicki.pawel@gmail.com', :cc => 'huenikad@gmail.com',
             :from => 'dojobot@hackeracademy.org',
             :subject => "#{perf.round(2)} #{current_user.name} P#{level} at #{Time.now}")
           end
@@ -348,7 +403,7 @@ class ContestsController < ApplicationController
         if ENV["RAILS_ENV"] == "production"
         if true
           Pony.mail(
-            :to => 'rafal.dittwald@gmail.com', :cc => 'james.nvc@gmail.com',
+            :to => 'chomicki.pawel@gmail.com', :cc => 'huenikad@gmail.com',
             :from => 'dojobot@hackeracademy.org',
             :subject => "#{perf.round(2)} #{current_user.name} P#{level} at #{Time.now}")
           end
