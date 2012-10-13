@@ -24,7 +24,9 @@
 %h2 Actual Problem
 .data
   - number = @prob[:phrase]
-  = link_to 'Download Maze', '/mazes/'+number+'.txt'
+
+  - maze_names =  ['OOOOXXOO','XOOOXXXX','OOOXXOOX','OOOOXXXX','XOOOXOOO','OXXXOOXX','XOXXXXOX','OXXOXXOX','OOXOOOOX','OXOOXXOO', 'OXXOXXXX', 'XXOXOOXO', 'OXXOXXOO', 'XOXOXXOX', 'OXOXXXOX', 'XOXOOOXO', 'XXOOXXOX', 'OXXOXXXO', 'OXOOOXOO', 'OXXOOXXX' ]
+  = link_to 'Download Maze', '/mazes/'+maze_names[Integer(number)]+'.txt'
     
 
 = render partial: 'submit'

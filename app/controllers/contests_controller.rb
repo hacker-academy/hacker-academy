@@ -224,7 +224,7 @@ class ContestsController < ApplicationController
 
       phrase = ''
       if level == '2'
-        number = params[:phrase]
+        number = Integer(params[:phrase])
 
         phrase = ''
         File.open("lib/sltn#{number}.txt", 'r') do |f|

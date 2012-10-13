@@ -168,7 +168,7 @@ module ContestsHelper
         f.each_line{|line| riddle.push(line) }
       end
 
-      return {riddle: riddle, phrase: maze_names[number]}
+      return {riddle: riddle, phrase: number.to_s}
     end
 
     def self.verify_level2 our_plaintext, their_plaintext
