@@ -1,0 +1,56 @@
+= render partial: 'problem_header'
+%p
+  Uh-Oh! It appears the latest update to the Tic Tac Toe company's game generator has
+  resulted in a major issue effecting the rendering of numbers. All the digit's stored on
+  the companies servers have been turned into Tic Tac Toe games! Mr. Tic Tac Toe has personally
+  requested your assistance with converting some important numbers for a powerpoint he must
+  give to the shareholders tomorrow.
+
+%p
+  You are given a series of Tic Tac Toe games, each of which represents a single digit.
+  The appropriate digit for each game board is the amount of solutions present of the respective
+  board (ie: 3 identical character horiztonally, vertically or diagonally). Therefore,
+  each game board represents a digit from 0 to 8.
+  %br
+  Return a string of numerical characters representing the amount of Tic Tac Toe solutions
+  present in each of the games.
+  %br
+
+%h2 Sample Problem
+%h4 Input
+.data
+  %code
+    XXX<br />
+    OOO<br />
+    XXX<br />
+    <br />
+    XOX<br />
+    XXX<br />
+    XOX<br />
+    <br />
+    XOX<br />
+    OXX<br />
+    OXO<br />
+    <br />
+    OOX<br />
+    OXO<br />
+    XOO<br />
+    <br />
+    XXX<br />
+    XXX<br />
+    XXX<br />
+    <br />
+%h4 Solution
+.data
+  %code
+    34018
+
+%h2 Actual Problem
+%h4 Needles
+.data
+  %code
+  - @prob[:riddle].each do |line|
+    = line
+    %br
+
+= render partial: 'submit'

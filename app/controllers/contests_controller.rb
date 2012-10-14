@@ -71,6 +71,11 @@ class ContestsController < ApplicationController
         redirect_to @contest, alert: "Invalid level"
         return
       end
+    elsif contest_ident == 4
+      unless (0..2).member? @level
+        redirect_to @contest, alert: "Invalid level"
+        return
+      end
       @max_time_allowed = case @level
                           when 0 then 120
                           when 1 then 120
@@ -106,6 +111,11 @@ class ContestsController < ApplicationController
       cipher << aes.final
       session[:soln] = cipher.unpack('H*').join
       msg = ''
+    elsif contest_ident == 4
+      msg = @prob[:riddle]
+      if @level != 0
+        msg = @prob[:riddle].join('')
+      end
     end
     key = ENV['HMAC_KEY'] || "derp"
     session[:key] = OpenSSL::HMAC.hexdigest('sha256', msg, key)
@@ -118,7 +128,114 @@ class ContestsController < ApplicationController
     correct = false
     perf = -1
 
-    if contest.puzzle_ident == 3
+    if contest.puzzle_ident == 4
+      /
+      riddle = params[:riddle]
+      key = ENV['HMAC_KEY'] || "derp"
+      hmac = OpenSSL::HMAC.hexdigest('sha256', riddle, key)
+      if hmac != session[:key]
+        redirect_to contest, alert: 'Cheating detected...'
+        return
+      end
+      session.delete :key
+      /
+      level = params[:level]
+
+      time_elapsed = Time.now.to_i - session[:time]
+      session.delete :time
+      if time_elapsed > 120
+        redirect_to contest,
+          alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
+        return
+      end
+
+      if level == '0'
+        solution = ''
+        solver = params[:riddle]
+        last = nil
+        counter = 0
+
+        solver.each_byte.each do |i|
+          if i == 45
+            if counter != 0
+              bit = 64 + counter + 1
+                          counter = 0
+                          solution = solution + bit.chr
+                      end
+                      solution = solution + '-'
+                elsif i != last && last != nil && last != 45
+                      bit = 64 + counter + 1
+                      counter = 0
+                      solution = solution + bit.chr
+                else
+            if last != 45 && last != nil
+                        counter = counter + 1
+            end
+                end
+          last = i
+        end
+
+        bit = 64 + counter + 1
+        solution = solution + bit.chr
+
+        correct = ContestsHelper::Dojo4.verify_level0(
+            params[:solution], solution
+          )
+      end
+
+      if level == '1'
+        
+        phrase = ''
+        riddle = params[:riddle]
+
+        50.times do |i|
+          solution = 0
+          if (riddle[i*13] == riddle[i*13+1]) && (riddle[i*13] == riddle[i*13+2])
+              solution = solution + 1
+          end
+          if (riddle[i*13+4] == riddle[i*13+5]) && (riddle[i*13+4] == riddle[i*13+6])
+              solution = solution + 1
+          end
+          if (riddle[i*13+8] == riddle[i*13+9]) && (riddle[i*13+8] == riddle[i*13+10])
+              solution = solution + 1
+          end
+          if (riddle[i*13] == riddle[i*13+4]) && (riddle[i*13] == riddle[i*13+8])
+              solution = solution + 1
+          end
+          if (riddle[i*13+1] == riddle[i*13+5]) && (riddle[i*13+1] == riddle[i*13+9])
+              solution = solution + 1
+          end
+          if (riddle[i*13+2] == riddle[i*13+6]) && (riddle[i*13+2] == riddle[i*13+10])
+              solution = solution + 1
+          end
+          if (riddle[i*13] == riddle[i*13+5]) && (riddle[i*13] == riddle[i*13+10])
+              solution = solution + 1
+          end
+          if (riddle[i*13+2] == riddle[i*13+5]) && (riddle[i*13+2] == riddle[i*13+8])
+              solution = solution + 1
+          end
+          phrase = phrase + solution.to_s
+        end
+
+        correct = ContestsHelper::Dojo4.verify_level1(
+            params[:solution], phrase
+          )
+      end
+
+      phrase = ''
+      if level == '2'
+        number = Integer(params[:phrase])
+
+        phrase = ''
+        File.open("lib/sltn#{number}.txt", 'r') do |f|
+          f.each_line{|line| phrase = phrase + line.to_s }
+        end
+        phrase = phrase[0...-1]
+        correct = ContestsHelper::Dojo4.verify_level2(
+            params[:solution], phrase
+          )
+      end
+    elsif contest.puzzle_ident == 3
       session.delete :key
 
       time_elapsed = Time.now.to_i - session[:time]
@@ -159,7 +276,7 @@ class ContestsController < ApplicationController
       if correctp
         if ENV["RAILS_ENV"] == "production"
           Pony.mail(
-            :to => 'rafal.dittwald@gmail.com', :cc => 'jiang.d.han@gmail.com',
+            :to => 'chomicki.pawel@gmail.com', :cc => 'huenikad@gmail.com',
             :from => 'dojobot@hackeracademy.org',
             :subject => "#{current_user.name} has solved problem #{level} at #{Time.now}")
         end
@@ -260,12 +377,12 @@ class ContestsController < ApplicationController
       if ENV["RAILS_ENV"] == "production"
         if true
           Pony.mail(
-            :to => 'rafal.dittwald@gmail.com', :cc => 'james.nvc@gmail.com',
+            :to => 'chomicki.pawel@gmail.com', :cc => 'huenikad@gmail.com',
             :from => 'dojobot@hackeracademy.org',
             :subject => "#{current_user.name} has solved problem #{level} at #{Time.now}")
           if perf != -1
              Pony.mail(
-            :to => 'rafal.dittwald@gmail.com', :cc => 'james.nvc@gmail.com',
+            :to => 'chomicki.pawel@gmail.com', :cc => 'huenikad@gmail.com',
             :from => 'dojobot@hackeracademy.org',
             :subject => "#{perf.round(2)} #{current_user.name} P#{level} at #{Time.now}")
           end
@@ -286,7 +403,7 @@ class ContestsController < ApplicationController
         if ENV["RAILS_ENV"] == "production"
         if true
           Pony.mail(
-            :to => 'rafal.dittwald@gmail.com', :cc => 'james.nvc@gmail.com',
+            :to => 'chomicki.pawel@gmail.com', :cc => 'huenikad@gmail.com',
             :from => 'dojobot@hackeracademy.org',
             :subject => "#{perf.round(2)} #{current_user.name} P#{level} at #{Time.now}")
           end

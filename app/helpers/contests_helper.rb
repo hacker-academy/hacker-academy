@@ -32,6 +32,169 @@ module ContestsHelper
 
   WORDS = Marshal.load(open('lib/words2.dump'))
 
+  module Dojo4
+    KEYS = [
+              'Fifty-paces-NE-of-the-strawberry-farm',
+              'Ninety-feet-S-of-the-old-church',
+              'One-mile-N-of-the-elementary-school',
+              'Three-miles-S-of-the-creepy-circus',
+              'Sixty-paces-SW-of-brand-new-wheat-mill',
+              'Five-miles-E-of-the-stinky-rubber-factory',
+              'Ninety-silly-walks-S-of-the-Ministry',
+              'Just-under-the-abandoned-bridge',
+              'Right-behind-the-new-laundromat',
+              'On-the-third-floor-of-the-tallest-building',
+              'In-the-basement-of-the-Mayors-manor'
+            ]
+
+    # Level 0: 1st Tic Tac Toe Cipher
+    def self.generate_level0
+      phrase = KEYS[rand(KEYS.length)].upcase
+
+      bit = 'X'
+      riddle = ''
+
+      phrase.each_byte.each do |i|
+        if i == 45
+          riddle = riddle + '-'
+        else
+          quant = i - 64
+          riddle = riddle + (bit * quant)
+          if bit == 'X'
+            bit = 'O'
+          else bit = 'X'
+          end
+        end
+      end
+
+      return {riddle: riddle, phrase: ''}
+    end
+
+    def self.verify_level0 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+
+    KEYS1 = "XO"
+    KEYS2 = Array.new
+    # Level 1: 2nd Tic Tac Toe Cipher
+    KEYS2[0] = ['OXX', 'XOO', 'OOX', '']
+    KEYS2[1] = ['OOX', 'OXO', 'XOO', '']
+    KEYS2[2] = ['XOX', 'OXO', 'XOX', '']
+    KEYS2[3] = ['XXX', 'OOO', 'OOO', '']
+    KEYS2[4] = ['XXX', 'XXO', 'XXO', '']
+    KEYS2[5] = ['XXX', 'OXO', 'XXX', '']
+    KEYS2[8] = ['XXX', 'XXX', 'XXX', '']
+    def self.generate_level1
+      riddle = Array.new
+      map = "0123458"
+      phrase = ''
+
+      50.times do |a|
+
+        num = map[rand(map.length)]
+        phrase = phrase + num
+        4.times do |k|
+          riddle.push(KEYS2[Integer(num)][k])
+        end
+
+        
+
+        /
+        3.times do |b|
+          line = ''
+          3.times do |c|
+            line = line + KEYS1[rand(KEYS1.length)]
+          end
+          riddle.push(line)
+        end
+        riddle.push('')
+        /
+      end
+
+      phrase = ''
+      50.times do |i|
+        solution = 0
+        3.times do |j|
+          if (riddle[i*4+j][0] == riddle[i*4+j][1]) && (riddle[i*4+j][0] == riddle[i*4+j][2])
+            solution = solution + 1
+          end
+          if (riddle[i*4+0][j] == riddle[i*4+1][j]) && (riddle[i*4+0][j] == riddle[i*4+2][j])
+            solution = solution + 1
+          end
+        end
+        if (riddle[i*4+0][0] == riddle[i*4+1][1]) && (riddle[i*4+0][0] == riddle[i*4+2][2])
+          solution = solution + 1
+        end
+        if (riddle[i*4+0][2] == riddle[i*4+1][1]) && (riddle[i*4+0][2] == riddle[i*4+2][0])
+          solution = solution + 1
+        end
+        phrase = phrase + solution.to_s
+      end
+
+      return {riddle: riddle, phrase: ''}
+    end
+
+    def self.verify_level1 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+
+    def self.generate_level2
+      number = rand(19)
+      riddle = Array.new
+      maze_names =  [
+        'OOOOXXOO',
+        'XOOOXXXX',
+        'OOOXXOOX',
+        'OOOOXXXX',
+        'XOOOXOOO',
+        'OXXXOOXX',
+        'XOXXXXOX',
+        'OXXOXXOX',
+        'OOXOOOOX',
+        'OXOOXXOO',
+        'OXXOXXXX',
+        'XXOXOOXO',
+        'OXXOXXOO',
+        'XOXOXXOX',
+        'OXOXXXOX',
+        'XOXOOOXO',
+        'XXOOXXOX',
+        'OXXOXXXO',
+        'OXOOOXOO',
+        'OXXOOXXX'
+        ]
+
+      File.open("lib/maze#{number.to_s}.txt", 'r') do |f|
+        f.each_line{|line| riddle.push(line) }
+      end
+
+      return {riddle: riddle, phrase: number.to_s}
+    end
+
+    def self.verify_level2 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+
+    def self.generate_puzzle(level, *args)
+      return self.send("generate_level#{level}", *args)
+    end
+
+    def self.verify_puzzle(level, *args)
+      return self.send("verify_level#{level}", *args)
+    end
+
+    def self.random_letter
+      letters = "XO"
+      letters[rand letters.length]
+    end
+
+    def self.random_letters num
+      (1..num).collect do
+        random_letter
+      end
+    end
+  end
+
   module Dojo3
 
     TEXT = open('lib/corpus.txt').readlines.map(&:chomp).map(&:downcase)

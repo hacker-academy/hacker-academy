@@ -1,0 +1,32 @@
+= render partial: 'problem_header'
+%p
+  The Tic Tac Toe company is expanding into Mazes! They need help making sure that their mazes will be solvable for Kids!
+  Your task is to go from the top left corner of the maze to the bottom right hand corner and print out the directions! 
+  There are no loops in the mazes.
+%p
+  Return the directions you took while travelling the maze, or -1 if the maze is impossible.
+
+%h2 Sample Problem
+%h4 Input
+.data
+  = link_to 'Download Sample Maze', '/mazes/sample.txt'  
+
+%br
+
+%h4 Solution
+.data
+  %code
+    1E 1E 1S 1S 1E 1E 1S 1W 1S 1E
+%h4
+  NOTE: one square in the maze is not perfectly equivalent to a single character. 
+%br
+
+%h2 Actual Problem
+.data
+  - number = @prob[:phrase]
+
+  - maze_names =  ['OOOOXXOO','XOOOXXXX','OOOXXOOX','OOOOXXXX','XOOOXOOO','OXXXOOXX','XOXXXXOX','OXXOXXOX','OOXOOOOX','OXOOXXOO', 'OXXOXXXX', 'XXOXOOXO', 'OXXOXXOO', 'XOXOXXOX', 'OXOXXXOX', 'XOXOOOXO', 'XXOOXXOX', 'OXXOXXXO', 'OXOOOXOO', 'OXXOOXXX' ]
+  = link_to 'Download Maze', '/mazes/'+maze_names[Integer(number)]+'.txt'
+    
+
+= render partial: 'submit'
