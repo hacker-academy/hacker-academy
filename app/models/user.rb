@@ -68,7 +68,8 @@ class User
   end
 
   def total_score2011
-    count = self.dojo_points
+    #count = self.dojo_points
+    count = 0
     self.achievements.map do |achievement|
       if achievement.year == 2011
         count = count + achievement.value
