@@ -1,0 +1,9 @@
+%h1
+  %span(class="c3-subtitle") C3 - Teams
+
+%h5 Looking For a Team
+
+- @users = User.where(:team => "Looking For a Team")
+- @users.each do |user|
+  %p user
+  %p "test"

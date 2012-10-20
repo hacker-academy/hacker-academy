@@ -15,6 +15,7 @@ class User
   field :preferred_language
   field :program
   field :year
+  field :team
 
   field :is_admin, :type => Boolean, :default => false
   field :solved, type: Array
