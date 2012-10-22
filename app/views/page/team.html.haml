@@ -1,0 +1,44 @@
+%h1
+  %span(class="c3-subtitle") C3 - Teams
+
+%h5 Looking For a Team
+
+- @users = User.where(:team => "Looking for a Team")
+- @users.each do |user|
+  %p= link_to shorten(user.name,20), user
+
+%h5 TIGERPUNCH
+
+- @users = User.where(:team => "TIGERPUNCH")
+- @users.each do |user|
+  %p= link_to shorten(user.name,20), user
+
+%h5 Android Royalty
+
+- @users = User.where(:team => "Android Royalty")
+- @users.each do |user|
+  %p= link_to shorten(user.name,20), user
+
+%h5 Campus Nap
+
+- @users = User.where(:team => "Campus Nap")
+- @users.each do |user|
+  %p= link_to shorten(user.name,20), user
+
+%h5 AI Team
+
+- @users = User.where(:team => "AI Team")
+- @users.each do |user|
+  %p= link_to shorten(user.name,20), user
+
+%h5 Gangnam Style
+
+- @users = User.where(:team => "Gangnam Style")
+- @users.each do |user|
+  %p= link_to shorten(user.name,20), user
+
+%h5 Miscellaneous
+
+- @users = User.where(:team => "Miscellaneous")
+- @users.each do |user|
+  %p= link_to shorten(user.name,20), user
