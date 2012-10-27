@@ -31,6 +31,8 @@
             = link_to 'News', posts_path
           %li(class="#{'active' if current_page?("/schedule")}")
             = link_to 'Schedule', "/schedule"
+          %li(class="#{'active' if current_page?(blogposts_path)}")
+            = link_to 'Blog', blogposts_path
           %li &nbsp;
           %li(class="#{'active' if current_page?('/talks')}")
             = link_to 'Talks', '/talks'
