@@ -3,7 +3,7 @@
     %li
       .controls
         - if can? :edit, blogpost
-          = link_to 'Edit', edit_blogposts_path(blogpost)
+          = link_to 'Edit', edit_blogpost_path(blogpost)
         - if can? :destroy, blogpost
           = link_to 'Destroy', blogpost, :confirm => 'Are you sure?', :method => :delete
       .post-info
@@ -16,4 +16,4 @@
 %br
 
 - if can? :create, Blogpost
-  = link_to 'New Blog Post', new_blogposts_path
+  = link_to 'New Blog Post', new_blogpost_path

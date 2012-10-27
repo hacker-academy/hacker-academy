@@ -2,7 +2,7 @@
   %h2.left= @blogpost.title
   %span.controls
     - if can? :edit, @blogpost
-      = link_to 'Edit', edit_blogposts_path(@blogpost)
+      = link_to 'Edit', edit_blogpost_path(@blogpost)
     - if can? :destroy, @blogpost
       = link_to 'Destroy', @blogpost, :confirm => 'Are you sure?', :method => :delete
 %p.text.hypenate!= markdown(@blogpost.body)
