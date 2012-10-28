@@ -67,8 +67,13 @@
             %li
               = link_to 'Log out', destroy_user_session_path
     %section#main
-      .wrapper.hyphenate
-        = yield
+      - currenturl = url_for()
+      - if currenturl.include? 'blogposts'
+        .wrapper-blog.hyphenate
+          = yield
+      - else
+        .wrapper.hyphenate
+          = yield
 
     :javascript
       var _gaq = _gaq || [];
