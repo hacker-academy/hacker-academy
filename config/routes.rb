@@ -6,6 +6,7 @@ HackerAcademy::Application.routes.draw do
   resources :contests
 
   resources :posts
+  resources :blogposts
 
   devise_for :users, :controllers => {:registrations => "registrations"}
 

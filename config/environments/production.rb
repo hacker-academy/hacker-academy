@@ -1,6 +1,8 @@
 HackerAcademy::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
-
+  config.action_mailer.default_url_options = { :host => 'hackeracademy.org' }
+  config.action_mailer.perform_deliveries = true
+  
   # The production environment is meant for finished, "live" apps.
   # Code is not reloaded between requests
   config.cache_classes = true
@@ -46,4 +48,5 @@ HackerAcademy::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
 end

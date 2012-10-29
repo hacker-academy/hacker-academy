@@ -1,0 +1,19 @@
+%ol#blogposts
+  - @blogposts.reverse.each do |blogpost|
+    %li
+      .controls
+        - if can? :edit, blogpost
+          = link_to 'Edit', edit_blogpost_path(blogpost)
+        - if can? :destroy, blogpost
+          = link_to 'Destroy', blogpost, :confirm => 'Are you sure?', :method => :delete
+      .post-info
+        %h2= link_to blogpost.title, blogpost
+        -#%p.text.hypenate= blogpost.body[0..150]
+        %p.text.hypenate
+          =markdown(blogpost.body)
+        -# if blogpost.body.length > 150
+          = link_to "(More)", blogpost
+%br
+
+- if can? :create, Blogpost
+  = link_to 'New Blog Post', new_blogpost_path
