@@ -1,4 +1,11 @@
 HackerAcademy::Application.routes.draw do
+  get "hackathon/index"
+  get "hackathon/faq"
+  get "hackathon/schedule"
+  get "hackathon/rules"
+  get "hackathon/register"
+  get "hackathon/resources"
+
   resources :achievements
 
   match '/contests/problem' => 'contests#problem'
