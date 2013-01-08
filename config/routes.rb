@@ -10,6 +10,8 @@ HackerAcademy::Application.routes.draw do
 
   match '/contests/problem' => 'contests#problem'
   match '/contests/solution' => 'contests#solution'
+  match '/hackathon', :to => redirect('/hackathon/index.html')
+
   resources :contests
 
   resources :posts
