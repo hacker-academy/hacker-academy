@@ -100,33 +100,48 @@
  		margin-bottom: -5px;
  	}
 
- 	.schedule {
- 		margin-top: 200px;
- 		margin-bottom: 240px;
+ 	.schedule-title {
  		background-color: #E81123;
- 		padding-top: 40px;
- 		padding-bottom: 40px;
+ 		padding-top: 30px;
+ 		padding-bottom: 30px;
+ 	}
+ 	
+ 	.sched p {
+ 		margin-bottom: 0px;
+ 		font-size: 20px;
+ 		line-height: 30px;
+ 	}
+
+ 	.rules-content li {
+ 		font-size: 20px;
+ 		line-height: 30px;
+ 	}
+
+ 	.rules-content p {
+ 		font-size: 24px;
  	}
 
  	.rules {
- 		margin-top: 200px;
- 		margin-bottom: 240px;
- 		background-color: #190053;
- 		padding-top: 40px;
- 		padding-bottom: 40px;
+ 		background-color: #0050EF;
+ 		padding-top: 30px;
+ 		padding-bottom: 30px;
+ 		margin-bottom: 60px;
  	}
 
  	.resources {
- 		margin-top: 200px;
- 		margin-bottom: 240px;
  		background-color: #FA6800;
- 		padding-top: 40px;
- 		padding-bottom: 40px;
+ 		padding-top: 30px;
+ 		padding-bottom: 30px;
  	}
 
  	.faq {
  		background-color: #0CF;
  		padding-bottom: 20px;
+ 	}
+
+ 	.resource-content p{
+ 		font-size: 20px;
+ 		line-height: 30px;
  	}
 
 
@@ -171,6 +186,7 @@
 	.highlight {color: #A200FF;}
 	.bold {font-weight: bold;}
 	.coming-soon {text-align: center; color: white;}
+	.resource-title {font-family: "Segoe UI", "Georgia", serif; font-weight: 600;}
 /* #Links
 ================================================== */
 	a, a:visited { color: #333; text-decoration: underline; outline: 0; }
