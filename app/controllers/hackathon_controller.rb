@@ -19,4 +19,7 @@ class HackathonController < ApplicationController
   def resources
   end
 
+  def competition
+  end
+
 end
