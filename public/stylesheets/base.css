@@ -127,6 +127,12 @@
  		padding-bottom: 30px;
  		margin-bottom: 60px;
  	}
+ 	.team-reg {
+ 		background-color: #008A00;
+ 		padding-top: 30px;
+ 		padding-bottom: 30px;
+ 		margin-bottom: 30px;
+ 	}
 
  	.resources {
  		background-color: #FA6800;
@@ -187,6 +193,7 @@
 	.bold {font-weight: bold;}
 	.coming-soon {text-align: center; color: white;}
 	.resource-title {font-family: "Segoe UI", "Georgia", serif; font-weight: 600;}
+
 /* #Links
 ================================================== */
 	a, a:visited { color: #333; text-decoration: underline; outline: 0; }
@@ -199,6 +206,10 @@
 
 	.question {
 		font-weight: bold;
+		font-family: "Segoe UI", "Georgia", serif;
+	}
+
+	.ui {
 		font-family: "Segoe UI", "Georgia", serif;
 	}
 
@@ -235,6 +246,26 @@
 	}
 	.top-nav {
 		margin-top: 8px;
+	}
+
+	.resource-content ol li {
+		font-size: 20px;
+		line-height: 28px;
+		margin-bottom: 30px;
+	}
+	.resource-content ul li {
+		font-size: 20px;
+		line-height: 28px;
+	}
+	.block {
+		display: block;
+	}
+	.note {
+		display: block;
+		font-style: italic;
+	}
+	.resource-content a {
+		color: #0645AD;
 	}
 /* #Images
 ================================================== */
@@ -389,3 +420,4 @@
 
 	.add-top {margin-top: 20px;}
 	.big-top {margin-top: 56px;}
+	.room-top {margin-top: 106px;}

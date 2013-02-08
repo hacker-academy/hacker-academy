@@ -5,6 +5,7 @@ HackerAcademy::Application.routes.draw do
   get "hackathon/rules"
   get "hackathon/register"
   get "hackathon/resources"
+  get "hackathon/competition"
 
   resources :achievements
 
