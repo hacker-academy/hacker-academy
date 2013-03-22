@@ -80,7 +80,6 @@ class ContestsController < ApplicationController
                           when 0 then 120
                           when 1 then 120
                           when 2 then 300
-                          when 3 then 600
                           end
     elsif contest_ident == 5
       unless (0..2).member? @level

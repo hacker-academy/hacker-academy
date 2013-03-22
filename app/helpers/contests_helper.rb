@@ -73,6 +73,14 @@ module ContestsHelper
     def self.verify_level0 our_plaintext, their_plaintext
       return our_plaintext == their_plaintext
     end
+
+    def self.generate_puzzle(level, *args)
+      return self.send("generate_level#{level}", *args)
+    end
+
+    def self.verify_puzzle(level, *args)
+      return self.send("verify_level#{level}", *args)
+    end
   end
 
   module Dojo4
