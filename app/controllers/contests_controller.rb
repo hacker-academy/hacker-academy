@@ -87,6 +87,12 @@ class ContestsController < ApplicationController
         redirect_to @contest, alert: "Invalid level"
         return
       end
+       @max_time_allowed = case @level
+                          when 0 then 120
+                          when 1 then 120
+                          when 2 then 300
+                          when 3 then 600
+                          end
     else
       redirect_to @contest, alert: "Invalid contest"
     end
