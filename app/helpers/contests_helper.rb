@@ -32,6 +32,49 @@ module ContestsHelper
 
   WORDS = Marshal.load(open('lib/words2.dump'))
 
+  module Dojo5
+    KEYS = [
+              'Fifty-paces-NE-of-the-strawberry-farm',
+              'Ninety-feet-S-of-the-old-church',
+              'One-mile-N-of-the-elementary-school',
+              'Three-miles-S-of-the-creepy-circus',
+              'Sixty-paces-SW-of-brand-new-wheat-mill',
+              'Five-miles-E-of-the-stinky-rubber-factory',
+              'Ninety-silly-walks-S-of-the-Ministry',
+              'Just-under-the-abandoned-bridge',
+              'Right-behind-the-new-laundromat',
+              'On-the-third-floor-of-the-tallest-building',
+              'In-the-basement-of-the-Mayors-manor'
+            ]
+
+    # Level 0: 1st Tic Tac Toe Cipher
+    def self.generate_level0
+      phrase = KEYS[rand(KEYS.length)].upcase
+
+      bit = 'X'
+      riddle = ''
+
+      phrase.each_byte.each do |i|
+        if i == 45
+          riddle = riddle + '-'
+        else
+          quant = i - 64
+          riddle = riddle + (bit * quant)
+          if bit == 'X'
+            bit = 'O'
+          else bit = 'X'
+          end
+        end
+      end
+
+      return {riddle: riddle, phrase: ''}
+    end
+
+    def self.verify_level0 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+  end
+
   module Dojo4
     KEYS = [
               'Fifty-paces-NE-of-the-strawberry-farm',
