@@ -134,6 +134,7 @@ class ContestsController < ApplicationController
 
     if contest.puzzle_ident == 5
       phrase = ''
+      level = params[:level]
       if level == '2'
         number = Integer(params[:phrase])
 
