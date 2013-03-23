@@ -147,6 +147,8 @@ class ContestsController < ApplicationController
         puts "\n\n\n"
         puts contents1
         puts "A\n\n\n"
+        puts "B"
+        puts params[:solution]
         correct = ContestsHelper::Dojo5.verify_level0(
             params[:solution], contents1
           )
