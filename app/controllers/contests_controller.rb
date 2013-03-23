@@ -148,12 +148,15 @@ class ContestsController < ApplicationController
         contents1 = contents1[0...-1]
         puts contents1
         puts contents1.length
-        puts "A\n\n\n"
-        puts "B"
+        puts "A"
         puts params[:solution]
         puts params[:solution].length
+        solution2 = params[:solution].tr("\n","")
+        contents2 = params[:solution].tr("\n","")
+        puts solution2.length
+        puts contents2.length
         correct = ContestsHelper::Dojo5.verify_level0(
-            params[:solution], contents1
+            solution2, contents2
           )
       end
     end
