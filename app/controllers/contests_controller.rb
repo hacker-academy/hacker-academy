@@ -134,11 +134,11 @@ class ContestsController < ApplicationController
 
     if contest.puzzle_ident == 5
       phrase = ''
-      if level == '0'
+      if level == '2'
         number = Integer(params[:phrase])
 
         phrase = ''
-        File.open("lib/p0/instrfile#{number}.txt", 'r') do |f|
+        File.open("lib/sltn#{number}.txt", 'r') do |f|
           f.each_line{|line| phrase = phrase + line.to_s }
         end
         phrase = phrase[0...-1]
@@ -147,7 +147,7 @@ class ContestsController < ApplicationController
           )
       end
     end
-    elsif contest.puzzle_ident == 4
+    if contest.puzzle_ident == 4
       /
       riddle = params[:riddle]
       key = ENV['HMAC_KEY'] || "derp"
