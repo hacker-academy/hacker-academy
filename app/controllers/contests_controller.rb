@@ -139,13 +139,32 @@ class ContestsController < ApplicationController
       phrase = ''
       level = params[:level]
       if level == '0'
-        number = params[:num]
+        number = params[:number]
 
         phrase = ''
         File.open("lib/p0/instrfile#{number}.txt", 'r') do |f|
           f.each_line{|line| phrase = phrase + line.to_s }
         end
         contents1 = File.open("lib/p0/instrfile#{number}.txt", 'rb') { |fi| fi.read }
+        phrase = phrase[0...-1]
+        if phrase == params[:solution]
+          puts "AHHHHHHHHHHH \n\n"
+        end
+        solutionA = params[:solution].tr("\n","")
+        solutionA = params[:solution].tr("\r","")
+        contents1 = contents1.tr("\n","")
+        correct = ContestsHelper::Dojo5.verify_level0(
+            solutionA, contents1
+          )
+      end
+      if level == '1'
+        number = params[:number]
+
+        phrase = ''
+        File.open("lib/p1/instrfile#{number}.txt", 'r') do |f|
+          f.each_line{|line| phrase = phrase + line.to_s }
+        end
+        contents1 = File.open("lib/p1/stackfile#{number}.txt", 'rb') { |fi| fi.read }
         phrase = phrase[0...-1]
         if phrase == params[:solution]
           puts "AHHHHHHHHHHH \n\n"
