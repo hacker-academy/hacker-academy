@@ -48,7 +48,7 @@ module ContestsHelper
             ]
 
     # Level 0: 1st Stack 
-    def self.generate_level2
+    def self.generate_level0
       number = rand(19)
       riddle = Array.new
       maze_names =  [
@@ -81,7 +81,7 @@ module ContestsHelper
       return {riddle: riddle, phrase: number.to_s}
     end
 
-    def self.verify_level2 our_plaintext, their_plaintext
+    def self.verify_level0 our_plaintext, their_plaintext
       return our_plaintext == their_plaintext
     end
 
