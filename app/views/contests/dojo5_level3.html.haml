@@ -1,8 +1,8 @@
 = render partial: 'problem_header'
   
-%h2 RP Stack Layout
+%h2 Canaries
 %p 
-= link_to 'Click here for more info', '/Problem 4.pdf'  
+= link_to 'Click here for more info', '/Problem 3.pdf'  
 %p
   The Hacker now understands the basics of canary in RP mainframe. All the Hacker has to do is predetermine the canary values and write them back during the buffer overflow attack so that the OS sees as if the canary value never changed.
 %p 
@@ -32,55 +32,58 @@
 
 %h4 Memory Dump
 .data
-  %code 111   400
+  %code 111 400
   %br 
-    %code 108   300 
-  %code 105   200
+    %code 108 300 
+  %code 105 200
   %br 
-    %code 102   100 
-  %code 99   300
+    %code 102 100 
+  %code 99 300
   %br 
-    %code 96   105 
-  %code 93   111  //canary
+    %code 96 105 
+  %code 93 111  //canary
   %br 
-    %code 90   123 //actual memory from this point forward
-  %code 87   456
+    %code 90 123 //actual memory from this point forward
+  %code 87 456
   %br 
-    %code 84   789 
-  %code 81   135
+    %code 84 789 
+  %code 81 135
   %br 
-    %code 78   467
-  %code 75   367
+    %code 78 467
+  %code 75 367
   %br 
-    %code 72   987 
-  %code 69   123
+    %code 72 987 
+  %code 69 123
   %br 
-    %code 66   555
-  %code 66   BOTTOMOFSTACK
+    %code 66 555
+  %code 66 BOTTOMOFSTACK
 
 %h4 Solution
 .data
-  %code 69 30
+  %code 93 111
+  %br 
+    %code 69 30
 
-%h2 For your reference:
+.reference
+  %h2 For your reference:
 
-%p 111 400
-%p 108 300
-%p 105 200
-%p 102 100
-%p 99 300
-%p 96 105
-%p 87 LOCAL
-%p 69 LOCAL
-%p 69 BOTTOMOFSTACK
+  %p 111 400
+  %p 108 300
+  %p 105 200
+  %p 102 100
+  %p 99 300
+  %p 96 105
+  %p 87 LOCAL
+  %p 69 LOCAL
+  %p 69 BOTTOMOFSTACK
 
-%p PUSH EBP
-%p MOV ESP, EBP
-%p ADD -9, ESP
-%p ADD -18, ESP
-%p MOV ESP, EBP
-%p POP EBP
-%p RET
+  %p PUSH EBP
+  %p MOV ESP, EBP
+  %p ADD -9, ESP
+  %p ADD -18, ESP
+  %p MOV ESP, EBP
+  %p POP EBP
+  %p RET
 
 %h2 Actual Problem
 %h4 Machine Code

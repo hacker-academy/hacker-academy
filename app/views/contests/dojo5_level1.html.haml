@@ -1,12 +1,12 @@
 = render partial: 'problem_header'
   
-%h2 RP Stack Layout
+%h2 Learning the RP Stack
 %p 
-= link_to 'Click here for more info', '/Problem 2.pdf'  
+= link_to 'Click here for more info', '/Problem 1.pdf'  
 %p
   Given the machine code, parameters, and values of callee function’s ESP, EBP, and EIP respectively, output the assembly along with its stack layout just before the function returns.
  
-%h2 Assumptions
+%h4 Assumptions
 %ol
   %li 1. Left column = address, right column = value
   %li 2. ESP at the beginning of the function points to the start address of the last parameter
@@ -30,29 +30,29 @@
 
 %h4 Solution
 .data
-  %code 111   400
+  %code 111 400
   %br 
-    %code 108   300 
-  %code 105   200
+    %code 108 300 
+  %code 105 200
   %br 
-    %code 102   100 
-  %code 99   300
+    %code 102 100 
+  %code 99 300
   %br 
-    %code 96   105 
-  %code 87   LOCAL
+    %code 96 105 
+  %code 87 LOCAL
   %br 
-    %code 69   LOCAL
-  %code 69   BOTTOMOFSTACK
+    %code 69 LOCAL
+  %code 69 BOTTOMOFSTACK
 
-%h2 For your reference:
-
-%p PUSH EBP
-%p MOV ESP, EBP
-%p ADD -9, ESP
-%p ADD -18, ESP
-%p MOV ESP, EBP
-%p POP EBP
-%p RET
+.reference
+  %h4 For your reference:
+  %p PUSH EBP
+  %p MOV ESP, EBP
+  %p ADD -9, ESP
+  %p ADD -18, ESP
+  %p MOV ESP, EBP
+  %p POP EBP
+  %p RET
 
 
 %h2 Actual Problem

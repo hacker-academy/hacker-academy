@@ -1,21 +1,15 @@
 = render partial: 'problem_header'
-%p  
-  %b Advanced Canaries:
+
+%h2 Advanced Canaries:
 %p 
   Now that you know how terminal, seed, and XOR canary works, determine the canaries addresses and their values. Canaries can be XOR, terminal or seeded, and values are always seeded at the previous canary value +9. Then output all the exploitable buffer.
 
-%p 
-= link_to 'Click here for more info', '/Problem 5.pdf'  
+%h2 Assumptions:
+%ol
+  %li 1.	Type of canary are in random order
+  %li 2.	All previous assumptions in problem 3 and 4 are true
 
-%h2 Sample Problem
-%h4 Input
-.data
-  %code 000100100000000010000000011100000000
-%h4 Solution
-.data
-  %code MOV 128, ECX
-  %br RET
-
+= link_to 'Click here for more info', '/Problem 4.pdf'  
 
 %h2 Actual Problem
 %h4 Machine Code

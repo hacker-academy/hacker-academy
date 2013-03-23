@@ -37,25 +37,26 @@
 .data
   %code 69 30
 
-%h2 For your reference:
+.reference
+  %h2 For your reference:
 
-%p 111 400
-%p 108 300
-%p 105 200
-%p 102 100
-%p 99 300
-%p 96 105
-%p 87 LOCAL
-%p 69 LOCAL
-%p 69 BOTTOMOFSTACK
+  %p 111 400
+  %p 108 300
+  %p 105 200
+  %p 102 100
+  %p 99 300
+  %p 96 105
+  %p 87 LOCAL
+  %p 69 LOCAL
+  %p 69 BOTTOMOFSTACK
 
-%p PUSH EBP
-%p MOV ESP, EBP
-%p ADD -9, ESP
-%p ADD -18, ESP
-%p MOV ESP, EBP
-%p POP EBP
-%p RET
+  %p PUSH EBP
+  %p MOV ESP, EBP
+  %p ADD -9, ESP
+  %p ADD -18, ESP
+  %p MOV ESP, EBP
+  %p POP EBP
+  %p RET
 
 %h2 Actual Problem
 %h4 Machine Code

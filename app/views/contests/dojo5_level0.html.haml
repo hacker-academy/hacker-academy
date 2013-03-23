@@ -1,13 +1,10 @@
 = render partial: 'problem_header'
-%p  
-  %b Top Secret The Architecture:
+  
+%h2 Learning RPISA:
+ 
 %p 
-  4 general purpose registers EAX, EBX, ECX, EDX that maps to binary registry code 0000, 0001, 0010, 0011
-%p 
-  4 system registers EIP, EBP, ESP that maps to binary registry code 0100, 0101, 0110
-%h2 
-  RP Assembly
-= image_tag 'table.png'
+  Given only the machine code, translate machine code into assembly
+  = link_to 'For details on the machine code please click here', '/Problem 0.pdf' 
 
 %h2 Sample Problem
 %h4 Input
@@ -18,6 +15,11 @@
   %code MOV 128, ECX
   %br RET
 
+%h4 Assumptions:
+%ol	
+	%li 1.	All inputs starts with an instruction and all instructions are valid
+	%li 2.	Immediate are store in in 2’s compliment (flip the bits and add 1 to get the negative)
+	%li 3.	Each stream of binary code represents the assembly code for 1 instruction
 
 %h2 Actual Problem
 %h4 Machine Code

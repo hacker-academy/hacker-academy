@@ -1,21 +1,10 @@
 = render partial: 'problem_header'
-%p  
-  %b Top Secret The Architecture:
+
+%h2 The Real Deal
 %p 
   Armed with all your knowledge about machine code, assembly, stack frame, shellcode, and memory protection mechanism, you are ready to tackle the real deal. The agents provided you with a secure channel to tap into RP enterprise’s mainframe, but unfortunately their systems are secure enough that you can’t gain access to the CPU to look at the flow of instructions and machine code. However you can tap into the memory.
 %p 
   Given only the memory output the canary address and value, and all exploitable buffers and overflow size. Formatting is same as problem 5.
-
-
-%h2 Sample Problem
-%h4 Input
-.data
-  %code 000100100000000010000000011100000000
-%h4 Solution
-.data
-  %code MOV 128, ECX
-  %br RET
-
 
 %h2 Actual Problem
 %h4 Machine Code
