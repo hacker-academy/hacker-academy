@@ -37,7 +37,7 @@ module ContestsHelper
     # Level 0: 1st Stack 
     def self.generate_level0
       number = rand(49)
-      params[:num] = number
+      params[:number] = number
       riddle = Array.new
 
       File.open("lib/p0/binfile#{number.to_s}.txt", 'r') do |f|
@@ -50,7 +50,7 @@ module ContestsHelper
     # Level 0: 1st Stack 
     def self.generate_level1
       number = rand(49)
-      params[:num] = number
+      params[:number] = number
       riddle = Array.new
 
       File.open("lib/p1/binfile#{number.to_s}.txt", 'r') do |f|
@@ -63,7 +63,7 @@ module ContestsHelper
       # Level 0: 1st Stack 
     def self.generate_level2
       number = rand(49)
-      params[:num] = number
+      params[:number] = number
       riddle = Array.new
 
       File.open("lib/p2/binfile#{number.to_s}.txt", 'r') do |f|
@@ -76,7 +76,7 @@ module ContestsHelper
       # Level 0: 1st Stack 
     def self.generate_level3
       number = rand(49)
-      params[:num] = number
+      params[:number] = number
       riddle = Array.new
 
       File.open("lib/p3/binfile#{number.to_s}.txt", 'r') do |f|
@@ -89,7 +89,7 @@ module ContestsHelper
       # Level 0: 1st Stack 
     def self.generate_level4
       number = rand(49)
-      params[:num] = number
+      params[:number] = number
       riddle = Array.new
 
       File.open("lib/p4/binfile#{number.to_s}.txt", 'r') do |f|
@@ -102,7 +102,7 @@ module ContestsHelper
       # Level 0: 1st Stack 
     def self.generate_level5
       number = rand(49)
-      params[:num] = number
+      params[:number] = number
       riddle = Array.new
 
       File.open("lib/p5/binfile#{number.to_s}.txt", 'r') do |f|
