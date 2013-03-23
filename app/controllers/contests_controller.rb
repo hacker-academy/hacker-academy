@@ -146,9 +146,12 @@ class ContestsController < ApplicationController
         #phrase = phrase[0...-1]
         solution2 = params[:solution].tr("\n","")
         contents2 = contents1.tr("\n","")
-        puts solution2.length
-        puts contents2.length
-        puts "Solution2"
+        if phrase == params[:solution]
+          puts "AHHHHHHHHHHH \n\n"
+        end
+        puts "Solution Length:" + params[:solution].length.to_s
+        puts "Proper Length:" + contents1.length.to_s
+        puts "\nSolution2"
         puts solution2
         puts "Contents2"
         puts contents2
