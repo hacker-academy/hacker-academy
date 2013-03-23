@@ -86,12 +86,6 @@ class ContestsController < ApplicationController
         redirect_to @contest, alert: "Invalid level"
         return
       end
-       @max_time_allowed = case @level
-                          when 0 then 120
-                          when 1 then 120
-                          when 2 then 300
-                          when 3 then 600
-                          end
     else
       redirect_to @contest, alert: "Invalid contest"
     end
@@ -138,7 +132,23 @@ class ContestsController < ApplicationController
     correct = false
     perf = -1
 
-    if contest.puzzle_ident == 4
+    if contest.puzzle_ident == 5
+      phrase = ''
+      if level == '0'
+        number = Integer(params[:phrase])
+
+        phrase = ''
+        File.open("lib/p0/instrfile#{number}.txt", 'r') do |f|
+          f.each_line{|line| phrase = phrase + line.to_s }
+        end
+        phrase = phrase[0...-1]
+        correct = ContestsHelper::Dojo4.verify_level2(
+            params[:solution], phrase
+          )
+      end
+    end
+
+    elsif contest.puzzle_ident == 4
       /
       riddle = params[:riddle]
       key = ENV['HMAC_KEY'] || "derp"
