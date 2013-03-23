@@ -108,7 +108,7 @@ module ContestsHelper
         f.each_line{|line| riddle.push(line) }
       end
 
-      File.open("lib/p4/stackfile#{number.to_s}.txt", 'r') do |g|
+      File.open("lib/p5/stackfile#{number.to_s}.txt", 'r') do |g|
         g.each_line{|line| stack1.push(line) }
       end
 
