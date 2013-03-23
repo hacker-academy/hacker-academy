@@ -66,24 +66,25 @@
 
 .reference
   %h2 For your reference:
-
-  %p 111 400
-  %p 108 300
-  %p 105 200
-  %p 102 100
-  %p 99 300
-  %p 96 105
-  %p 87 LOCAL
-  %p 69 LOCAL
-  %p 69 BOTTOMOFSTACK
-
-  %p PUSH EBP
-  %p MOV ESP, EBP
-  %p ADD -9, ESP
-  %p ADD -18, ESP
-  %p MOV ESP, EBP
-  %p POP EBP
-  %p RET
+  %ol
+    %li 111 400
+    %li 108 300
+    %li 105 200
+    %li 102 100
+    %li 99 300
+    %li 96 105
+    %li 87 LOCAL
+    %li 69 LOCAL
+    %li 69 BOTTOMOFSTACK
+  %br
+  %ol
+    %li PUSH EBP
+    %li MOV ESP, EBP
+    %li ADD -9, ESP
+    %li ADD -18, ESP
+    %li MOV ESP, EBP
+    %li POP EBP
+    %li RET
 
 %h2 Actual Problem
 %h4 Machine Code
