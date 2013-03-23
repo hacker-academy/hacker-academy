@@ -143,20 +143,22 @@ class ContestsController < ApplicationController
           f.each_line{|line| phrase = phrase + line.to_s }
         end
         contents1 = File.open("lib/p0/instrfile#{number}.txt", 'rb') { |fi| fi.read }
-        #phrase = phrase[0...-1]
-        solution2 = params[:solution].tr("\n","")
-        contents2 = contents1.tr("\n","")
+        phrase = phrase[0...-1]
         if phrase == params[:solution]
           puts "AHHHHHHHHHHH \n\n"
         end
         puts "Solution Length:" + params[:solution].length.to_s
         puts "Proper Length:" + contents1.length.to_s
-        puts "\nSolution2"
-        puts solution2
-        puts "Contents2"
-        puts contents2
+        i = 0
+        solutionA = params[:solution]
+        while solutionA[i] == contents1[i] do
+          i = i + 1
+        end
+        puts "\n"
+        puts i
+        puts "\n"
         correct = ContestsHelper::Dojo5.verify_level0(
-            solution2, contents2
+            solutionA, contents1
           )
       end
     end
