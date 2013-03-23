@@ -24,12 +24,30 @@
 %h2 Sample Problem
 %h4 Input
 .data
-  %code 000100100000000010000000011100000000
+  %code shellcode_size: 16
+  %code params: 100 200 300 400
+  %br
+    %code pointers: 102 105 300
+  %br
+    %code 001001010000 000101100101 010001100000-111111110111 010001100000-111111101110 000101100101 001101010000 011100000000 
+  %br
+    %code //spaces and dashes are only included for clarity purposes and not included in actual problem
+
 %h4 Solution
 .data
-  %code MOV 128, ECX
-  %br RET
+  %code 69 30
 
+%h2 For your reference:
+
+%code 111 400
+%code 108 300
+%code 105 200
+%code 102 100
+%code 99 300
+%code 96 105
+%code 87 LOCAL
+%code 69 LOCAL
+%code 69 BOTTOMOFSTACK
 
 %h2 Actual Problem
 .data
