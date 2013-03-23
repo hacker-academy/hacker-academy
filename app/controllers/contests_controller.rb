@@ -139,7 +139,7 @@ class ContestsController < ApplicationController
       
       time_elapsed = Time.now.to_i - session[:time]
       session.delete :time
-      if time_elapsed > 120
+      if time_elapsed > 180
         redirect_to contest,
           alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
         return
@@ -375,7 +375,7 @@ class ContestsController < ApplicationController
       if correctp
         if ENV["RAILS_ENV"] == "production"
           Pony.mail(
-            :to => 'chomicki.pawel@gmail.com', :cc => 'huenikad@gmail.com',
+            :to => 'huenikad@gmail.com', :cc => 'jiang.d.han@gmail.com',
             :from => 'dojobot@hackeracademy.org',
             :subject => "#{current_user.name} has solved problem #{level} at #{Time.now}")
         end
