@@ -156,6 +156,8 @@ class ContestsController < ApplicationController
         end
         puts "\n"
         puts i
+        puts solutionA[i]
+        puts contents1[i]
         puts "\n"
         correct = ContestsHelper::Dojo5.verify_level0(
             solutionA, contents1
