@@ -139,7 +139,7 @@ class ContestsController < ApplicationController
         number = Integer(params[:phrase])
 
         phrase = ''
-        File.open("lib/sltn#{number}.txt", 'r') do |f|
+        File.open("lib/p0/instrfile#{number}.txt", 'r') do |f|
           f.each_line{|line| phrase = phrase + line.to_s }
         end
         phrase = phrase[0...-1]
