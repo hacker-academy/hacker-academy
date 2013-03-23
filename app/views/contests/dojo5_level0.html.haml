@@ -7,25 +7,15 @@
   4 system registers EIP, EBP, ESP that maps to binary registry code 0100, 0101, 0110
 %h4 
   RP Assembly
-%table 
-  %tr 
-    %td ruby
-    %td OP code
-    %td Machine Code
-    %td Description
-  %tr
-    %td MOV
-    %td 0000
-    %td [OP | REG] + [IMM]
-    %td Mov #, eax - move number into eax
+= image_tag 'table.png'
 
 %h2 Sample Problem
 %h4 Input
 .data
-  %code XXXXXXXXX-OXXXXXXXXXXXXX-OOOOOOOOOOOOOOOOOOOOXXXXXXXXXOOO-XXXXXXXXXXXXXXXXXXXXOXXX-OOOOOOOOOOOOOOOOOOOOXXXXXXXXXXXXXXXOOOOO
+  %code 000000010001
 %h4 Solution
 .data
-  %code I-AM-TIC-TAC-TOE
+  %code MOV, EAX, EBX
 
 %h2 Actual Problem
 %h4 Encoded Memo
