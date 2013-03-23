@@ -47,11 +47,11 @@
 		border-collapse: collapse;
 		border-spacing: 0; }
 
-	.reference p {
+	.reference ol li {
  		margin-bottom: 4px !important;
  		padding-bottom: 0px !important;
  	}
- 	
+
 /* #Basic Styles
 ================================================== */
 	body {
