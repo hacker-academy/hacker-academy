@@ -147,10 +147,12 @@ class ContestsController < ApplicationController
         if phrase == params[:solution]
           puts "AHHHHHHHHHHH \n\n"
         end
+        puts "Phrase length:" + phrase.[:solution].length.to_s
         puts "Solution Length:" + params[:solution].length.to_s
         puts "Proper Length:" + contents1.length.to_s
         i = 0
-        solutionA = params[:solution]
+        solutionA = params[:solution].tr("\r\n","")
+        contents1 = contents1.tr("\n","")
         while solutionA[i] == contents1[i] do
           i = i + 1
         end
