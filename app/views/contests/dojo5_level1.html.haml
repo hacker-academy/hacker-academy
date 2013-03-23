@@ -53,18 +53,12 @@
 
 %p
   PUSH EBP
-  %br
-    %p MOV ESP, EBP
-  %br
-    %p ADD -9, ESP
-  %br 
-    %p ADD -18, ESP
-  %br 
-    %p MOV ESP, EBP
-  %br 
-    %p POP EBP
-  %br 
-	%p RET
+  %br MOV ESP, EBP
+  %br ADD -9, ESP
+  %br ADD -18, ESP
+  %br MOV ESP, EBP
+  %br POP EBP
+  %br RET
 
 
 %h2 Actual Problem
