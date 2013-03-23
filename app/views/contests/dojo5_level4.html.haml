@@ -1,13 +1,11 @@
 = render partial: 'problem_header'
 %p  
-  %b Top Secret The Architecture:
+  %b Advanced Canaries:
 %p 
-  4 general purpose registers EAX, EBX, ECX, EDX that maps to binary registry code 0000, 0001, 0010, 0011
+  Now that you know how terminal, seed, and XOR canary works, determine the canaries addresses and their values. Canaries can be XOR, terminal or seeded, and values are always seeded at the previous canary value +9. Then output all the exploitable buffer.
+
 %p 
-  4 system registers EIP, EBP, ESP that maps to binary registry code 0100, 0101, 0110
-%h2 
-  RP Assembly
-= image_tag 'table.png'
+= link_to 'Click here for more info', '/Problem 4.pdf'  
 
 %h2 Sample Problem
 %h4 Input
@@ -20,8 +18,6 @@
 
 
 %h2 Actual Problem
-.data
-  %code= "#{params[:phrase]}"
 %h4 Machine Code
 .data
   %code= @prob[:riddle]

@@ -2,12 +2,12 @@
 %p  
   %b Top Secret The Architecture:
 %p 
-  4 general purpose registers EAX, EBX, ECX, EDX that maps to binary registry code 0000, 0001, 0010, 0011
+  Armed with all your knowledge about machine code, assembly, stack frame, shellcode, and memory protection mechanism, you are ready to tackle the real deal. The agents provided you with a secure channel to tap into RP enterprise’s mainframe, but unfortunately their systems are secure enough that you can’t gain access to the CPU to look at the flow of instructions and machine code. However you can tap into the memory.
 %p 
-  4 system registers EIP, EBP, ESP that maps to binary registry code 0100, 0101, 0110
-%h2 
-  RP Assembly
-= image_tag 'table.png'
+  Given only the memory output the canary address and value, and all exploitable buffers and overflow size. Formatting is same as problem 5.
+
+%p 
+= link_to 'Click here for more info', '/Problem 4.pdf'  
 
 %h2 Sample Problem
 %h4 Input
@@ -20,8 +20,6 @@
 
 
 %h2 Actual Problem
-.data
-  %code= "#{params[:phrase]}"
 %h4 Machine Code
 .data
   %code= @prob[:riddle]

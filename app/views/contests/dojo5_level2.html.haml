@@ -49,6 +49,14 @@
 %p 69 LOCAL
 %p 69 BOTTOMOFSTACK
 
+%p PUSH EBP
+%p MOV ESP, EBP
+%p ADD -9, ESP
+%p ADD -18, ESP
+%p MOV ESP, EBP
+%p POP EBP
+%p RET
+
 %h2 Actual Problem
 %h4 Machine Code
 .data
