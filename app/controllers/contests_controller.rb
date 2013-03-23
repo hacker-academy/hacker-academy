@@ -136,6 +136,15 @@ class ContestsController < ApplicationController
     perf = -1
 
     if contest.puzzle_ident == 5
+      
+      time_elapsed = Time.now.to_i - session[:time]
+      session.delete :time
+      if time_elapsed > 120
+        redirect_to contest,
+          alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
+        return
+      end
+
       phrase = ''
       level = params[:level]
       if level == '0'
