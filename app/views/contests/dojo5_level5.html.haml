@@ -7,8 +7,12 @@
   Given only the memory output the canary address and value, and all exploitable buffers and overflow size. Formatting is same as problem 5.
 
 %h2 Actual Problem
-%h4 Machine Code
+%h3 Machine Code
 .data
   %code= @prob[:riddle]
 
+%h3 Stack File
+.data
+  %code= @prob[:stackfile]
+  
 = render partial: 'submit'

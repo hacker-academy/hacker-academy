@@ -1,6 +1,5 @@
 = render partial: 'problem_header'
-%p  
-  %b Buffer Overflow
+%h2 Buffer Overflow
 %p 
   The Hacker figured out how memory is laid out after calling a function. This allowed the Hacker to know static locations in the function if there resides a buffer where they may wish to inject instructions to run their own code. In order to do that, first the Hacker must inject his own assembly code into a buffer that was found, and change the return address of that function so when it returns, it will return to the buffer instead of the caller function.
 
@@ -22,7 +21,7 @@
   %li 4. If the function is not exploitable output “NOTEXPLOITABLE”
 
 %h2 Sample Problem
-%h4 Input
+%h3 Input
 .data
   %code shellcode_size: 16
   %code params: 100 200 300 400
@@ -33,7 +32,7 @@
   %br
     %code //spaces and dashes are only included for clarity purposes and not included in actual problem
 
-%h4 Solution
+%h3 Solution
 .data
   %code 69 30
 
