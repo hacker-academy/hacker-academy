@@ -85,7 +85,7 @@ class ContestsController < ApplicationController
                           when 2 then 300
                           end
     elsif contest_ident == 5
-      unless (0..2).member? @level
+      unless (0..5).member? @level
         redirect_to @contest, alert: "Invalid level"
         return
       end
