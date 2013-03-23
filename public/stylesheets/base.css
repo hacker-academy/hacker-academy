@@ -52,6 +52,11 @@
  		padding-bottom: 0px !important;
  	}
 
+ 	.comic img {
+ 		max-width: 600px;
+ 		height: auto;
+ 	}
+
 /* #Basic Styles
 ================================================== */
 	body {
