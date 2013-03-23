@@ -7,22 +7,22 @@
   = link_to 'For details on the machine code please click here', '/Problem 0.pdf' 
 
 %h2 Sample Problem
-%h4 Input
+%h3 Input
 .data
   %code 000100100000000010000000011100000000
-%h4 Solution
+%h3 Solution
 .data
   %code MOV 128, ECX
   %br RET
 
-%h4 Assumptions:
+%h2 Assumptions:
 %ol	
   %li 1.	All inputs starts with an instruction and all instructions are valid
   %li 2.	Immediate are store in in 2’s compliment (flip the bits and add 1 to get the negative)
   %li 3.	Each stream of binary code represents the assembly code for 1 instruction
 
 %h2 Actual Problem
-%h4 Machine Code
+%h3 Machine Code
 .data
   %code= @prob[:riddle]
 
