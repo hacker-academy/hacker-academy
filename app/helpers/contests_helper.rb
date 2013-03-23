@@ -33,19 +33,6 @@ module ContestsHelper
   WORDS = Marshal.load(open('lib/words2.dump'))
 
   module Dojo5
-    KEYS = [
-              'Fifty-paces-NE-of-the-strawberry-farm',
-              'Ninety-feet-S-of-the-old-church',
-              'One-mile-N-of-the-elementary-school',
-              'Three-miles-S-of-the-creepy-circus',
-              'Sixty-paces-SW-of-brand-new-wheat-mill',
-              'Five-miles-E-of-the-stinky-rubber-factory',
-              'Ninety-silly-walks-S-of-the-Ministry',
-              'Just-under-the-abandoned-bridge',
-              'Right-behind-the-new-laundromat',
-              'On-the-third-floor-of-the-tallest-building',
-              'In-the-basement-of-the-Mayors-manor'
-            ]
 
     # Level 0: 1st Stack 
     def self.generate_level0
