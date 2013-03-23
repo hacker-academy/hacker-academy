@@ -32,32 +32,27 @@
 .data
   %code 111   400
   %br 
-    %code 108   300
+    %code 108   300 
+  %code 105   200
   %br 
-    %code 105   200
+    %code 102   100 
+  %code 99   300
   %br 
-    %code 102   100
-  %br 
-    %code 99   300
-  %br 
-    %code 96   105
-  %br 
-    %code 87   LOCAL
+    %code 96   105 
+  %code 87   LOCAL
   %br 
     %code 69   LOCAL
-  %br 
-    %code 69   BOTTOMOFSTACK
+  %code 69   BOTTOMOFSTACK
 
 %h2 For your reference:
 
-%p
-  PUSH EBP
-  MOV ESP, EBP
-  ADD -9, ESP
-  ADD -18, ESP
-  MOV ESP, EBP
-  POP EBP
-  RET
+%p PUSH EBP
+%p MOV ESP, EBP
+%p ADD -9, ESP
+%p ADD -18, ESP
+%p MOV ESP, EBP
+%p POP EBP
+%p RET
 
 
 %h2 Actual Problem
