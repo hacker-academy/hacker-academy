@@ -184,7 +184,7 @@ class ContestsController < ApplicationController
       if level == '3'
         number = params[:number]
 
-        contents1 = File.open("lib/p2/canaryFile#{number}.txt", 'rb') { |fi| fi.read }
+        contents1 = File.open("lib/p3/canaryFile#{number}.txt", 'rb') { |fi| fi.read }
         phrase = phrase[0...-1]
         solutionA = params[:solution].tr("\n","")
         solutionA = solutionA.tr("\r","")
