@@ -1,10 +1,22 @@
 = render partial: 'problem_header'
 %p  
-  %b Top Secret The Architecture:
+  %b RP Stack Layout
 %p 
-  4 general purpose registers EAX, EBX, ECX, EDX that maps to binary registry code 0000, 0001, 0010, 0011
+  Open This file here for further information. 
+%p
+  Given the machine code, parameters, and values of callee function’s ESP, EBP, and EIP respectively, output the assembly along with its stack layout just before the function returns.
 %p 
-  4 system registers EIP, EBP, ESP that maps to binary registry code 0100, 0101, 0110
+  %b Assumptions
+%ol
+  %li Left column = address, right column = value
+  %li ESP at the beginning of the function points to the start address of the last parameter
+  %li Stack grows downwards, but writes upwards
+  %li Disregard PUSH of parameters of function CALLs, as they are popped upon return
+  %li Assume any ADD #, ESP is allocation for a local variable. Output “LOCAL” for  this instruction
+  %li Output BOTTOMOFSTACK for the bottom of the memory (this is an error in the notation; this should really be top of stack)
+  %li Treat each function independently
+  %li Start EIP are unique, starting ESP are not
+
 %h2 
   RP Assembly
 = image_tag 'table.png'
@@ -12,16 +24,20 @@
 %h2 Sample Problem
 %h4 Input
 .data
-  %code 000100100000000010000000011100000000
+  %code params: 100 200 300 400
+  %br
+    %code pointers: 102 105 300
+  %br
+    %code 001001010000 000101100101 010001100000-111111110111 010001100000-111111101110 000101100101 001101010000 011100000000 
+
 %h4 Solution
 .data
-  %code MOV 128, ECX
-  %br RET
+  %code 111   400
+  %br 
+    %code 108   300
 
 
 %h2 Actual Problem
-.data
-  %code= "#{params[:phrase]}"
 %h4 Machine Code
 .data
   %code= @prob[:riddle]
