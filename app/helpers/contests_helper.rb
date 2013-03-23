@@ -74,7 +74,7 @@ module ContestsHelper
     def self.generate_level3
       number = rand(49)
       riddle = Array.new
-
+      stack1 = Array.new
       File.open("lib/p3/binfile#{number.to_s}.txt", 'r') do |f|
         f.each_line{|line| riddle.push(line) }
       end
