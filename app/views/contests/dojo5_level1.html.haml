@@ -1,6 +1,6 @@
 = render partial: 'problem_header'
-%p  
-  %b RP Stack Layout
+  
+%h2 RP Stack Layout
 %p 
   Open This file here for further information. 
 %p
@@ -48,17 +48,16 @@
   %br 
     %code 69   BOTTOMOFSTACK
 
-%p 
-  %b For your reference:
+%h2 For your reference:
 
 %p
   PUSH EBP
-  %br MOV ESP, EBP
-  %br ADD -9, ESP
-  %br ADD -18, ESP
-  %br MOV ESP, EBP
-  %br POP EBP
-  %br RET
+  MOV ESP, EBP
+  ADD -9, ESP
+  ADD -18, ESP
+  MOV ESP, EBP
+  POP EBP
+  RET
 
 
 %h2 Actual Problem
