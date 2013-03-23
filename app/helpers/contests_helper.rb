@@ -74,7 +74,7 @@ module ContestsHelper
         'OXXOOXXX'
         ]
 
-      File.open("lib/binfile#{number.to_s}.txt", 'r') do |f|
+      File.open("lib/p1/binfile#{number.to_s}.txt", 'r') do |f|
         f.each_line{|line| riddle.push(line) }
       end
 
