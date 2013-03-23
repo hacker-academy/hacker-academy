@@ -153,13 +153,7 @@ class ContestsController < ApplicationController
         i = 0
         solutionA = params[:solution].tr("\r\n","")
         contents1 = contents1.tr("\n","")
-        #while solutionA[i] == contents1[i] do
-        #  i = i + 1
-        #end
-        #puts "\n"
-        #puts i
-       # puts solutionA[i]
-        #puts contents1[i]
+        
         puts "\n"
         correct = ContestsHelper::Dojo5.verify_level0(
             solutionA, contents1
