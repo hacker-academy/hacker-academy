@@ -87,10 +87,16 @@
     %li RET
 
 %h2 Actual Problem
-%h4 Machine Code
+%h3 Machine Code
 .data
   - @prob[:riddle].each do |l|
     %code= l 
+    %br
+
+%h3 Stack File
+.data
+  - @prob[:stackfile].each do |line|
+    %code= line 
     %br
 
 = render partial: 'submit'
