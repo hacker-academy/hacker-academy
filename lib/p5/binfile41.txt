@@ -1,0 +1,35 @@
+canary_seed: 1354
+shellcode_size: 41
+params: 11 1215 1933 1975
+pointers: 2034 1035 27
+
+canary_seed: 693
+shellcode_size: 79
+params: 1379 1138 449
+pointers: 2022 1050 195
+
+canary_seed: 1346
+shellcode_size: 128
+params: 253
+pointers: 2046 1014 360
+
+canary_seed: 633
+shellcode_size: 45
+params: 645 1447 1899 702
+pointers: 2037 1035 561
+
+canary_seed: 1341
+shellcode_size: 90
+params: 1407
+pointers: 2013 1017 744
+
+canary_seed: 601
+shellcode_size: 176
+params: 1744
+pointers: 2037 1020 909
+
+canary_seed: 1256
+shellcode_size: 42
+params: 1750
+pointers: 2037 1011 1092
+

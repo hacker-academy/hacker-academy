@@ -1,0 +1,25 @@
+canary_seed: 666
+shellcode_size: 81
+params: 1855
+pointers: 2043 1023 38
+
+canary_seed: 528
+shellcode_size: 178
+params: 935
+pointers: 2019 1047 222
+
+canary_seed: 1164
+shellcode_size: 183
+params: 1163 932 414
+pointers: 2007 1020 417
+
+canary_seed: 982
+shellcode_size: 54
+params: 989
+pointers: 2022 1038 600
+
+canary_seed: 1463
+shellcode_size: 155
+params: 243
+pointers: 2019 1017 783
+

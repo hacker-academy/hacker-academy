@@ -36,20 +36,100 @@ module ContestsHelper
 
     # Level 0: 1st Stack 
     def self.generate_level0
-      number = rand(1)
+      number = rand(49)
+      params[:num] = number
       riddle = Array.new
 
       File.open("lib/p0/binfile#{number.to_s}.txt", 'r') do |f|
         f.each_line{|line| riddle.push(line) }
       end
 
-      return {riddle: riddle, phrase: number.to_s}
+      return {riddle: riddle, number: number.to_s}
+    end
+
+    # Level 0: 1st Stack 
+    def self.generate_level1
+      number = rand(49)
+      params[:num] = number
+      riddle = Array.new
+
+      File.open("lib/p1/binfile#{number.to_s}.txt", 'r') do |f|
+        f.each_line{|line| riddle.push(line) }
+      end
+
+      return {riddle: riddle, number: number.to_s}
+    end
+
+      # Level 0: 1st Stack 
+    def self.generate_level2
+      number = rand(49)
+      params[:num] = number
+      riddle = Array.new
+
+      File.open("lib/p2/binfile#{number.to_s}.txt", 'r') do |f|
+        f.each_line{|line| riddle.push(line) }
+      end
+
+      return {riddle: riddle, number: number.to_s}
+    end
+
+      # Level 0: 1st Stack 
+    def self.generate_level3
+      number = rand(49)
+      params[:num] = number
+      riddle = Array.new
+
+      File.open("lib/p3/binfile#{number.to_s}.txt", 'r') do |f|
+        f.each_line{|line| riddle.push(line) }
+      end
+
+      return {riddle: riddle, number: number.to_s}
+    end
+
+      # Level 0: 1st Stack 
+    def self.generate_level4
+      number = rand(49)
+      params[:num] = number
+      riddle = Array.new
+
+      File.open("lib/p4/binfile#{number.to_s}.txt", 'r') do |f|
+        f.each_line{|line| riddle.push(line) }
+      end
+
+      return {riddle: riddle, number: number.to_s}
+    end
+
+      # Level 0: 1st Stack 
+    def self.generate_level5
+      number = rand(49)
+      params[:num] = number
+      riddle = Array.new
+
+      File.open("lib/p5/binfile#{number.to_s}.txt", 'r') do |f|
+        f.each_line{|line| riddle.push(line) }
+      end
+
+      return {riddle: riddle, number: number.to_s}
     end
 
     def self.verify_level0 our_plaintext, their_plaintext
       return our_plaintext == their_plaintext
     end
-
+    def self.verify_level1 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+    def self.verify_level2 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+    def self.verify_level3 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+    def self.verify_level4 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+    def self.verify_level5 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
 
     def self.generate_puzzle(level, *args)
       return self.send("generate_level#{level}", *args)

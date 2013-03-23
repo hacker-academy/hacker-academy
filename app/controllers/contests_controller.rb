@@ -23,6 +23,9 @@ class ContestsController < ApplicationController
   def show
     @contest = Contest.find(params[:id])
     @num_probs = @contest.puzzle_ident == 3 ? 3 : 2
+    if @contest.puzzle_ident == 5
+      @num_probs = 5
+    end
     if @contest.start > DateTime.now
       unless current_user.is_admin
         redirect_to contests_path, alert: "That contest has not yet started"
@@ -136,7 +139,7 @@ class ContestsController < ApplicationController
       phrase = ''
       level = params[:level]
       if level == '0'
-        number = 0
+        number = params[:num]
 
         phrase = ''
         File.open("lib/p0/instrfile#{number}.txt", 'r') do |f|
@@ -147,14 +150,9 @@ class ContestsController < ApplicationController
         if phrase == params[:solution]
           puts "AHHHHHHHHHHH \n\n"
         end
-        puts "Phrase length:" + phrase.length.to_s
-        puts "Solution Length:" + params[:solution].length.to_s
-        puts "Proper Length:" + contents1.length.to_s
-        i = 0
-        solutionA = params[:solution].tr("\r\n","")
+        solutionA = params[:solution].tr("\n","")
+        solutionA = params[:solution].tr("\r","")
         contents1 = contents1.tr("\n","")
-        
-        puts "\n"
         correct = ContestsHelper::Dojo5.verify_level0(
             solutionA, contents1
           )
