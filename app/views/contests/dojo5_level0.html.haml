@@ -1,11 +1,23 @@
 = render partial: 'problem_header'
-%p
-  The Tic Tac Toe Company needs help recovering crucial information from an internal memo, which has accidentally gone through one of the companies mysterious alphabet processing machines.
-%br
-  Crack the code and fortunes may await!
-
-%p
-  You are given a string containing X's, O's and hyphens. You must process the string and return the decoded message.
+%p  
+  %b Top Secret The Architecture:
+%p 
+  4 general purpose registers EAX, EBX, ECX, EDX that maps to binary registry code 0000, 0001, 0010, 0011
+%p 
+  4 system registers EIP, EBP, ESP that maps to binary registry code 0100, 0101, 0110
+%h4 
+  RP Assembly
+%table 
+  %tr 
+    %td ruby
+    %td OP code
+    %td Machine Code
+    %td Description
+  %tr
+    %td MOV
+    %td 0000
+    %td [OP | REG] + [IMM]
+    %td Mov #, eax - move number into eax
 
 %h2 Sample Problem
 %h4 Input
