@@ -60,6 +60,8 @@
 %h2 Actual Problem
 %h4 Machine Code
 .data
-  %code= @prob[:riddle]
+  - @prob[:riddle].each do |l|
+    %code= l 
+    %br
 
 = render partial: 'submit'

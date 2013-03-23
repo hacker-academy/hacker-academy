@@ -17,6 +17,7 @@
 %h3 Stack File
 .data
   - @prob[:stackfile].each do |line|
-    %code= line + "\r\n" 
+    %code= line 
+    %br
 
 = render partial: 'submit'
