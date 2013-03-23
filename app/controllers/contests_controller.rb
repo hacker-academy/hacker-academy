@@ -181,6 +181,42 @@ class ContestsController < ApplicationController
             solutionA, contents1
           )
       end
+      if level == '3'
+        number = params[:number]
+
+        contents1 = File.open("lib/p2/canaryFile#{number}.txt", 'rb') { |fi| fi.read }
+        phrase = phrase[0...-1]
+        solutionA = params[:solution].tr("\n","")
+        solutionA = solutionA.tr("\r","")
+        contents1 = contents1.tr("\n","")
+        correct = ContestsHelper::Dojo5.verify_level0(
+            solutionA, contents1
+          )
+      end
+      if level == '4'
+        number = params[:number]
+
+        contents1 = File.open("lib/p4/canaryFile#{number}.txt", 'rb') { |fi| fi.read }
+        phrase = phrase[0...-1]
+        solutionA = params[:solution].tr("\n","")
+        solutionA = solutionA.tr("\r","")
+        contents1 = contents1.tr("\n","")
+        correct = ContestsHelper::Dojo5.verify_level0(
+            solutionA, contents1
+          )
+      end
+      if level == '5'
+        number = params[:number]
+
+        contents1 = File.open("lib/p5/canaryFile#{number}.txt", 'rb') { |fi| fi.read }
+        phrase = phrase[0...-1]
+        solutionA = params[:solution].tr("\n","")
+        solutionA = solutionA.tr("\r","")
+        contents1 = contents1.tr("\n","")
+        correct = ContestsHelper::Dojo5.verify_level0(
+            solutionA, contents1
+          )
+      end
     end
     if contest.puzzle_ident == 4
       /
