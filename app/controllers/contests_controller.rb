@@ -148,6 +148,10 @@ class ContestsController < ApplicationController
         contents2 = contents1.tr("\n","")
         puts solution2.length
         puts contents2.length
+        puts "Solution2"
+        puts solution2
+        puts "Contents2"
+        puts contents2
         correct = ContestsHelper::Dojo5.verify_level0(
             solution2, contents2
           )
