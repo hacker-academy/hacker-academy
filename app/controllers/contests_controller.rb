@@ -136,7 +136,7 @@ class ContestsController < ApplicationController
       phrase = ''
       level = params[:level]
       if level == '0'
-        number = Integer(params[:phrase])
+        number = 0
 
         phrase = ''
         File.open("lib/p0/instrfile#{number}.txt", 'r') do |f|
