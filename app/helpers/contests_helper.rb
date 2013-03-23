@@ -49,7 +49,7 @@ module ContestsHelper
 
     # Level 0: 1st Stack 
     def self.generate_level0
-      number = rand(19)
+      number = rand(49)
       riddle = Array.new
       maze_names =  [
         'OOOOXXOO',
@@ -74,7 +74,7 @@ module ContestsHelper
         'OXXOOXXX'
         ]
 
-      File.open("lib/maze#{number.to_s}.txt", 'r') do |f|
+      File.open("lib/binfile#{number.to_s}.txt", 'r') do |f|
         f.each_line{|line| riddle.push(line) }
       end
 
