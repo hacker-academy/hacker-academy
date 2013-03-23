@@ -144,6 +144,9 @@ class ContestsController < ApplicationController
         end
         contents1 = File.open("lib/p0/instrfile#{number}.txt", 'rb') { |fi| fi.read }
         #phrase = phrase[0...-1]
+        puts "\n\n\n"
+        puts contents1
+        puts "A\n\n\n"
         correct = ContestsHelper::Dojo5.verify_level0(
             params[:solution], contents1
           )
