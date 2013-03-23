@@ -47,32 +47,44 @@ module ContestsHelper
               'In-the-basement-of-the-Mayors-manor'
             ]
 
-    # Level 0: 1st Tic Tac Toe Cipher
-    def self.generate_level0
-      phrase = KEYS[rand(KEYS.length)].upcase
+    # Level 0: 1st Stack 
+    def self.generate_level2
+      number = rand(19)
+      riddle = Array.new
+      maze_names =  [
+        'OOOOXXOO',
+        'XOOOXXXX',
+        'OOOXXOOX',
+        'OOOOXXXX',
+        'XOOOXOOO',
+        'OXXXOOXX',
+        'XOXXXXOX',
+        'OXXOXXOX',
+        'OOXOOOOX',
+        'OXOOXXOO',
+        'OXXOXXXX',
+        'XXOXOOXO',
+        'OXXOXXOO',
+        'XOXOXXOX',
+        'OXOXXXOX',
+        'XOXOOOXO',
+        'XXOOXXOX',
+        'OXXOXXXO',
+        'OXOOOXOO',
+        'OXXOOXXX'
+        ]
 
-      bit = 'X'
-      riddle = ''
-
-      phrase.each_byte.each do |i|
-        if i == 45
-          riddle = riddle + '-'
-        else
-          quant = i - 64
-          riddle = riddle + (bit * quant)
-          if bit == 'X'
-            bit = 'O'
-          else bit = 'X'
-          end
-        end
+      File.open("lib/maze#{number.to_s}.txt", 'r') do |f|
+        f.each_line{|line| riddle.push(line) }
       end
 
-      return {riddle: riddle, phrase: ''}
+      return {riddle: riddle, phrase: number.to_s}
     end
 
-    def self.verify_level0 our_plaintext, their_plaintext
+    def self.verify_level2 our_plaintext, their_plaintext
       return our_plaintext == their_plaintext
     end
+
 
     def self.generate_puzzle(level, *args)
       return self.send("generate_level#{level}", *args)

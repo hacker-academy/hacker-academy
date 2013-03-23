@@ -5,20 +5,22 @@
   4 general purpose registers EAX, EBX, ECX, EDX that maps to binary registry code 0000, 0001, 0010, 0011
 %p 
   4 system registers EIP, EBP, ESP that maps to binary registry code 0100, 0101, 0110
-%h4 
+%h2 
   RP Assembly
 = image_tag 'table.png'
 
 %h2 Sample Problem
 %h4 Input
 .data
-  %code 000000010001
+  %code 000100100000000010000000011100000000
 %h4 Solution
 .data
-  %code MOV, EAX, EBX
+  %code MOV 128, ECX
+  %code RET
+
 
 %h2 Actual Problem
-%h4 Encoded Memo
+%h4 Machine Code
 .data
   %code= @prob[:riddle]
 
