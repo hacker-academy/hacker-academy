@@ -147,7 +147,6 @@ class ContestsController < ApplicationController
           )
       end
     end
-
     elsif contest.puzzle_ident == 4
       /
       riddle = params[:riddle]
