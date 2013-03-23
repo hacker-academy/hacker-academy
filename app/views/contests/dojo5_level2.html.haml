@@ -1,13 +1,25 @@
 = render partial: 'problem_header'
 %p  
-  %b Top Secret The Architecture:
+  %b Buffer Overflow
 %p 
-  4 general purpose registers EAX, EBX, ECX, EDX that maps to binary registry code 0000, 0001, 0010, 0011
-%p 
-  4 system registers EIP, EBP, ESP that maps to binary registry code 0100, 0101, 0110
-%h2 
-  RP Assembly
-= image_tag 'table.png'
+  The Hacker figured out how memory is laid out after calling a function. This allowed the Hacker to know static locations in the function if there resides a buffer where they may wish to inject instructions to run their own code. In order to do that, first the Hacker must inject his own assembly code into a buffer that was found, and change the return address of that function so when it returns, it will return to the buffer instead of the caller function.
+
+= image_tag 'table2.png'
+
+%p The Hacker decides to inject what’s called shellcode. It is a sequence of instructions in binary just like the one you’ve been translating that executes a system call to launch a shell, so that you can execute shell commands like “cp, rm, mv, cat, grep…” etc to wreak havoc in the system.
+
+%p In a system using unprotected string copy such as C’s strcpy function, a system like this is susceptible to a buffer overflow attack that allows user to overwrite the stack to where return address is located. This is called stack smashing.
+
+%h2 Your Task
+
+%p Given the size of shellcode, and machine code of functions, find the addresses of ALL valid buffers to store the shellcode along with the number of bytes required to overflow to the start of the return address. 
+
+%h2 Assumptions
+%ol
+  %li 1. Minimum shellcode size is 32 bytes
+  %li 2. Maximum buffer size is 128 bytes
+  %li 3. Treat each function individually, and all assumptions from problem 2 applies
+  %li 4. If the function is not exploitable output “NOTEXPLOITABLE”
 
 %h2 Sample Problem
 %h4 Input
