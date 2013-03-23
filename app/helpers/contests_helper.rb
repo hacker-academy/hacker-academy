@@ -86,24 +86,33 @@ module ContestsHelper
     def self.generate_level4
       number = rand(1)
       riddle = Array.new
-
+      stack1 = Array.new
       File.open("lib/p4/binfile#{number.to_s}.txt", 'r') do |f|
         f.each_line{|line| riddle.push(line) }
       end
 
-      return {riddle: riddle, number: number.to_s}
+      File.open("lib/p4/stackfile#{number.to_s}.txt", 'r') do |g|
+        g.each_line{|line| stack1.push(line) }
+      end
+
+      return {riddle: riddle, number: number.to_s, stackfile: stack1}
     end
 
       # Level 0: 1st Stack 
     def self.generate_level5
       number = rand(1)
       riddle = Array.new
+      stack1 = Array.new
 
       File.open("lib/p5/binfile#{number.to_s}.txt", 'r') do |f|
         f.each_line{|line| riddle.push(line) }
       end
 
-      return {riddle: riddle, number: number.to_s}
+      File.open("lib/p4/stackfile#{number.to_s}.txt", 'r') do |g|
+        g.each_line{|line| stack1.push(line) }
+      end
+
+      return {riddle: riddle, number: number.to_s, stackfile: stack1}
     end
 
     def self.verify_level0 our_plaintext, their_plaintext
