@@ -36,7 +36,7 @@ module ContestsHelper
 
     # Level 0: 1st Stack 
     def self.generate_level0
-      number = rand(49)
+      number = rand(1)
       riddle = Array.new
 
       File.open("lib/p0/binfile#{number.to_s}.txt", 'r') do |f|
@@ -48,7 +48,7 @@ module ContestsHelper
 
     # Level 0: 1st Stack 
     def self.generate_level1
-      number = rand(49)
+      number = rand(1)
       riddle = Array.new
 
       File.open("lib/p1/binfile#{number.to_s}.txt", 'r') do |f|
