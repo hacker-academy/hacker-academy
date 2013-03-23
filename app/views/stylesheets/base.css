@@ -130,7 +130,7 @@
  	}
 
  	.reference p {
- 		margin-bottom: 4px;
+ 		margin-bottom: 4px !important;
  		padding-bottom: 0px;
  	}
 
