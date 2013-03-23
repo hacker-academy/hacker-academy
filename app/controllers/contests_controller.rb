@@ -147,7 +147,7 @@ class ContestsController < ApplicationController
         if phrase == params[:solution]
           puts "AHHHHHHHHHHH \n\n"
         end
-        puts "Phrase length:" + phrase[:solution].length.to_s
+        puts "Phrase length:" + phrase.length.to_s
         puts "Solution Length:" + params[:solution].length.to_s
         puts "Proper Length:" + contents1.length.to_s
         i = 0
