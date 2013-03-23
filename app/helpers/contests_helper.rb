@@ -51,28 +51,6 @@ module ContestsHelper
     def self.generate_level0
       number = rand(49)
       riddle = Array.new
-      maze_names =  [
-        'OOOOXXOO',
-        'XOOOXXXX',
-        'OOOXXOOX',
-        'OOOOXXXX',
-        'XOOOXOOO',
-        'OXXXOOXX',
-        'XOXXXXOX',
-        'OXXOXXOX',
-        'OOXOOOOX',
-        'OXOOXXOO',
-        'OXXOXXXX',
-        'XXOXOOXO',
-        'OXXOXXOO',
-        'XOXOXXOX',
-        'OXOXXXOX',
-        'XOXOOOXO',
-        'XXOOXXOX',
-        'OXXOXXXO',
-        'OXOOOXOO',
-        'OXXOOXXX'
-        ]
 
       File.open("lib/p0/binfile#{number.to_s}.txt", 'r') do |f|
         f.each_line{|line| riddle.push(line) }
