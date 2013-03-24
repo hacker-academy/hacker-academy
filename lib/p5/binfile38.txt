@@ -1,0 +1,50 @@
+canary_seed: 603
+shellcode_size: 71
+params: 1147 1778
+pointers: 2034 1005 39
+
+canary_seed: 1250
+shellcode_size: 107
+params: 650 194
+pointers: 2004 1035 192
+
+canary_seed: 174
+shellcode_size: 103
+params: 22 539
+pointers: 2010 1005 357
+
+canary_seed: 570
+shellcode_size: 136
+params: 1663 1491 1837
+pointers: 2001 1017 552
+
+canary_seed: 240
+shellcode_size: 134
+params: 938 1928 735
+pointers: 2010 1047 750
+
+canary_seed: 778
+shellcode_size: 187
+params: 1545
+pointers: 2004 1008 924
+
+canary_seed: 671
+shellcode_size: 117
+params: 1356 548 30 1459
+pointers: 2028 1014 1107
+
+canary_seed: 1424
+shellcode_size: 127
+params: 1071 1503
+pointers: 2007 1002 1272
+
+canary_seed: 669
+shellcode_size: 152
+params: 1764 543 38 138
+pointers: 2046 1044 1446
+
+canary_seed: 797
+shellcode_size: 62
+params: 1018
+pointers: 2040 1041 1647
+

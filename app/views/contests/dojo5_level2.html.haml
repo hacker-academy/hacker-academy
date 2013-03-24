@@ -1,0 +1,67 @@
+= render partial: 'problem_header'
+%h2 Buffer Overflow
+%p 
+  The Hacker figured out how memory is laid out after calling a function. This allowed the Hacker to know static locations in the function if there resides a buffer where they may wish to inject instructions to run their own code. In order to do that, first the Hacker must inject his own assembly code into a buffer that was found, and change the return address of that function so when it returns, it will return to the buffer instead of the caller function.
+
+= image_tag 'table2.png'
+
+%p The Hacker decides to inject what’s called shellcode. It is a sequence of instructions in binary just like the one you’ve been translating that executes a system call to launch a shell, so that you can execute shell commands like “cp, rm, mv, cat, grep…” etc to wreak havoc in the system.
+
+%p In a system using unprotected string copy such as C’s strcpy function, a system like this is susceptible to a buffer overflow attack that allows user to overwrite the stack to where return address is located. This is called stack smashing.
+
+%h2 Your Task
+
+%p Given the size of shellcode, and machine code of functions, find the addresses of ALL valid buffers to store the shellcode along with the number of bytes required to overflow to the start of the return address. 
+
+%h2 Assumptions
+%ol
+  %li 1. Minimum shellcode size is 32 bytes
+  %li 2. Maximum buffer size is 128 bytes
+  %li 3. Treat each function individually, and all assumptions from problem 2 applies
+  %li 4. If the function is not exploitable output “NOTEXPLOITABLE”
+
+%h2 Sample Problem
+%h3 Input
+.data
+  %code shellcode_size: 16
+  %code params: 100 200 300 400
+  %br
+    %code pointers: 102 105 300
+  %br
+    %code 001001010000 000101100101 010001100000-111111110111 010001100000-111111101110 000101100101 001101010000 011100000000 
+  %br
+    %code //spaces and dashes are only included for clarity purposes and not included in actual problem
+
+%h3 Solution
+.data
+  %code 69 30
+
+.reference
+  %h2 For your reference:
+
+  %p 111 400
+  %p 108 300
+  %p 105 200
+  %p 102 100
+  %p 99 300
+  %p 96 105
+  %p 87 LOCAL
+  %p 69 LOCAL
+  %p 69 BOTTOMOFSTACK
+
+  %p PUSH EBP
+  %p MOV ESP, EBP
+  %p ADD -9, ESP
+  %p ADD -18, ESP
+  %p MOV ESP, EBP
+  %p POP EBP
+  %p RET
+
+%h2 Actual Problem
+%h4 Machine Code
+.data
+  - @prob[:riddle].each do |l|
+    %code= l 
+    %br
+
+= render partial: 'submit'

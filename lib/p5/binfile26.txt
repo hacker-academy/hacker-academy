@@ -1,0 +1,10 @@
+canary_seed: 217
+shellcode_size: 37
+params: 1102 1685
+pointers: 2037 1047 37
+
+canary_seed: 1043
+shellcode_size: 152
+params: 981 1246 1724
+pointers: 2043 1002 201
+

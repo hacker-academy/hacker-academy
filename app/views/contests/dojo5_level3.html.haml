@@ -1,0 +1,102 @@
+= render partial: 'problem_header'
+  
+%h2 Canaries
+%p 
+= link_to 'Click here for more info', '/Problem 3.pdf'  
+%p
+  The Hacker now understands the basics of canary in RP mainframe. All the Hacker has to do is predetermine the canary values and write them back during the buffer overflow attack so that the OS sees as if the canary value never changed.
+%p 
+  Given the machine code, parameters, shellcode size, system pointers, canary seed, and dump of memory stack, find the locations of all the canaries and determine their value. If the function is exploitable, out theaddresses of ALL valid buffers to store the shellcode along with the number of bytes required to overflow to the start of the return address. 
+
+%h2 Assumptions
+%ol
+  %li 1. Each canary value is 3 bytes long
+  %li 2. Output the canary address and the value, starting with canaries with the highest addresses
+  %li 3. Note that with canaries, the function that may be previously unexploitable may now be exploitable due to the extra 3 bytes. Please take this into consideration.
+  %li 4. First output all the canary address and values, then separate by 3 new lines, finally output all the exploitable buffers. Formatting is same of problem 3.
+  %li 5. Canaries are always pushed before allocation of a local variable
+
+%h2 Sample Problem
+%h3 Input
+.data
+  %code canary_seed: 111
+  %br 
+    %code shellcode_size: 16
+  %code params: 100 200 300 400
+  %br
+    %code pointers: 102 105 300
+  %br
+    %code 001001010000 000101100101 010001100000-111111110111 010001100000-111111101110 000101100101 001101010000 011100000000 
+  %br
+    %code //spaces and dashes are only included for clarity purposes and not included in actual problem
+
+%h3 Memory Dump
+.data
+  %code 111 400
+  %br 
+    %code 108 300 
+  %code 105 200
+  %br 
+    %code 102 100 
+  %code 99 300
+  %br 
+    %code 96 105 
+  %code 93 111  //canary
+  %br 
+    %code 90 123 //actual memory from this point forward
+  %code 87 456
+  %br 
+    %code 84 789 
+  %code 81 135
+  %br 
+    %code 78 467
+  %code 75 367
+  %br 
+    %code 72 987 
+  %code 69 123
+  %br 
+    %code 66 555
+  %code 66 BOTTOMOFSTACK
+
+%h3 Solution
+.data
+  %code 93 111
+  %br 
+    %code 69 30
+
+.reference
+  %h2 For your reference:
+  %ol
+    %li 111 400
+    %li 108 300
+    %li 105 200
+    %li 102 100
+    %li 99 300
+    %li 96 105
+    %li 87 LOCAL
+    %li 69 LOCAL
+    %li 69 BOTTOMOFSTACK
+  %br
+  %ol
+    %li PUSH EBP
+    %li MOV ESP, EBP
+    %li ADD -9, ESP
+    %li ADD -18, ESP
+    %li MOV ESP, EBP
+    %li POP EBP
+    %li RET
+
+%h2 Actual Problem
+%h3 Machine Code
+.data
+  - @prob[:riddle].each do |l|
+    %code= l 
+    %br
+
+%h3 Stack File
+.data
+  - @prob[:stackfile].each do |line|
+    %code= line 
+    %br
+
+= render partial: 'submit'

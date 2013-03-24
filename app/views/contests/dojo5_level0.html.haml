@@ -1,0 +1,32 @@
+= render partial: 'problem_header'
+.comic
+  = image_tag 'strip 1 good.png'
+%h2 Learning RPISA:
+ 
+%p 
+  Given only the machine code, translate machine code into assembly
+  = link_to 'For details on the machine code please click here', '/Problem 0.pdf' 
+
+%h2 Sample Problem
+%h3 Input
+.data
+  %code 000000100000000010000000011100000000
+%h3 Solution
+.data
+  %code MOV 128, ECX
+  %br RET
+
+%h2 Assumptions:
+%ol	
+  %li 1.	All inputs starts with an instruction and all instructions are valid
+  %li 2.	Immediates are stored in in 2’s compliment (flip the bits and add 1 to get the negative)
+  %li 3.	Each stream of binary code represents the assembly code for 1 function. 
+
+%h2 Actual Problem
+%h3 Machine Code
+.data
+  - @prob[:riddle].each do |l|
+    %code= l 
+    %br
+
+= render partial: 'submit'

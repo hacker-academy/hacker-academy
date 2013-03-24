@@ -1,0 +1,67 @@
+= render partial: 'problem_header'
+.comic
+  = image_tag 'strip 2 good.png'
+%h2 Learning the RP Stack
+%p 
+= link_to 'Click here for more info', '/Problem 1.pdf'  
+%p
+  Given the machine code, parameters, and values of callee function’s ESP, EBP, and EIP respectively, output the assembly along with its stack layout just before the function returns.
+ 
+%h2 Assumptions
+%ol
+  %li 1. Left column = address, right column = value
+  %li 2. ESP at the beginning of the function points to the start address of the last parameter
+  %li 3. Stack grows downwards, but writes upwards
+  %li 4. Disregard PUSH of parameters of function CALLs, as they are popped upon return
+  %li 5. Assume any ADD #, ESP is allocation for a local variable. Output “LOCAL” for  this instruction
+  %li 6. Output BOTTOMOFSTACK for the bottom of the memory (this is an error in the notation; this should really be top of stack)
+  %li 7. Treat each function independently
+  %li 8. Start EIP are unique, starting ESP are not
+
+%h2 Sample Problem
+%h3 Input
+.data
+  %code params: 100 200 300 400
+  %br
+    %code pointers: 102 105 300
+  %br
+    %code 001001010000 000101100101 010001100000-111111110111 010001100000-111111101110 000101100101 001101010000 011100000000 
+  %br
+    %code //spaces and dashes are only included for clarity purposes and not included in actual problem
+
+%h3 Solution
+.data
+  %code 111 400
+  %br 
+    %code 108 300 
+  %code 105 200
+  %br 
+    %code 102 100 
+  %code 99 300
+  %br 
+    %code 96 105 
+  %code 87 LOCAL
+  %br 
+    %code 69 LOCAL
+  %code 69 BOTTOMOFSTACK
+
+.reference
+  %h2 For your reference:
+  %ol
+    %li PUSH EBP
+    %li MOV ESP, EBP
+    %li ADD -9, ESP
+    %li ADD -18, ESP
+    %li MOV ESP, EBP
+    %li POP EBP
+    %li RET
+
+
+%h2 Actual Problem
+%h4 Machine Code
+.data
+  - @prob[:riddle].each do |l|
+    %code= l 
+    %br
+
+= render partial: 'submit'

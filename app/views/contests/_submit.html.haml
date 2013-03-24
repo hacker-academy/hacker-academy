@@ -15,6 +15,9 @@
   - elsif @contest.puzzle_ident == 4
     = hidden_field_tag :riddle, @prob[:riddle]
     = hidden_field_tag :phrase, @prob[:phrase]
+  - elsif @contest.puzzle_ident == 5
+    = hidden_field_tag :number, @prob[:number]
+    = hidden_field_tag :riddle, @prob[:riddle]
   .field
     = label_tag :solution
     %br

@@ -1,0 +1,23 @@
+= render partial: 'problem_header'
+
+%h2 The Real Deal
+%p 
+  Armed with all your knowledge about machine code, assembly, stack frame, shellcode, and memory protection mechanism, you are ready to tackle the real deal. The agents provided you with a secure channel to tap into RP enterprise’s mainframe, but unfortunately their systems are secure enough that you can’t gain access to the CPU to look at the flow of instructions and machine code. However you can tap into the memory.
+%h3 Your Task
+%p 
+  Given only the memory, output the canary address and value, and all exploitable buffers and overflow size. Formatting is same as problem 5.
+
+%h2 Actual Problem
+%h3 Parameters
+.data
+  - @prob[:riddle].each do |l|
+    %code= l 
+    %br
+
+%h3 Stack File
+.data
+  - @prob[:stackfile].each do |line|
+    %code= line 
+    %br
+
+= render partial: 'submit'

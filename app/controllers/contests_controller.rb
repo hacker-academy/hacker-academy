@@ -23,6 +23,9 @@ class ContestsController < ApplicationController
   def show
     @contest = Contest.find(params[:id])
     @num_probs = @contest.puzzle_ident == 3 ? 3 : 2
+    if @contest.puzzle_ident == 5
+      @num_probs = 5
+    end
     if @contest.start > DateTime.now
       unless current_user.is_admin
         redirect_to contests_path, alert: "That contest has not yet started"
@@ -80,8 +83,12 @@ class ContestsController < ApplicationController
                           when 0 then 120
                           when 1 then 120
                           when 2 then 300
-                          when 3 then 600
                           end
+    elsif contest_ident == 5
+      unless (0..5).member? @level
+        redirect_to @contest, alert: "Invalid level"
+        return
+      end
     else
       redirect_to @contest, alert: "Invalid contest"
     end
@@ -128,6 +135,98 @@ class ContestsController < ApplicationController
     correct = false
     perf = -1
 
+    if contest.puzzle_ident == 5
+      
+      time_elapsed = Time.now.to_i - session[:time]
+      session.delete :time
+      if time_elapsed > 180
+        redirect_to contest,
+          alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
+        return
+      end
+
+      phrase = ''
+      level = params[:level]
+      if level == '0'
+        number = params[:number]
+
+        phrase = ''
+        File.open("lib/p0/instrfile#{number}.txt", 'r') do |f|
+          f.each_line{|line| phrase = phrase + line.to_s }
+        end
+        contents1 = File.open("lib/p0/instrfile#{number}.txt", 'rb') { |fi| fi.read }
+        phrase = phrase[0...-1]
+        if phrase == params[:solution]
+          puts "AHHHHHHHHHHH \n\n"
+        end
+        solutionA = params[:solution].tr("\n","")
+        solutionA = solutionA.tr("\r","")
+        contents1 = contents1.tr("\n","")
+        correct = ContestsHelper::Dojo5.verify_level0(
+            solutionA, contents1
+          )
+      end
+      if level == '1'
+        number = params[:number]
+
+        contents1 = File.open("lib/p1/stackfile#{number}.txt", 'rb') { |fi| fi.read }
+        phrase = phrase[0...-1]
+        solutionA = params[:solution].tr("\n","")
+        solutionA = solutionA.tr("\r","")
+        contents1 = contents1.tr("\n","")
+        correct = ContestsHelper::Dojo5.verify_level0(
+            solutionA, contents1
+          )
+      end
+      if level == '2'
+        number = params[:number]
+
+        contents1 = File.open("lib/p2/scFile#{number}.txt", 'rb') { |fi| fi.read }
+        phrase = phrase[0...-1]
+        solutionA = params[:solution].tr("\n","")
+        solutionA = solutionA.tr("\r","")
+        contents1 = contents1.tr("\n","")
+        correct = ContestsHelper::Dojo5.verify_level0(
+            solutionA, contents1
+          )
+      end
+      if level == '3'
+        number = params[:number]
+
+        contents1 = File.open("lib/p3/canaryFile#{number}.txt", 'rb') { |fi| fi.read }
+        phrase = phrase[0...-1]
+        solutionA = params[:solution].tr("\n","")
+        solutionA = solutionA.tr("\r","")
+        contents1 = contents1.tr("\n","")
+        correct = ContestsHelper::Dojo5.verify_level0(
+            solutionA, contents1
+          )
+      end
+      if level == '4'
+        number = params[:number]
+
+        contents1 = File.open("lib/p4/canaryFile#{number}.txt", 'rb') { |fi| fi.read }
+        phrase = phrase[0...-1]
+        solutionA = params[:solution].tr("\n","")
+        solutionA = solutionA.tr("\r","")
+        contents1 = contents1.tr("\n","")
+        correct = ContestsHelper::Dojo5.verify_level0(
+            solutionA, contents1
+          )
+      end
+      if level == '5'
+        number = params[:number]
+
+        contents1 = File.open("lib/p5/canaryFile#{number}.txt", 'rb') { |fi| fi.read }
+        phrase = phrase[0...-1]
+        solutionA = params[:solution].tr("\n","")
+        solutionA = solutionA.tr("\r","")
+        contents1 = contents1.tr("\n","")
+        correct = ContestsHelper::Dojo5.verify_level0(
+            solutionA, contents1
+          )
+      end
+    end
     if contest.puzzle_ident == 4
       /
       riddle = params[:riddle]
@@ -276,7 +375,7 @@ class ContestsController < ApplicationController
       if correctp
         if ENV["RAILS_ENV"] == "production"
           Pony.mail(
-            :to => 'chomicki.pawel@gmail.com', :cc => 'huenikad@gmail.com',
+            :to => 'huenikad@gmail.com', :cc => 'jiang.d.han@gmail.com',
             :from => 'dojobot@hackeracademy.org',
             :subject => "#{current_user.name} has solved problem #{level} at #{Time.now}")
         end

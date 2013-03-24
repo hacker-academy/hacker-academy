@@ -32,6 +32,121 @@ module ContestsHelper
 
   WORDS = Marshal.load(open('lib/words2.dump'))
 
+  module Dojo5
+
+    # Level 0: 1st Stack 
+    def self.generate_level0
+      number = rand(1)
+      riddle = Array.new
+
+      File.open("lib/p0/binfile#{number.to_s}.txt", 'r') do |f|
+        f.each_line{|line| riddle.push(line) }
+      end
+
+      return {riddle: riddle, number: number.to_s}
+    end
+
+    # Level 0: 1st Stack 
+    def self.generate_level1
+      number = rand(1)
+      riddle = Array.new
+
+      File.open("lib/p1/binfile#{number.to_s}.txt", 'r') do |f|
+        f.each_line{|line| riddle.push(line) }
+      end
+
+      return {riddle: riddle, number: number.to_s}
+    end
+
+      # Level 0: 1st Stack 
+    def self.generate_level2
+      number = rand(49)
+      riddle = Array.new
+
+      File.open("lib/p2/binfile#{number.to_s}.txt", 'r') do |f|
+        f.each_line{|line| riddle.push(line) }
+      end
+
+      return {riddle: riddle, number: number.to_s}
+    end
+
+      # Level 0: 1st Stack 
+    def self.generate_level3
+      number = rand(49)
+      riddle = Array.new
+      stack1 = Array.new
+      File.open("lib/p3/binfile#{number.to_s}.txt", 'r') do |f|
+        f.each_line{|line| riddle.push(line) }
+      end
+
+      File.open("lib/p3/stackfile#{number.to_s}.txt", 'r') do |g|
+        g.each_line{|line| stack1.push(line) }
+      end
+
+      return {riddle: riddle, number: number.to_s, stackfile: stack1}
+    end
+
+      # Level 0: 1st Stack 
+    def self.generate_level4
+      number = rand(49)
+      riddle = Array.new
+      stack1 = Array.new
+      File.open("lib/p4/binfile#{number.to_s}.txt", 'r') do |f|
+        f.each_line{|line| riddle.push(line) }
+      end
+
+      File.open("lib/p4/stackfile#{number.to_s}.txt", 'r') do |g|
+        g.each_line{|line| stack1.push(line) }
+      end
+
+      return {riddle: riddle, number: number.to_s, stackfile: stack1}
+    end
+
+      # Level 0: 1st Stack 
+    def self.generate_level5
+      number = rand(49)
+      riddle = Array.new
+      stack1 = Array.new
+
+      File.open("lib/p5/binfile#{number.to_s}.txt", 'r') do |f|
+        f.each_line{|line| riddle.push(line) }
+      end
+
+      File.open("lib/p5/stackfile#{number.to_s}.txt", 'r') do |g|
+        g.each_line{|line| stack1.push(line) }
+      end
+
+      return {riddle: riddle, number: number.to_s, stackfile: stack1}
+    end
+
+    def self.verify_level0 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+    def self.verify_level1 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+    def self.verify_level2 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+    def self.verify_level3 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+    def self.verify_level4 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+    def self.verify_level5 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+
+    def self.generate_puzzle(level, *args)
+      return self.send("generate_level#{level}", *args)
+    end
+
+    def self.verify_puzzle(level, *args)
+      return self.send("verify_level#{level}", *args)
+    end
+  end
+
   module Dojo4
     KEYS = [
               'Fifty-paces-NE-of-the-strawberry-farm',
