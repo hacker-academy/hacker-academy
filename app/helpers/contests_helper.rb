@@ -52,6 +52,7 @@ module ContestsHelper
     right = number % powerOfTen
 
     roundDown = number - number % nextPowerOfTen
+    roundUp = roundDown + nextPowerOfTen
 
     if digit < selected_d
       return Integer(roundDown / 10)
