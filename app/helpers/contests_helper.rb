@@ -44,7 +44,7 @@ module ContestsHelper
   module Dojo6
     
     def self.generate_level0
-      number = 23
+      number = rand(10000..1000000)
       return {number: number.to_s}
     end
 
