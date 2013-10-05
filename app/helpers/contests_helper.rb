@@ -32,6 +32,60 @@ module ContestsHelper
 
   WORDS = Marshal.load(open('lib/words2.dump'))
 
+
+
+
+
+
+
+  module Dojo6
+
+   def self.generate_level0 
+      number = rand(1234..1678)
+      selected_d = rand(1..9)
+      return {number: number, selected_d: selected_d}
+    end
+
+    def level0_helper number, digit, selected_d
+    powerOfTen = 10**digit
+    nextPowerOfTen = powerOfTen * 10
+    right = number % powerOfTen
+
+    roundDown = number - number % nextPowerOfTen
+
+    if digit < selected_d
+      return Integer(roundDown / 10)
+    elsif digit == selected_d
+      return Integer((roundDown / 10) + right + 1)
+    else
+      return Integer(roundUp / 10)
+  end
+end
+
+    def self.verify_level0 number, selected_d, their_sum
+
+      our_sum = 0
+      len = (number.to_s().length)
+
+      for digit in 0..len-1
+        #count 2s in range at current digit
+        a = level0_helper(number,digit,selected_d)
+        our_sum = our_sum + a
+      end
+
+      our_sum = 5
+      return our_sum == their_sum
+    end
+
+
+  end
+
+
+
+
+
+
+
   module Dojo5
 
     # Level 0: 1st Stack 
