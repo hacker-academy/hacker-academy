@@ -275,10 +275,21 @@ class ContestsController < ApplicationController
                 shots[j] = 0
               else
                 for k in 0..9
-                  prev = j- clubDistances[k].to_i
-                  if prev >=0
-                    if (shots[prev] >= 0)
-                      shots[j] = [shots[prev] + 1, shots[j]].min
+                  if k == 9
+                    for l in 0..clubDistances[k].to_i
+                      prev = j - l
+                      if prev >= 0
+                        if (shots[prev]>=0)
+                          shots[j] = [shots[prev]+1, shots[j]].min
+                        end
+                      end
+                    end
+                  else
+                    prev = j- clubDistances[k].to_i
+                    if prev >=0
+                      if (shots[prev] >= 0)
+                        shots[j] = [shots[prev] + 1, shots[j]].min
+                      end
                     end
                   end
                 end
