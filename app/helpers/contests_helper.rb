@@ -7,11 +7,18 @@
 # level, returning true or false.
 
 require 'digest/md5'
+class Date
+  class << self
+    def wrap_day_fraction_to_time( day_frac )
+      day_fraction_to_time( day_frac )
+   end
+  end
+end
 
 module ContestsHelper
   def duration_between(from_date, to_date)
-    hours, minutes, seconds, fracs = Date.send(
-      :day_fraction_to_time, to_date.minus_with_duration(from_date))
+    hours, minutes, seconds, frac =
+    Date.wrap_day_fraction_to_time( to_date - from_date )
     days = (hours/24).round
     hours = hours % 24
     return [
@@ -22,6 +29,8 @@ module ContestsHelper
     ].join(', ')
   end
 
+
+
   def self.generate_puzzle(dojo, level, args)
     return self.const_get(:"Dojo#{dojo}").generate_puzzle(level, *args)
   end
@@ -31,6 +40,66 @@ module ContestsHelper
   end
 
   WORDS = Marshal.load(open('lib/words2.dump'))
+
+  module Dojo6
+    
+    def self.generate_level0
+      number = 22
+      return {number: number.to_s}
+    end
+
+     def self.verify_level0 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+
+    def self.generate_level1
+      usernames= ""
+      100.times {
+        newUsername = ""
+        temp = rand(1..10)
+        if temp < 3
+          newUsername = "_" + rand(36**10).to_s(36)
+        elsif temp < 6
+          newUsername = "." + rand(36**10).to_s(36)
+        elsif temp < 8
+          newUsername = "+" + rand(36**10).to_s(36)
+        else
+          newUsername = rand(36**10).to_s(36)
+        end
+        temp2 = rand(1..10)
+        if temp2 > 5
+          newUsername = newUsername + "_"
+        end
+       usernames = usernames + newUsername + " "
+      }
+
+      return {usernames: usernames}
+    end
+
+    def self.verify_level1 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+
+    def self.generate_level2
+      course=""
+      clubs = "D:" + rand(160..260).to_s + " 2:" + rand(160..230).to_s + " 3:" + rand(150..220).to_s + " 4:" + rand(150..200).to_s + " 5:" + rand(140..190).to_s + " 6:" + rand(135..180).to_s + " 7:" + rand(125..165).to_s + " 8:" + rand(100..140).to_s + " 9:" + rand(80..120).to_s + " P:" + rand(12..24).to_s 
+      18.times {course= course + rand(91..567).to_s + " "}
+      return {clubs: clubs, course: course}
+    end
+
+    def self.verify_level2 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+
+    def self.generate_puzzle(level, *args)
+      return self.send("generate_level#{level}", *args)
+    end
+
+    def self.verify_puzzle(level, *args)
+      return self.send("verify_level#{level}", *args)
+    end
+  end
+
 
   module Dojo5
 

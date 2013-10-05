@@ -1,0 +1,36 @@
+= render partial: 'problem_header'
+%p
+  You're now moving into the world of App development, and you're tasked with doing some username validation. Your app is odd, and has bizarre requirements on what makes it a valid username. 
+%p
+  Your input will be 100 usernames separated by spaces.
+%ul
+  Validity Criteria:
+  %li Must begin with an underscore '_', a period '.' or a '+'.
+  %li Must be immediately followed by a capital letter.
+  %li It can then have numbers, lowercase or uppercase letters.
+  %li Finally it may end with an optional '_'.
+
+%h2 Sample Problem
+%h4 Input
+.data
+  %code _0a898989811abced_
+  %br
+  %code _Abce23
+  %br
+  %code +09090909abcD0
+  %br
+
+%h4 Solution
+.data
+  %code Invalid
+  %br
+  %code Valid
+  %br
+  %code Invalid
+
+%h2 Actual Problem
+%h4 Sample Usernames
+.data
+  %code= @prob[:usernames]
+
+= render partial: 'submit'

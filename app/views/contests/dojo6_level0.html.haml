@@ -1,0 +1,22 @@
+= render partial: 'problem_header'
+%p
+  Counting numbers!
+
+%p 
+  Count the number of 2s that appear in all the numbers between 0 and n. (Not including n)
+
+
+%h2 Sample Problem
+%h4 Input - n
+.data
+  %code 24
+%h4 Solution
+.data
+  %code 5
+
+%h2 Actual Problem
+%h4 Club Stats
+.data
+  %code= @prob[:number]
+
+= render partial: 'submit'

@@ -7,6 +7,22 @@ class ContestsController < ApplicationController
   authorize_resource except: [:problem, :solution]
   skip_authorization_check only: [:problem, :solution]
 
+  def num2s_helper number, digit 
+    powerOfTen = 10**digit
+    nextPowerOfTen = powerOfTen * 10
+    right = number % powerOfTen
+
+    roundDown = number.to_i - number.to_i % nextPowerOfTen
+
+    if digit < 2
+      return Integer(roundDown / 10)
+    elsif digit == 2
+      return Integer((roundDown / 10) + right + 1)
+    else
+      return Integer(roundUp / 10)
+    end
+  end
+
   # GET /contests
   # GET /contests.xml
   def index
@@ -89,6 +105,11 @@ class ContestsController < ApplicationController
         redirect_to @contest, alert: "Invalid level"
         return
       end
+    elsif contest_ident == 6
+      unless (0..5).member? @level
+        redirect_to @contest, alert: "Invalid level"
+        return
+      end  
     else
       redirect_to @contest, alert: "Invalid contest"
     end
@@ -123,6 +144,14 @@ class ContestsController < ApplicationController
       if @level != 0
         msg = @prob[:riddle].join('')
       end
+    elsif contest_ident == 6
+      if @level == 2
+        msg = @prob[:clubs] + @prob[:course]
+      elsif @level == 1
+        msg = @prob[:usernames]
+      else 
+        msg = @prob[:number]
+      end
     end
     key = ENV['HMAC_KEY'] || "derp"
     session[:key] = OpenSSL::HMAC.hexdigest('sha256', msg, key)
@@ -130,10 +159,117 @@ class ContestsController < ApplicationController
     render problem
   end
 
+
   def solution
     contest = Contest.find(params[:contest])
     correct = false
     perf = -1
+
+    if contest.puzzle_ident == 6
+      time_elapsed = Time.now.to_i - session[:time]
+      session.delete :time
+      if time_elapsed > 120
+        redirect_to contest,
+          alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
+        return
+      end
+      level = params[:level]
+      if level == '0'
+        number = params[:number]
+        our_sum = 0
+        len = (number.to_s().length)
+        for digit in 0..len-1
+          #count 2s in range at current digit
+          a = num2s_helper(number,digit)
+          our_sum = our_sum + a
+        end
+        solution = our_sum.to_s
+        correct = ContestsHelper::Dojo6.verify_level0(
+          params[:solution], solution
+        )
+     
+      elsif level == '1'
+         usernames = params[:usernames]
+         solution = ""
+         arr = usernames.split()
+         arr.each_index { |i|
+          test = /_|\.|\+/ =~ arr[i]
+          if test != 0
+            solution = solution + "Invalid\n"
+          else
+            test2 = /[a-z]/ =~ arr[i]
+            if test2 != 1
+              solution = solution + "Invalid\n"
+            else
+              test3 = /\W/ =~ arr[i][1..-1]
+              if test3 == nil
+                solution = solution + "Valid\n"
+              else
+                solution = solution + "Invalid\n"
+              end
+            end
+          end
+
+         }
+         puts solution
+         correct = ContestsHelper::Dojo6.verify_level1(
+          params[:solution], solution
+        )
+
+      elsif level == '2'
+        solution = ''
+        clubs = params[:clubs]
+        course = params[:course]
+        holeCounts = []
+        clubDistances = clubs.split(" ")
+        clubDistances.each_index { |i|
+            clubDistances[i] = clubDistances[i][2..-1]
+        }
+        putter = clubDistances[9].to_i
+        holes = course.split()
+        holes.each_index { |i|
+            shots = []
+            count = holes[i].to_i
+            limit = count + 30
+            for z in 0..limit
+              shots[z] = 1000
+            end
+            j = 0
+            k = 0
+            for j in 0..limit
+              if j < 30
+                if (30-j <= putter)
+                  shots[j] = 1
+                elsif (30-j <= 2*putter)
+                  shots[j] = 2
+                else
+                  shots[j] = 3
+                end
+              elsif j == 30
+                shots[j] = 0
+              else
+                for k in 0..9
+                  prev = j- clubDistances[k].to_i
+                  if prev >=0
+                    if (shots[prev] >= 0)
+                      shots[j] = [shots[prev] + 1, shots[j]].min
+                    end
+                  end
+                end
+              end
+            end
+            if shots[limit] == 1000
+              shots[limit] = -1
+            end
+            solution = solution + " " + shots[limit].to_s 
+          }
+        solution = solution[1..-1]
+        puts "\n\n" + solution + "AHHHHHHH"
+        correct = ContestsHelper::Dojo6.verify_level2(
+          params[:solution], solution
+        )
+      end
+    end
 
     if contest.puzzle_ident == 5
       
@@ -375,7 +511,7 @@ class ContestsController < ApplicationController
       if correctp
         if ENV["RAILS_ENV"] == "production"
           Pony.mail(
-            :to => 'huenikad@gmail.com', :cc => 'jiang.d.han@gmail.com',
+            :to => 'huenikad@gmail.com',
             :from => 'dojobot@hackeracademy.org',
             :subject => "#{current_user.name} has solved problem #{level} at #{Time.now}")
         end
@@ -476,12 +612,12 @@ class ContestsController < ApplicationController
       if ENV["RAILS_ENV"] == "production"
         if true
           Pony.mail(
-            :to => 'chomicki.pawel@gmail.com', :cc => 'huenikad@gmail.com',
+            :to => 'huenikad@gmail.com',
             :from => 'dojobot@hackeracademy.org',
             :subject => "#{current_user.name} has solved problem #{level} at #{Time.now}")
           if perf != -1
              Pony.mail(
-            :to => 'chomicki.pawel@gmail.com', :cc => 'huenikad@gmail.com',
+            :to => 'huenikad@gmail.com',
             :from => 'dojobot@hackeracademy.org',
             :subject => "#{perf.round(2)} #{current_user.name} P#{level} at #{Time.now}")
           end
@@ -502,7 +638,7 @@ class ContestsController < ApplicationController
         if ENV["RAILS_ENV"] == "production"
         if true
           Pony.mail(
-            :to => 'chomicki.pawel@gmail.com', :cc => 'huenikad@gmail.com',
+            :to => 'huenikad@gmail.com', 
             :from => 'dojobot@hackeracademy.org',
             :subject => "#{perf.round(2)} #{current_user.name} P#{level} at #{Time.now}")
           end

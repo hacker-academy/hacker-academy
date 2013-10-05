@@ -38,11 +38,11 @@
             %p= link_to contest.description, contest
             - if DateTime.now < contest.start
               %p
-                = duration_between DateTime.now, contest.start
-                until contest start
+                = distance_of_time_in_words DateTime.now, contest.start
+                until contest starts
             - elsif DateTime.now < contest.end
               %p
-                = duration_between DateTime.now, contest.end
+                = distance_of_time_in_words DateTime.now, contest.end
                 remaining
   - else
     Log in to see the contests.

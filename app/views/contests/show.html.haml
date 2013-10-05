@@ -6,7 +6,7 @@
     = link_to 'Destroy', @contest, :confirm => 'Are you sure?', :method => :delete
   = link_to 'Back', contests_path
 %p
-  = duration_between DateTime.now, @contest.end
+  = distance_of_time_in_words DateTime.now, @contest.end
   remaining
 %h3 Your Mission:
 %p!= @contest.problem

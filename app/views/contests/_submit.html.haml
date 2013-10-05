@@ -18,8 +18,15 @@
   - elsif @contest.puzzle_ident == 5
     = hidden_field_tag :number, @prob[:number]
     = hidden_field_tag :riddle, @prob[:riddle]
+  - elsif @contest.puzzle_ident == 6
+    = hidden_field_tag :clubs, @prob[:clubs]
+    = hidden_field_tag :course, @prob[:course]
+    = hidden_field_tag :usernames, @prob[:usernames]
+    = hidden_field_tag :number, @prob[:number]
   .field
     = label_tag :solution
     %br
     = text_area_tag :solution, "", :size => "50x20"
   = submit_tag 'Check solution'
+
+

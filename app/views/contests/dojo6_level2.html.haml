@@ -1,0 +1,30 @@
+= render partial: 'problem_header'
+%p
+  You've decided to pick up Golf! However, being a programmer you want to try and help your game out by spending some time planning. So you went out to the driving range and hit 100 balls with every one of your clubs to find how far you hit each one. You also got a map of your local golfcourse and now you wish to find out how many shots you'll take if you play optimally. However you're really really bad at chipping so you always hit your clubs with a full swing. 
+
+%p
+  You are given a string which contains a list of clubs along with their range. For example: D:175 means you hit your driver 175 yards every time. You're also given a secondary string which will contain the length of each hole separated by a space.
+  Your output should give the total number of shots required to reach each hole. 
+%p 
+  The putter value indicated that you can make any putt up to that measure. All clubs can be used as many times as you want, however you  only go past the hole by 30 yards. 
+
+
+%h2 Sample Problem
+%h4 Input
+.data
+  %code D:175  2:161 3:154 4:131 5:130 6:120 7:110 8:105 9:100 P:20
+  %br
+  %code 523 411
+%h4 Solution
+.data
+  %code 5 4
+
+%h2 Actual Problem
+%h4 Club Stats
+.data
+  %code= @prob[:clubs]
+%h4 Golf Course Info
+.data
+  %code= @prob[:course]
+
+= render partial: 'submit'
