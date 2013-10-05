@@ -91,6 +91,158 @@ module ContestsHelper
       return our_plaintext == their_plaintext
     end
 
+
+
+    LOCATIONS = Marshal.load(open('lib/ecdojolocations.dump'))
+    SALT = "nacl"
+
+    # string obfuscation functions
+    # input is an array of characters
+
+    def self.random_char
+      return (rand(122-97) + 97).chr
+    end
+
+    def self.jumble_case(input)
+      return input.map{|x| rand() > 0.5 ? x.upcase : x.downcase}
+    end
+
+    def self.swap_letter(input)
+      x = rand(input.length-1)+1
+      rmved = input.delete_at(x)
+      output = input.insert(x-1, rmved)
+      return output
+    end
+
+    def self.remove_letter(input)
+      input.delete_at(rand(input.length))
+      return input
+    end
+
+    def self.replace_letter(input)
+      input[rand(input.length)] = random_char()
+      return input
+    end
+
+    def self.add_letter(input)
+      input.insert(rand(input.length), random_char())
+      return input
+    end
+
+    def self.obfuscate(string)
+      arr = string.split(//)
+
+      arr = jumble_case(arr) if rand < (0.1 + 0.3 * arr.length / 18)
+      arr = swap_letter(arr) if rand < (0.1 + 0.3 * arr.length / 18)
+      arr = remove_letter(arr) if rand < (0.1 + 0.3 * arr.length / 18)
+      arr = replace_letter(arr) if rand < (0.1 + 0.3 * arr.length / 18)
+      arr = add_letter(arr) if rand < (0.1 + 0.3 * arr.length / 18)
+
+      return arr.join()
+    end
+
+    def self.generate_level3
+      locations = LOCATIONS.sort_by{rand}[0..100]
+      searches = locations.sort_by{rand} #locations.sort_by{rand}[0..100]
+
+      hash_searches = []
+
+      searches.each do |search|
+        hash = Digest::MD5.hexdigest(search + SALT)
+        search = obfuscate(search)
+        hash_searches << [hash, search]
+      end
+
+
+      return {searches: hash_searches, locations: locations}
+    end
+
+    def self.verify_level3(searches,locations,solution)
+      s = solution.split("\n").map{|x| x.strip}
+      pairs = s.each_slice(2).to_a
+
+      if searches.split('+').length != pairs.length
+        return [false,-1]
+      end
+
+      total = pairs.length
+      sum = 0
+
+      pairs.each do |hash,term|
+        sum += 1 if Digest::MD5.hexdigest(term + SALT) == hash
+      end
+
+      score = 1.0 * sum / total
+
+      return [score > 0.75,score]
+
+    end
+
+    COMMON_WORDS = ["Bank", "Bakery", "Arts", "Court", "HQ", "North", "On", "Beach", "Community", "Garden", "Hot", "Gallery", "Dental", "on", "Golf", "Downtown", "Coffee", "Theatre", "/", "Yonge", "Gym", "Library", "Family", "In", "Car", "International", "Square", "Ave", "Express", "Shop", "Village", "Green", "Bloor", "at", "Big", "High", "Dog", "Services", "Public", "Clinic", "Studio", "Bistro", "Inc.", "Fitness", "Dr", "Health", "de", "Salon", "St.", "Casa", "A", "Church", "King", "Center", "for", "Avenue", "Spa", "East", "Store", "Home", "University", "Inn", "@", "Room", "Market", "Food", "Hotel", "Hair", "Place", "Pizza", "Dr.", "Bay", "the", "Hamilton", "Of", "West", "Grill", "City", "Station", "Building", "College", "Toronto", "Pub", "Lounge", "Hall", "And", "Office", "Canadian", "St", "Stop", "School", "Canada", "Club", "Street", "Cafe", "House", "of", "Bus", "Restaurant", "Bar", "and", "The", "Park", "Centre", "-", "&"] ;
+
+    def self.remove_common_words(input) #array of words
+      return input - COMMON_WORDS
+    end
+
+    def self.swap_words(input) #array of words
+      return swap_letter(input)
+    end
+
+    def self.obfuscate_level4(string)
+      words = string.split(" ")
+      words = remove_common_words(words)
+      words = swap_words(words) if rand < 0.1
+
+      arr = words.join(" ").split(//)
+
+      arr = jumble_case(arr) if rand < (0.2 + 0.3 * arr.length / 18)
+      arr = swap_letter(arr) if rand < (0.2 + 0.3 * arr.length / 18)
+      arr = remove_letter(arr) if rand < (0.2 + 0.3 * arr.length / 18)
+      arr = replace_letter(arr) if rand < (0.2 + 0.3 * arr.length / 18)
+      arr = add_letter(arr) if rand < (0.2 + 0.3 * arr.length / 18)
+
+      return arr.join()
+    end
+
+    def self.generate_level4
+      locations = LOCATIONS.sort_by{rand}[0..100]
+      searches = locations.sort_by{rand} #.sort_by{rand}[0..100]
+
+      hash_searches = []
+
+      searches.each do |search|
+        hash = Digest::MD5.hexdigest(search + SALT)
+        search = obfuscate_level2(search)
+        hash_searches << [hash, search]
+      end
+
+      return {searches: hash_searches, locations: locations}
+    end
+
+    def self.verify_level4(searches,locations,solution)
+      s = solution.split("\n").map{|x| x.strip}
+      pairs = s.each_slice(2).to_a
+
+      if searches.split('+').length != pairs.length
+        return [false,-1]
+      end
+
+      total = pairs.length
+      sum = 0
+
+      pairs.each do |hash,term|
+        sum += 1 if Digest::MD5.hexdigest(term + SALT) == hash
+      end
+
+      score = 1.0 * sum / total
+
+      return [score > 0.9,score]
+    end
+
+
+
+
+
     def self.generate_puzzle(level, *args)
       return self.send("generate_level#{level}", *args)
     end

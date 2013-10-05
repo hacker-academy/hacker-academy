@@ -22,7 +22,7 @@ class ContestsController < ApplicationController
       return Integer((roundDown / 10) + right + 1)
     else
       return Integer(roundUp / 10)
-  end
+    end
   end
 
   # GET /contests
@@ -43,6 +43,9 @@ class ContestsController < ApplicationController
     @num_probs = @contest.puzzle_ident == 3 ? 3 : 2
     if @contest.puzzle_ident == 5
       @num_probs = 5
+    end
+    if @contest.puzzle_ident == 6
+      @num_probs = 4
     end
     if @contest.start > DateTime.now
       unless current_user.is_admin
@@ -108,7 +111,7 @@ class ContestsController < ApplicationController
         return
       end
     elsif contest_ident == 6
-      unless (0..5).member? @level
+      unless (0..4).member? @level
         redirect_to @contest, alert: "Invalid level"
         return
       end  
@@ -151,6 +154,8 @@ class ContestsController < ApplicationController
         msg = @prob[:clubs] + @prob[:course]
       elsif @level == 1
         msg = @prob[:usernames]
+      elsif @level >= 3
+        msg = @prob[:searches].map{|x| x[0]}.join('+') + @prob[:locations].join('+')
       else 
         msg = @prob[:number]
       end
@@ -170,12 +175,29 @@ class ContestsController < ApplicationController
     if contest.puzzle_ident == 6
       time_elapsed = Time.now.to_i - session[:time]
       session.delete :time
-      if time_elapsed > 120
+      level = params[:level]
+      if time_elapsed > 120 && level < 3
         redirect_to contest,
           alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
         return
       end
-      level = params[:level]
+      msg = nil
+      if level == "3" or level == "4"
+        msg = params[:searches] + params[:locations]
+        key = ENV['HMAC_KEY'] || "derp"
+        hmac = OpenSSL::HMAC.hexdigest('sha256', msg, key)
+        if hmac != session[:key]
+          redirect_to contest, alert: 'Cheating detected...'
+          return
+        end
+        session.delete :key
+      end
+      if time_elapsed > 180 && level >= 3
+        redirect_to contest,
+          alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
+        return
+      end
+
       if level == '0'
         number = params[:number].to_i
         our_sum = 0
@@ -190,7 +212,6 @@ class ContestsController < ApplicationController
         correct = ContestsHelper::Dojo6.verify_level0(
           params[:solution], solution
         )
-     
       elsif level == '1'
         usernames = params[:usernames]
         solution = ""
@@ -221,7 +242,6 @@ class ContestsController < ApplicationController
         correct = ContestsHelper::Dojo6.verify_level1(
         solutionParams, solution
         )
-
       elsif level == '2'
         solution = ''
         clubs = params[:clubs]
@@ -274,6 +294,12 @@ class ContestsController < ApplicationController
         correct = ContestsHelper::Dojo6.verify_level2(
           params[:solution], solution
         )
+      elsif level == '3'
+        perf=0
+        correct,perf = ContestsHelper::Dojo2.verify_level1(params[:searches], params[:locations], params[:solution])
+      elsif level == '4'
+        perf=0
+        correct,perf = ContestsHelper::Dojo2.verify_level2(params[:searches], params[:locations], params[:solution])
       end
     end
 
@@ -609,8 +635,6 @@ class ContestsController < ApplicationController
           )
         end
       end
-
-
     end
 
     if correct
@@ -638,8 +662,6 @@ class ContestsController < ApplicationController
       current_user.solved << ["dojo#{contest.puzzle_ident}_level#{level}", Time.now]
       current_user.save
     else
-
-
       if perf != -1
         if ENV["RAILS_ENV"] == "production"
         if true
