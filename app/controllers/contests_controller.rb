@@ -622,7 +622,7 @@ class ContestsController < ApplicationController
              Pony.mail(
             :to => 'huenikad@gmail.com',
             :from => 'dojobot@hackeracademy.org',
-            :subject => "#{perf.round(2)} #{current_user.name} P#{level} at #{Time.now}")
+            :subject => "#{perf.round(2)} #{current_user.name} P#{level} D#{contest.puzzle_ident} at #{Time.now}")
           end
         end
       end
