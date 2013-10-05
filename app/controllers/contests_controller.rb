@@ -12,15 +12,17 @@ class ContestsController < ApplicationController
     nextPowerOfTen = powerOfTen * 10
     right = number % powerOfTen
 
-    roundDown = number.to_i - number.to_i % nextPowerOfTen
-
+    roundDown = number - number % nextPowerOfTen
+    roundUp = roundDown + nextPowerOfTen
+    
+    digit = Integer((number / powerOfTen) % 10)
     if digit < 2
       return Integer(roundDown / 10)
     elsif digit == 2
       return Integer((roundDown / 10) + right + 1)
     else
       return Integer(roundUp / 10)
-    end
+  end
   end
 
   # GET /contests
@@ -175,7 +177,7 @@ class ContestsController < ApplicationController
       end
       level = params[:level]
       if level == '0'
-        number = params[:number]
+        number = params[:number].to_i
         our_sum = 0
         len = (number.to_s().length)
         for digit in 0..len-1
@@ -184,6 +186,7 @@ class ContestsController < ApplicationController
           our_sum = our_sum + a
         end
         solution = our_sum.to_s
+        puts "\n\n" + solution + "\n\n"
         correct = ContestsHelper::Dojo6.verify_level0(
           params[:solution], solution
         )

@@ -44,7 +44,7 @@ module ContestsHelper
   module Dojo6
     
     def self.generate_level0
-      number = 22
+      number = 23
       return {number: number.to_s}
     end
 
