@@ -192,31 +192,34 @@ class ContestsController < ApplicationController
         )
      
       elsif level == '1'
-         usernames = params[:usernames]
-         solution = ""
-         arr = usernames.split()
-         arr.each_index { |i|
-          test = /_|\.|\+/ =~ arr[i]
-          if test != 0
+        usernames = params[:usernames]
+        solution = ""
+        arr = usernames.split()
+        arr.each_index { |i|
+        test = /_|\.|\+/ =~ arr[i]
+        if test != 0
+          solution = solution + "Invalid\n"
+        else
+          test2 = /[a-z]/ =~ arr[i]
+          if test2 != 1
             solution = solution + "Invalid\n"
           else
-            test2 = /[a-z]/ =~ arr[i]
-            if test2 != 1
-              solution = solution + "Invalid\n"
+            test3 = /\W/ =~ arr[i][1..-1]
+            if test3 == nil
+              solution = solution + "Valid\n"
             else
-              test3 = /\W/ =~ arr[i][1..-1]
-              if test3 == nil
-                solution = solution + "Valid\n"
-              else
-                solution = solution + "Invalid\n"
-              end
+              solution = solution + "Invalid\n"
             end
           end
+        end
 
-         }
-         puts solution
-         correct = ContestsHelper::Dojo6.verify_level1(
-          params[:solution], solution
+        }
+        solutionParams = params[:solution].tr("\n","")
+        solutionParams = solutionParams.tr("\r","")
+        solution = solution.tr("\r","")
+        solution = solution.tr("\n","")
+        correct = ContestsHelper::Dojo6.verify_level1(
+        solutionParams, solution
         )
 
       elsif level == '2'
