@@ -188,7 +188,7 @@ module ContestsHelper
       return swap_letter(input)
     end
 
-    def self.obfuscate_level4(string)
+    def self.obfuscate_level2(string)
       words = string.split(" ")
       words = remove_common_words(words)
       words = swap_words(words) if rand < 0.1
