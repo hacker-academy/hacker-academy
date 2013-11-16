@@ -11,5 +11,5 @@
       %td= link_to shorten(user.name,20), user
       %td= "Lvl. #{user.level}"
       %td
-        .bar(style="width:#{bar_width*user.total_score/max_score + (total_score > 0 ? 150 : 0)}px")
+        .bar(style="width:#{bar_width*user.total_score/max_score + total_score/2)}px")
           = "#{user.total_score}" 
