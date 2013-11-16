@@ -61,7 +61,7 @@ class User
   def total_score
     count = 0
     self.achievements.map do |achievement|
-      if achievement.year != 2013
+      if achievement.year == 2013
         count = count + achievement.value
       end
     end
