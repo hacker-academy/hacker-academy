@@ -157,7 +157,8 @@
  	footer {
  		background: #2A3139;
  		color: #FFFFFF;
- 		padding: 60px;
+ 		padding-top: 60px;
+ 		padding-bottom: 60px;
  	}
 
  	.schedule .alpha {
