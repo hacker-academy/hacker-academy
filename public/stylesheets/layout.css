@@ -118,7 +118,10 @@
 			margin-bottom: 0px;
 		}
 		.title-wrapper {
-			margin-top: 20px;
+			margin-top: 0px;
+		}
+		.title {
+			padding-top: 30px;
 		}
 	}
 

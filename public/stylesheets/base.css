@@ -277,8 +277,9 @@
 ================================================== */
 
 	img.scale-with-grid {
-		max-width: 100%;
-		height: auto; }
+		width: 100%;
+		height: auto; 
+	}
 
 	img.banner-img {
 		width: 100%;
