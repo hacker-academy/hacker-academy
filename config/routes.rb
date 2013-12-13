@@ -5,7 +5,7 @@ HackerAcademy::Application.routes.draw do
 
 
   resources :achievements
-
+  match '/c3', :to => redirect('/hackathon/index.html')
   match '/contests/problem' => 'contests#problem'
   match '/contests/solution' => 'contests#solution'
   match '/hackathon', :to => redirect('/hackathon/index.html')
