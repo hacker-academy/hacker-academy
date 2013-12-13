@@ -47,125 +47,138 @@
 		border-collapse: collapse;
 		border-spacing: 0; }
 
-	.reference ol li {
- 		margin-bottom: 4px !important;
- 		padding-bottom: 0px !important;
- 	}
-
- 	.comic img {
- 		max-width: 600px;
- 		height: auto;
- 	}
 
 /* #Basic Styles
 ================================================== */
 	body {
 		background: #fff;
-		font: 14px/21px "Segoe UI", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font: 14px/21px "Lato", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 		color: #444;
+		font-weight: 300;
 		-webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
 		-webkit-text-size-adjust: 100%;
- }
-
+ 	}
  	.header {
- 		background-color: #1A1A1A;
- 		padding-top: 30px;
- 		padding-bottom: 30px;
+ 		height: 90px;
+ 		position: fixed;
+ 		width: 100%;
+ 		z-index: 2;
+ 	}
+ 	.title {
+ 		min-height: 350px;
+ 		padding-top: 120px;
+ 		padding-bottom: 60px;
+ 	}
+ 	.schedule {
+ 		min-height: 400px;
+ 		padding-top: 60px;
+ 		padding-bottom: 60px;
+ 		text-align: center;
+ 	}
+ 	.sponsors {
+		min-height: 400px;
+		padding-top: 60px;
+		padding-bottom: 60px;
+ 	}
+ 	.faq {
+		min-height: 400px;
+		padding-top: 160px;
+		padding-bottom: 60px;
+ 	}
+ 	.rules {
+		min-height: 400px;
+		padding-top: 60px;
+		padding-bottom: 60px;
+ 	}
+ 	.tutorials{
+ 		min-height: 400px;
+ 		padding-top: 60px;
+ 		padding-bottom: 60px;
+ 	}
+ 	.registration {
+ 		min-height: 540px;
+ 		padding-top: 240px;
+ 		padding-bottom: 60px;
+ 	}
+ 	.schedule-wrapper {
+ 		margin-top: 84px;
  	}
 
- 	.footer {
- 		background-color: #1A1A1A;
- 		padding-top: 30px;
- 		padding-bottom: 30px;
+ 	.logo-container {
+ 		background: #FFFFFF;
+ 		padding: 20px;
+ 		width: 250px;
+ 		margin-left: auto;
+ 		margin-right: auto;
+ 		margin-bottom: 60px;
+ 		border-radius: 10px;
+ 	}
+ 	.c3logo-container {
+ 		overflow: hidden;
+ 		height: 90px;
+ 		width: auto;
+ 		position: fixed;
+ 		top: 0;
+ 	}
+ 	.navbar {
+ 		margin-top: 30px;
+ 	}
+/* #Container Colours
+=================================================== */
+ 	.red-bg {
+ 		background: #E84C3D;
+ 		border-left: 8px solid #C1392B;
+ 		color: #FFFFFF;
+ 	}
+ 	.green-bg {
+		background: #1BBC9B;
+ 		border-left: 8px solid #15A184;
+ 		color: #FFFFFF;
+ 	}
+ 	.purple-bg {
+		background: #9A58B5;
+ 		border-left: 8px solid #8D45AB;
+ 		color: #FFFFFF;
+ 	}
+ 	.yellow-bg {
+		background: #FFF879;
+ 		border-left: 8px solid #F2E13C;
+ 		color: #333333;
+ 	}
+ 	.blue-bg {
+ 		background: #3598DB;
+ 		border-left: 8px solid #2881BB;
+ 		color: #FFFFFF;
+ 	}
+ 	.grey-bg {
+ 		background: #2A3139;
+ 		color: #FFFFFF;
+ 	}
+ 	footer {
+ 		background: #2A3139;
+ 		color: #FFFFFF;
+ 		padding: 60px;
  	}
 
- 	.about {
- 		background-color: #FFD800;
- 	}
-
- 	.left {
- 		display: inline;
- 		float: left;
- 		width: 500px;
- 	}
-
- 	.right {
- 		display: inline;
- 		float: left;
- 		width: 400px;
- 		margin-left: 60px;
- 	}
-
- 	.inline {
- 		display: inline;
- 	}
-
- 	.sponsor-container {
- 		padding-top: 40px;
- 		padding-bottom: 40px;
- 	}
-
- 	#margin-bot {
- 		margin-bottom: -5px;
- 	}
-
- 	.schedule-title {
- 		background-color: #E81123;
- 		padding-top: 30px;
- 		padding-bottom: 30px;
+ 	.schedule .alpha {
+ 		background: #137E65;
+ 		margin-right: 0px !important; 
+ 		padding-top: 23px;
+ 		padding-bottom: 17px;
  	}
  	
- 	.sched p {
- 		margin-bottom: 0px;
- 		font-size: 20px;
- 		line-height: 30px;
+ 	.schedule .omega {
+ 		background: #17A084;
+ 		margin-left: 0px !important; 
+ 		padding-top: 23px;
+ 		padding-bottom: 17px;
  	}
-
- 	.rules-content li {
- 		font-size: 20px;
- 		line-height: 30px;
- 	}
-
- 	.rules-content p {
- 		font-size: 24px;
- 	}
-
- 	.rules {
- 		background-color: #0050EF;
- 		padding-top: 30px;
- 		padding-bottom: 30px;
- 		margin-bottom: 60px;
- 	}
- 	.team-reg {
- 		background-color: #008A00;
- 		padding-top: 30px;
- 		padding-bottom: 30px;
- 		margin-bottom: 30px;
- 	}
-
- 	.resources {
- 		background-color: #FA6800;
- 		padding-top: 30px;
- 		padding-bottom: 30px;
- 	}
-
- 	.faq {
- 		background-color: #0CF;
- 		padding-bottom: 20px;
- 	}
-
- 	.resource-content p{
- 		font-size: 20px;
- 		line-height: 30px;
- 	}
-
-
+ 	
 /* #Typography
 ================================================== */
 	h1, h2, h3, h4, h5, h6 {
-		color: #181818;
-		font-family: "Segoe UI Light", "Georgia", "Times New Roman", serif;
-		font-weight: normal; }
+		font-family: "Lato", "Arial", sans-serif;
+		font-weight: 100; }
 	h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight: inherit; }
 	h1 { font-size: 46px; line-height: 50px; margin-bottom: 14px;}
 	h2 { font-size: 35px; line-height: 40px; margin-bottom: 10px; }
@@ -178,7 +191,7 @@
 	p { margin: 0 0 20px 0; }
 	p img { margin: 0; }
 	p.lead { font-size: 21px; line-height: 27px; color: #777;  }
-
+	p {font-size: 16px; line-height: 24px;}
 	em { font-style: italic; }
 	strong { font-weight: bold; color: #333; }
 	small { font-size: 80%; }
@@ -192,36 +205,55 @@
 
 	hr { border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 10px 0 30px; height: 0; }
 
-	.white {color: white;}
-	.white:visited {color: white;}
-	.sponsored {margin-left: 256px;}
-	.center {text-align: center;}
-	.about-title {margin-top: 40px;}
-	.about p {font-size: 22px; line-height: 28px;}
-	.highlight {color: #A200FF;}
-	.bold {font-weight: bold;}
-	.coming-soon {text-align: center; color: white;}
-	.resource-title {font-family: "Segoe UI", "Georgia", serif; font-weight: 600;}
+	.main-title {
+		font-size: 66px;
+		line-height: 78px;
+	}
+	.subtitle {
+		text-align: right;
+		letter-spacing: 4px;
+		margin-top: 12px;
+	}
+	.title-wrapper {
+		margin-top: 126px;
+	}
+	.icon-desc {
+		letter-spacing: 3px;
+	}
+	.section-title {
+		font-size: 28px;
+		letter-spacing: 4px;
+		text-align: left;
+	}
+	.day-title {
+		font-size: 20px;
+		letter-spacing: 3px;
+		text-align: left;
+		margin-left: -30px;
+		margin-bottom: 16px;
+	}
+	.header-title {
+		margin-top: 30px;
+	}
+	.navbar h4 {
+ 		margin-left: 30px;
+ 		letter-spacing: 1px;
+ 		margin-right: -10px;
+ 	}
 
 /* #Links
 ================================================== */
-	a, a:visited { color: #333; text-decoration: underline; outline: 0; }
+	a, a:visited { color: #FFFFFF; text-decoration: underline; outline: 0; }
 	a:hover, a:focus { color: #000; }
 	p a, p a:visited { line-height: inherit; }
 
-	.no-dec {
+	.navbar a {
 		text-decoration: none;
 	}
-
-	.question {
-		font-weight: bold;
-		font-family: "Segoe UI", "Georgia", serif;
+	footer a:hover, footer a:focus {
+		color: #3598DB;
 	}
-
-	.ui {
-		font-family: "Segoe UI", "Georgia", serif;
-	}
-
+	.navbar a:hover, a:focus { color: #C1392B; }
 /* #Lists
 ================================================== */
 	ul, ol { margin-bottom: 20px; }
@@ -239,51 +271,31 @@
 	ul.large li { line-height: 21px; }
 	li p { line-height: 21px; }
 
-	.top-nav li {
-		display: inline;
-		margin-left: 20px;
-		text-align: right;
-		float: right;
-	}
-
-	.top-nav li a {
-		color: white;
-	}
-
-	.bot-nav li a {
-		color: white;
-	}
-	.top-nav {
-		margin-top: 8px;
-	}
-
-	.resource-content ol li {
-		font-size: 20px;
-		line-height: 28px;
-		margin-bottom: 30px;
-	}
-	.resource-content ul li {
-		font-size: 20px;
-		line-height: 28px;
-	}
-	.block {
-		display: block;
-	}
-	.note {
-		display: block;
-		font-style: italic;
-	}
-	.resource-content a {
-		color: #0645AD;
-	}
 /* #Images
 ================================================== */
 
 	img.scale-with-grid {
-		width: 100%;
+		max-width: 100%;
 		height: auto; }
 
+	img.banner-img {
+		width: 100%;
+	}
 
+	.img-container {
+		height: 400px;
+		overflow: hidden;
+	}
+
+	.entypo-icons {
+		font-family: "Entypo";
+		font-size: 318px;
+		line-height: 324px;
+	}
+	.c3logo {
+		max-height: 100%;
+		width: auto;
+	}
 /* #Buttons
 ================================================== */
 
@@ -315,7 +327,7 @@
 	  margin-bottom: 20px;
 	  line-height: normal;
 	  padding: 8px 10px;
-	  font-family: "Segoe UI", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+	  font-family: "Lato", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 	.button:hover,
 	button:hover,
@@ -384,7 +396,7 @@
 		-moz-border-radius: 2px;
 		-webkit-border-radius: 2px;
 		border-radius: 2px;
-		font: 13px "Segoe UI", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font: 13px "Lato", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 		color: #777;
 		margin: 0;
 		width: 210px;
@@ -425,8 +437,13 @@
 	.remove-bottom { margin-bottom: 0 !important; }
 	.half-bottom { margin-bottom: 10px !important; }
 	.add-bottom { margin-bottom: 20px !important; }
-
-
 	.add-top {margin-top: 20px;}
-	.big-top {margin-top: 56px;}
-	.room-top {margin-top: 106px;}
+	.add-top-large {margin-top: 40px;}
+	.add-top-very-large {margin-top: 80px;}
+	.add-top-onetwenty {margin-top: 120px;}
+	.half-top {margin-top: 10px;}
+	.ultra-bold {font-weight: 900;}
+	.center {text-align: center;}
+	.right {text-align: right;}
+	.inline {display: inline;}
+	.normal-weight {font-weight: 300;}

@@ -4,22 +4,10 @@ class HackathonController < ApplicationController
   def index
   end
 
-  def faq
+  def details
   end
 
-  def schedule
-  end
-
-  def rules
-  end
-
-  def register
-  end
-
-  def resources
-  end
-
-  def competition
+  def registration
   end
 
 end
