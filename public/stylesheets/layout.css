@@ -75,6 +75,15 @@
 	 	.subtitle {
 			text-align: left;
 		}
+		.header {
+			position: static;
+		}
+		.c3logo-container{
+			position: static;
+		}
+		.header .container {
+			margin-top: -90px;
+		}
 	}
 
 	/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
