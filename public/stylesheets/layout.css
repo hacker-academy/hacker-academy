@@ -84,7 +84,13 @@
 		.header .container {
 			margin-top: -90px;
 		}
-
+		.halogo {
+			margin-bottom: 30px;
+			margin-top: 10px;
+		}
+		.hatcherylogo {
+			margin-bottom: 30px;
+		}
 	}
 
 	/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
