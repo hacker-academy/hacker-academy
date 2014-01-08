@@ -112,7 +112,15 @@
  		margin-right: auto;
  		margin-bottom: 60px;
  		border-radius: 10px;
+ 		max-height: 150px;
  	}
+ 	.orbis-logo {
+ 		height: auto;
+ 		width: 60%;
+ 		margin-left: 20%;
+ 		margin-right: 20%;
+ 	}
+
  	.footer-logo-container {
  		background: #FFFFFF;
  		margin-left: auto;
