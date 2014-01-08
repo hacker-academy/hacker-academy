@@ -82,8 +82,13 @@
  	}
  	.faq {
 		min-height: 400px;
-		padding-top: 160px;
+		padding-top: 60px;
 		padding-bottom: 60px;
+ 	}
+ 	.prizes {
+ 		min-height: 400px;
+ 		padding-top: 160px;
+ 		padding-bottom: 60px;
  	}
  	.rules {
 		min-height: 400px;
@@ -490,3 +495,5 @@
 	.right {text-align: right;}
 	.inline {display: inline;}
 	.normal-weight {font-weight: 300;}
+	.prize {font-size: 30px;  line-height: 34px;}
+	.bold {font-weight: bold;}
