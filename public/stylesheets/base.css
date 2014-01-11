@@ -82,8 +82,13 @@
  	}
  	.faq {
 		min-height: 400px;
-		padding-top: 160px;
+		padding-top: 60px;
 		padding-bottom: 60px;
+ 	}
+ 	.prizes {
+ 		min-height: 400px;
+ 		padding-top: 160px;
+ 		padding-bottom: 60px;
  	}
  	.rules {
 		min-height: 400px;
@@ -112,7 +117,15 @@
  		margin-right: auto;
  		margin-bottom: 60px;
  		border-radius: 10px;
+ 		max-height: 150px;
  	}
+ 	.orbis-logo {
+ 		height: auto;
+ 		width: 60%;
+ 		margin-left: 20%;
+ 		margin-right: 20%;
+ 	}
+
  	.footer-logo-container {
  		background: #FFFFFF;
  		margin-left: auto;
@@ -482,3 +495,5 @@
 	.right {text-align: right;}
 	.inline {display: inline;}
 	.normal-weight {font-weight: 300;}
+	.prize {font-size: 30px;  line-height: 34px;}
+	.bold {font-weight: bold;}
