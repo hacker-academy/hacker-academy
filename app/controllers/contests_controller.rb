@@ -117,6 +117,11 @@
         unless (0..4).member? @level
           redirect_to @contest, alert: "Invalid level"
           return
+        end
+      elsif contest_ident == 7
+        unless (0..1).member? @level
+          redirect_to @contest, alert: "Invalid level"
+          return
         end  
       else
         redirect_to @contest, alert: "Invalid contest"
