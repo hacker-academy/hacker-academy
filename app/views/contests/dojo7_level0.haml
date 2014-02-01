@@ -1,0 +1,22 @@
+= render partial: 'problem_header'
+%p
+  Counting numbers!
+
+%p 
+  Enter the number 7.
+
+
+%h2 Sample Problem
+%h4 Input - n
+.data
+  %code 24
+%h4 Solution
+.data
+  %code 8	
+
+%h2 Actual Problem
+%h4 Club Stats
+.data
+  %code= @prob[:number]
+
+= render partial: 'submit'

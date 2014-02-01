@@ -172,6 +172,64 @@ class ContestsController < ApplicationController
     correct = false
     perf = -1
 
+
+
+
+
+
+
+
+
+if contest.puzzle_ident == 7
+      time_elapsed = Time.now.to_i - session[:time]
+      session.delete :time
+      level = params[:level]
+      if time_elapsed > 120  && level < 3
+         redirect_to contest,
+          alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
+        return
+      end
+      msg = nil
+      if level == "3" or level == "4"
+        msg = params[:searches] + params[:locations]
+        key = ENV['HMAC_KEY'] || "derp"
+        hmac = OpenSSL::HMAC.hexdigest('sha256', msg, key)
+        if hmac != session[:key]
+          redirect_to contest, alert: 'Cheating detected...'
+          return
+        end
+        session.delete :key
+      end
+      if time_elapsed > 180 && level >= 3
+        redirect_to contest,
+          alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
+        return
+      end
+
+      if level == '0'
+        number = params[:number].to_i
+
+        #logic goes here
+
+        solution = 7 #for testing
+        puts "\n\n" + solution + "\n\n"
+        correct = ContestsHelper::Dojo6.verify_level0(
+          params[:solution], solution
+        )
+      end
+    end
+
+
+
+
+
+
+
+
+
+
+
+
     if contest.puzzle_ident == 6
       time_elapsed = Time.now.to_i - session[:time]
       session.delete :time
