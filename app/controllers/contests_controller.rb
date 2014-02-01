@@ -211,7 +211,7 @@
 
           #logic goes here
 
-          solution = 7 #for testing
+          solution = '7' #for testing
           puts "\n\n" + solution + "\n\n"
           correct = ContestsHelper::Dojo6.verify_level0(
             params[:solution], solution
