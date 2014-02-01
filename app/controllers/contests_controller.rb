@@ -41,6 +41,9 @@ class ContestsController < ApplicationController
   def show
     @contest = Contest.find(params[:id])
     @num_probs = @contest.puzzle_ident == 3 ? 3 : 2
+    if @contest.puzzle_ident == 7
+      @num_probs = 1
+    end
     if @contest.puzzle_ident == 5
       @num_probs = 5
     end

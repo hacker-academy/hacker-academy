@@ -71,7 +71,8 @@ module Dojo7
     def self.verify_puzzle(level, *args)
       return self.send("verify_level#{level}", *args)
     end
-  end
+end
+
 
 
 
