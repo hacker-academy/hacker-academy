@@ -184,7 +184,7 @@
         time_elapsed = Time.now.to_i - session[:time]
         session.delete :time
         level = params[:level]
-        if time_elapsed > 120  && level < 3
+        if time_elapsed > 120  && level.to_i < 3
            redirect_to contest,
             alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
           return
