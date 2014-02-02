@@ -41,6 +41,42 @@ module ContestsHelper
 
   WORDS = Marshal.load(open('lib/words2.dump'))
 
+
+
+
+
+
+
+
+
+
+module Dojo7
+    
+    def self.generate_level0
+      number = 55
+      return {number: number.to_s}
+    end
+
+     def self.verify_level0 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+
+    LOCATIONS = Marshal.load(open('lib/ecdojolocations.dump'))
+    SALT = "nacl"
+
+    def self.generate_puzzle(level, *args)
+      return self.send("generate_level#{level}", *args)
+    end
+
+    def self.verify_puzzle(level, *args)
+      return self.send("verify_level#{level}", *args)
+    end
+end
+
+
+
+
+
   module Dojo6
     
     def self.generate_level0
