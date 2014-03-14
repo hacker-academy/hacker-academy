@@ -11,7 +11,7 @@ gem 'mongoid', '~> 2.2.6'
 gem 'bson_ext', '~> 1.3'
 gem 'heroku_mongoid', '0.0.1'
 gem 'compass', '0.11.1'
-gem 'haml', '3.1.1'
+gem "haml", "~> 3.2.0.rc.4"
 gem 'jquery-rails', '1.0.9'
 gem 'devise', '1.3.4'
 gem 'cancan', '~> 1.6'
