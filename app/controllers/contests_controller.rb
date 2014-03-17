@@ -212,7 +212,7 @@
         end
 
         if level == '0'
-          number = params[:ciphertext]
+          ciphertext = params[:ciphertext]
           otp = params[:otp]
 
           # --- Solution code --- #
