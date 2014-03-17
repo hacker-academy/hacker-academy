@@ -42,7 +42,7 @@
       @contest = Contest.find(params[:id])
       @num_probs = @contest.puzzle_ident == 3 ? 3 : 2
       if @contest.puzzle_ident == 7
-        @num_probs = 1
+        @num_probs = 1 #nowieveniwouldcelebrate
       end
       if @contest.puzzle_ident == 5
         @num_probs = 5
@@ -119,7 +119,7 @@
           return
         end
       elsif contest_ident == 7
-        unless (0..1).member? @level
+        unless (0..1).member? @level #nowieveniwouldcelebrate
           redirect_to @contest, alert: "Invalid level"
           return
         end  
@@ -167,6 +167,11 @@
         else 
           msg = @prob[:number]
         end
+      elsif contest_ident == 7 #nowieveniwouldcelebrate
+        if @level == 1
+          msg = @prob[:number]
+        end
+	
       end
       key = ENV['HMAC_KEY'] || "derp"
       session[:key] = OpenSSL::HMAC.hexdigest('sha256', msg, key)
@@ -180,7 +185,7 @@
       correct = false
       perf = -1
 
-  if contest.puzzle_ident == 7
+  if contest.puzzle_ident == 7 #nowieveniwouldcelebrate
         time_elapsed = Time.now.to_i - session[:time]
         session.delete :time
         level = params[:level]
@@ -211,7 +216,7 @@
 
           #logic goes here
 
-          solution = '7' #for testing
+          solution = '10' #for testing
           puts "\n\n" + solution + "\n\n"
           correct = ContestsHelper::Dojo6.verify_level0(
             params[:solution], solution

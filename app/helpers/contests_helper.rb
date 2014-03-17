@@ -50,7 +50,7 @@ module ContestsHelper
 
 
 
-module Dojo7
+module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
     
     def self.generate_level0
       number = 55
