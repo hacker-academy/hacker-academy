@@ -1,22 +1,29 @@
 = render partial: 'problem_header'
 %p
-  Counting numbers!
+  One-Time Pad - a perfectly secure encryption method?
 
 %p 
-  Enter the number 10.
+  http://en.wikipedia.org/wiki/One-time_pad
+  TODO put description.
 
 
 %h2 Sample Problem
-%h4 Input - n
+%h4 Ciphertext
 .data
-  %code 24
+  %code UMLKLNGLEDFXY
+%h4 OTP
+.data
+  %code CIJTHUUHMLFRU
 %h4 Solution
 .data
-  %code 8	
+  %code SECRETMESSAGE	
 
 %h2 Actual Problem
-%h4 Club Stats
+%h4 Ciphertext
 .data
-  %code= @prob[:number]
+  %code= @prob[:ciphertext]
+%h4 OTP
+.data
+  %code= @prob[:otp]
 
 = render partial: 'submit'

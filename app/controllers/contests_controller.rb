@@ -169,7 +169,7 @@
         end
       elsif contest_ident == 7 #nowieveniwouldcelebrate
         if @level == 1
-          msg = @prob[:number]
+          msg = @prob[:ciphertext] + @prob([:otp])
         end
 	
       end
@@ -212,11 +212,29 @@
         end
 
         if level == '0'
-          number = params[:number].to_i
+          number = params[:ciphertext]
+          otp = params[:otp]
+
+          # --- Solution code --- #
+          ciphertext_as_array = ciphertext.split(//)
+          pad_as_array = pad.split(//)
+          plaintext_as_array = Array.new
+          plaintext = ""
+
+          for i in 0..ciphertext_as_array.length - 1
+            n1 = ciphertext_as_array[i].ord - 65
+            n2 = pad_as_array[i].ord - 65
+            plaintext_as_array[i] = (n1 - n2)%26
+            plaintext_as_array[i] = plaintext_as_array[i] + 65
+            plaintext = plaintext + plaintext_as_array[i].chr
+          end
+          # --- End solution code --- #
+
+
 
           #logic goes here
 
-          solution = '10' #for testing
+          solution = plaintext
           puts "\n\n" + solution + "\n\n"
           correct = ContestsHelper::Dojo6.verify_level0(
             params[:solution], solution
