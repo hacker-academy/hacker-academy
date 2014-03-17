@@ -53,8 +53,45 @@ module ContestsHelper
 module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
     
     def self.generate_level0
-      number = 55
-      return {number: number.to_s}
+      # --- Solution code --- #
+
+       set_of_plaintext =[
+              'FIFTYPACESNORTHOFTHESTRAWBERRYFARM',
+              'NINETYFEETSOUTHOFTHEOLDCHURCH',
+              'ONEMILENORTHOFTHEELEMENTARYSCHOOL',
+              'THREEMILESSOUTHOFTHECREEPYCIRCUS',
+              'SIXTYPACESWESTOFBRANDNEWWHEATMILL',
+              'FIVEMILESEASTOFTHESTINKYRUBBERFACTORY',
+              'NINETYSILLYWALKSSOUTHOFTHEMINISTRY',
+              'JUSTUNDERTHEABANDONEDBRIDGE',
+              'RIGHTBEHINDTHENEWLAUNDROMAT',
+              'ONTHETHIRDFLOOROFTHETALLESTBUILDING',
+              'INTHEBASEMENTOFTHEMAYORSMANOR'
+            ]
+
+        #TODO new set of plaintext for this
+        plaintext = set_of_plaintext.sample
+        #puts "ptx is " + plaintext
+
+        pad = (0...plaintext.length).map { (65 + rand(26)).chr }.join
+        #puts "pad is " + pad
+
+
+        plaintext_as_array = plaintext.split(//)
+        pad_as_array = pad.split(//)
+        ciphertext_as_array = Array.new
+        ciphertext = ""
+
+        for i in 0..plaintext_as_array.length - 1
+          n1 = plaintext_as_array[i].ord - 65
+          n2 = pad_as_array[i].ord - 65
+          ciphertext_as_array[i] = (n1 + n2)%26
+          ciphertext_as_array[i] = ciphertext_as_array[i] + 65
+          ciphertext = ciphertext + ciphertext_as_array[i].chr
+        end
+
+      # --- End solution code --- #
+      return {ciphertext: ciphertext, otp: pad}
     end
 
      def self.verify_level0 our_plaintext, their_plaintext

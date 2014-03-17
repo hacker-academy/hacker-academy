@@ -169,7 +169,7 @@
         end
       elsif contest_ident == 7 #nowieveniwouldcelebrate
         if @level == 1
-          msg = @prob[:ciphertext] + @prob([:otp]
+          msg = @prob[:ciphertext] + @prob[:otp]
         end
 	
       end
