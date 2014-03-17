@@ -233,10 +233,10 @@
 
 
 
-          #logic goes here
+          
 
           solution = plaintext
-          puts "\n\n" + solution + "\n\n"
+          puts "\n\n grep for this: solution is (" + solution + ")\n\n"
           correct = ContestsHelper::Dojo6.verify_level0(
             params[:solution], solution
           )
