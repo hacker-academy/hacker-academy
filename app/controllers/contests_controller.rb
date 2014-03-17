@@ -214,6 +214,7 @@
         if level == '0'
           ciphertext = params[:ciphertext].to_s
           otp = params[:otp].to_s
+          pad = otp
 
           # --- Solution code --- #
           ciphertext_as_array = ciphertext.split(//)
