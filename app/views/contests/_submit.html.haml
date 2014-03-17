@@ -18,16 +18,15 @@
   - elsif @contest.puzzle_ident == 5
     = hidden_field_tag :number, @prob[:number]
     = hidden_field_tag :riddle, @prob[:riddle]
+  - elsif @contest.puzzle_ident == 7
+    = hidden_field_tag :ciphertext, @prob[:ciphertext]
+    = hidden_field_tag :otp, @prob[:otp]
   - elsif @contest.puzzle_ident == 6
     - if @level < 3
     = hidden_field_tag :clubs, @prob[:clubs]
     = hidden_field_tag :course, @prob[:course]
     = hidden_field_tag :usernames, @prob[:usernames]
     = hidden_field_tag :number, @prob[:number]
-    - elsif @contest.puzzle_ident == 7
-      - if @level == 1
-      = hidden_field_tag :ciphertext, @prob[:ciphertext]
-      = hidden_field_tag :otp, @prob[:otp]
     - else
       = hidden_field_tag :searches, @prob[:searches].map{|x| x[0]}.join('+')
       = hidden_field_tag :locations, @prob[:locations].join('+')
