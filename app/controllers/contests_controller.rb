@@ -216,6 +216,8 @@
           otp = params[:otp].to_s
           pad = otp
 
+          puts "grep for this: ciphertext:(" + ciphertext + "), otp:(" + otp + "), solution:(" + params[:solution] + ")"
+
           # --- Solution code --- #
           ciphertext_as_array = ciphertext.split(//)
           pad_as_array = pad.split(//)
@@ -235,10 +237,10 @@
 
           
 
-          solution = plaintext
-          puts "\n\n grep for this: solution is (" + solution + ")\n\n"
+          mySolution = plaintext
+          puts "\n\nmySolution is (" + mySolution + ")\n\n"
           correct = ContestsHelper::Dojo6.verify_level0(
-            params[:solution], solution
+            params[:solution], mySolution
           )
         end
       end
