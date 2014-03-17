@@ -212,13 +212,13 @@
         end
 
         if level == '0'
-          ciphertext = @params[:ciphertext].to_s
-          otp = @params[:otp].to_s
+          ciphertext = params[:ciphertext].to_s
+          otp = params[:otp].to_s
           pad = otp
 
           puts "grep for this: ciphertext:(" + ciphertext + "), otp:(" + otp + "), solution:(" + params[:solution] + ")"
           #puts "@prob: " + @prob[:otp].to_s
-          #puts "prob: " + prob[:otp].to_s
+          puts "prob: " + prob[:otp].to_s
 
           # --- Solution code --- #
           ciphertext_as_array = ciphertext.split(//)
