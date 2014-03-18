@@ -188,6 +188,7 @@ class Integer #modular exponentiation used in dojo7
         elsif @level == 1
           msg = @prob[:ciphertext] + @prob[:partial]
         elsif @level == 2
+          puts "grep for this:" + @prob[:ciphertext].to_s + ")(" + @prob[:publicKey].to_s + ")(" + @prob[:n].to_s + ")"
           msg = @prob[:ciphertext] + @prob[:publicKey] + @prob[:n]
         end
 	
