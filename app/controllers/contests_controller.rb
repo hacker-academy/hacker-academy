@@ -315,6 +315,9 @@ class Integer #modular exponentiation used in dojo7
         elsif level == '2'
             #RSA bruteforce
             d = -1
+            ciphertext = params[:encrypted]
+            publicKey = params[:publicKey]
+            n = param[:n]
        
 
             #Taken on 2014-03-02
