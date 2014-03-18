@@ -53,7 +53,7 @@ module ContestsHelper
 module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
     
     def self.generate_level0
-      # --- Solution code --- #
+      # --- Problem generate code --- #
 
        set_of_plaintext =[
               'FIFTYPACESNORTHOFTHESTRAWBERRYFARM',
@@ -90,9 +90,64 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
           ciphertext = ciphertext + ciphertext_as_array[i].chr
         end
 
-      # --- End solution code --- #
+      # --- End problem generate code --- #
       return {ciphertext: ciphertext, otp: pad}
     end
+
+    def self.generate_level1
+      # --- Problem generate code --- #
+               set_of_plaintext =[
+          'FIFTYPACESNORTHOFTHESTRAWBERRYFARM',
+          'NINETYFEETSOUTHOFTHEOLDCHURCH',
+          'ONEMILENORTHOFTHEELEMENTARYSCHOOL',
+          'THREEMILESSOUTHOFTHECREEPYCIRCUS',
+          'SIXTYPACESWESTOFBRANDNEWWHEATMILL',
+          'FIVEMILESEASTOFTHESTINKYRUBBERFACTORY',
+          'NINETYSILLYWALKSSOUTHOFTHEMINISTRY',
+          'JUSTUNDERTHEABANDONEDBRIDGE',
+          'RIGHTBEHINDTHENEWLAUNDROMAT',
+          'ONTHETHIRDFLOOROFTHETALLESTBUILDING',
+          'INTHEBASEMENTOFTHEMAYORSMANOR'
+          ]
+
+           set_of_partials =[
+          '.....PACES........................',
+          '...............OFTHE.........',
+          '.................ELEME...........',
+          '..........................CIRCUS',
+          '................BRAND............',
+          '....MILES............................',
+          '...........WALKS..................',
+          '....UNDER..................',
+          '.................LAUND.....',
+          '..........FLOOR....................',
+          '........................MANOR'
+          ]
+
+          set_of_key = ["CACTI", "MAPLE", "PINES", "SEEDY", "ROSES", "BALSA", "MOSSY", "PETAL"]
+
+          r = Random.new
+          pt_index = r.rand(0..set_of_plaintext.length - 1)
+
+          plaintext = set_of_plaintext[pt_index]
+          partial = set_of_partials[pt_index]
+          key = set_of_key.sample
+
+          plaintext_as_array = plaintext.split(//)
+          key_as_array = key.split(//)
+          ciphertext_as_array = Array.new
+          ciphertext = ""
+
+          for i in 0..plaintext_as_array.length - 1
+            n1 = plaintext_as_array[i].ord - 65
+            n2 = key_as_array[i%(key_as_array.length)].ord - 65
+            ciphertext_as_array[i] = (n1 + n2)%26
+            ciphertext_as_array[i] = ciphertext_as_array[i] + 65
+            ciphertext = ciphertext + ciphertext_as_array[i].chr
+          end
+      # --- End problem generate code --- #
+
+      return {ciphertext: ciphertext, partial: partial}
 
      def self.verify_level0 our_plaintext, their_plaintext
       return our_plaintext == their_plaintext

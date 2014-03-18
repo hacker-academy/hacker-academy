@@ -19,8 +19,12 @@
     = hidden_field_tag :number, @prob[:number]
     = hidden_field_tag :riddle, @prob[:riddle]
   - elsif @contest.puzzle_ident == 7
-    = hidden_field_tag :ciphertext, @prob[:ciphertext]
-    = hidden_field_tag :otp, @prob[:otp]
+    - if @level == 0
+      = hidden_field_tag :ciphertext, @prob[:ciphertext]
+      = hidden_field_tag :otp, @prob[:otp]
+    - elsif @level == 1
+      = hidden_field_tag :ciphertext, @prob[:ciphertext]
+      = hidden_field_tag :partial, @prob[:partial]
   - elsif @contest.puzzle_ident == 6
     - if @level < 3
     = hidden_field_tag :clubs, @prob[:clubs]

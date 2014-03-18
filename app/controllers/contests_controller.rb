@@ -42,7 +42,7 @@
       @contest = Contest.find(params[:id])
       @num_probs = @contest.puzzle_ident == 3 ? 3 : 2
       if @contest.puzzle_ident == 7
-        @num_probs = 1 #nowieveniwouldcelebrate
+        @num_probs = 2 #nowieveniwouldcelebrate
       end
       if @contest.puzzle_ident == 5
         @num_probs = 5
@@ -170,6 +170,8 @@
       elsif contest_ident == 7 #nowieveniwouldcelebrate
         if @level == 1
           msg = @prob[:ciphertext] + @prob[:otp]
+        elsif @level == 2
+          msg = @prob[:ciphertext] + @prob[:partial]
         end
 	
       end
@@ -244,18 +246,51 @@
           correct = ContestsHelper::Dojo6.verify_level0(
             params[:solution], mySolution
           )
+        elsif level == '1'
+            mySolution = ""
+            # --- Solution code --- #
+
+                set_of_plaintext =[
+                'FIFTYPACESNORTHOFTHESTRAWBERRYFARM',
+                'NINETYFEETSOUTHOFTHEOLDCHURCH',
+                'ONEMILENORTHOFTHEELEMENTARYSCHOOL',
+                'THREEMILESSOUTHOFTHECREEPYCIRCUS',
+                'SIXTYPACESWESTOFBRANDNEWWHEATMILL',
+                'FIVEMILESEASTOFTHESTINKYRUBBERFACTORY',
+                'NINETYSILLYWALKSSOUTHOFTHEMINISTRY',
+                'JUSTUNDERTHEABANDONEDBRIDGE',
+                'RIGHTBEHINDTHENEWLAUNDROMAT',
+                'ONTHETHIRDFLOOROFTHETALLESTBUILDING',
+                'INTHEBASEMENTOFTHEMAYORSMANOR'
+                ]
+
+                 set_of_partials =[
+                '...........O...O..H.......E.......',
+                '..........S..T......O....U...',
+                '.........R....T..E.E.............',
+                '..RE.....S...........R..........',
+                '....Y.................E..H....I..',
+                '...................T.N..........C...Y',
+                '.....Y......AL......H.............',
+                '....UN...............B....E',
+                '.................L...D..MA.',
+                '.............O................L.IN.',
+                '.........M......H......S....R']
+
+
+                for i in 0..set_of_partials.length - 1
+                  if (partial == set_of_partials[i])
+                    mySolution = set_of_plaintext[i]
+                  end
+                end
+            # --- End solution code --- #
+
+            puts "\n\nmySolution is (" + mySolution + ")\n\n"
+            correct = ContestsHelper::Dojo6.verify_level0(
+              params[:solution], mySolution
+            )
         end
       end
-
-
-
-
-
-
-
-
-
-
 
 
       if contest.puzzle_ident == 6
