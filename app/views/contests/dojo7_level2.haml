@@ -1,0 +1,32 @@
+= render partial: 'problem_header'
+%p
+  RSA Bruteforce
+
+%p 
+  http://en.wikipedia.org/wiki/RSA_(cryptosystem)
+  Known: primes used to generate n are both less than 150000
+
+
+%h2 Sample Problem TODO
+%h4 Ciphertext
+.data
+  %code UMLKLNGLEDFXY
+%h4 OTP
+.data
+  %code CIJTHUUHMLFRU
+%h4 Solution
+.data
+  %code SECRETMESSAGE	
+
+%h2 Actual Problem
+%h4 Ciphertext
+.data
+  %code= @prob[:ciphertext]
+%h4 Public Key: exponent
+.data
+  %code= @prob[:publicKey]
+%h4 Public Key: modulus
+.data
+  %code= @prob[:n]
+
+= render partial: 'submit'
