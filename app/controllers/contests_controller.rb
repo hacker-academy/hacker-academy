@@ -248,6 +248,7 @@
           )
         elsif level == '1'
             mySolution = ""
+            partial = params[:partial].to_s
             # --- Solution code --- #
 
                 set_of_plaintext =[
