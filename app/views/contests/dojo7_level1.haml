@@ -1,0 +1,29 @@
+= render partial: 'problem_header'
+%p
+  Vigenere Cipher
+
+%p 
+  http://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher
+  
+
+
+%h2 Sample Problem
+%h4 Ciphertext
+.data
+  %code CHWEEYWLGSQIOMFEODDXUIQVKGH
+%h4 Partial Plaintext
+.data
+  %code ATTAC......................
+%h4 Solution
+.data
+  %code ATTACKTHEENEMYCAMPATSUNRISE	
+
+%h2 Actual Problem
+%h4 Ciphertext
+.data
+  %code= @prob[:ciphertext]
+%h4 Partial Plaintext
+.data
+  %code= @prob[:partial]
+
+= render partial: 'submit'
