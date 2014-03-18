@@ -148,6 +148,7 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
       # --- End problem generate code --- #
 
       return {ciphertext: ciphertext, partial: partial}
+    end
 
      def self.verify_level0 our_plaintext, their_plaintext
       return our_plaintext == their_plaintext
