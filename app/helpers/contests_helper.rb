@@ -234,8 +234,8 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
             ciphertext = (((encoded_text.to_i)**public1)%public2)
 
       # --- End problem generate code --- #
-
-      return {ciphertext: ciphertext, publicKey: publicKey, n: n}
+      puts "grep for this: in contests_helper: ciphertext as (" + ciphertext.to_s + ") publickey as (" + publickey.to_s + ") n as (" + n.to_s ")"
+      return {ciphertext: ciphertext.to_s, publicKey: publicKey.to_s, n: n.to_s}
     end
 
     def self.generate_level2
