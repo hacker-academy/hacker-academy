@@ -235,7 +235,7 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
 
       # --- End problem generate code --- #
 
-      return {ciphertext: ciphertext, publicKey: public1, n: n}
+      return {ciphertext: ciphertext, publicKey: publicKey, n: n}
     end
 
     def self.generate_level2

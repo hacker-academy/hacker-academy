@@ -2,7 +2,7 @@
   require 'cgi'
   require 'prime'
 
-class Integer
+class Integer #modular exponentiation used in dojo7
       def rosetta_mod_exp(exp, mod)
         exp < 0 and raise ArgumentError, "negative exponent"
         prod = 1
