@@ -1,5 +1,6 @@
   require 'openssl'
   require 'cgi'
+  require 'prime'
 
   class ContestsController < ApplicationController
     protect_from_forgery
@@ -42,7 +43,7 @@
       @contest = Contest.find(params[:id])
       @num_probs = @contest.puzzle_ident == 3 ? 3 : 2
       if @contest.puzzle_ident == 7
-        @num_probs = 2 #nowieveniwouldcelebrate
+        @num_probs = 3 #nowieveniwouldcelebrate
       end
       if @contest.puzzle_ident == 5
         @num_probs = 5
@@ -119,7 +120,7 @@
           return
         end
       elsif contest_ident == 7
-        unless (0..1).member? @level #nowieveniwouldcelebrate
+        unless (0..2).member? @level #nowieveniwouldcelebrate
           redirect_to @contest, alert: "Invalid level"
           return
         end  
@@ -172,6 +173,8 @@
           msg = @prob[:ciphertext] + @prob[:otp]
         elsif @level == 1
           msg = @prob[:ciphertext] + @prob[:partial]
+        elsif @level == 2
+          msg = @prob[:ciphertext] + @prob[:publicKey] + @prob[:n]
         end
 	
       end
@@ -214,6 +217,7 @@
         end
 
         if level == '0'
+          #one time pad
           ciphertext = params[:ciphertext].to_s
           otp = params[:otp].to_s
           pad = otp
@@ -247,6 +251,7 @@
             params[:solution], mySolution
           )
         elsif level == '1'
+            #vigenere
             mySolution = ""
             partial = params[:partial].to_s
             # --- Solution code --- #
@@ -289,6 +294,77 @@
 
             puts "\n\nmySolution is (" + mySolution + ")\n\n"
             correct = ContestsHelper::Dojo6.verify_level0(
+              params[:solution], mySolution
+            )
+        elsif level == '2'
+            #RSA bruteforce
+            d = -1
+            class Integer
+              def rosetta_mod_exp(exp, mod)
+                exp < 0 and raise ArgumentError, "negative exponent"
+                prod = 1
+                base = self % mod
+                until exp.zero?
+                  exp.odd? and prod = (prod * base) % mod
+                  exp >>= 1
+                  base = (base * base) % mod
+                end
+                prod
+              end
+            end
+
+            #Taken on 2014-03-02
+            def extended_gcd(a, b)
+            x = 0
+            y = 1
+            u = 1
+            v = 0 
+              while a != 0 do
+                    q, r = (b/a).floor, b%a
+                    m, n = x-u*q, y-v*q
+                    b,a = a,r
+                    x,y = u,v
+                    u,v = m,n
+              end
+              return b,x,y
+            end
+
+            def ASCII_decode (encoded)
+              decoded = ""
+              (0..(encoded.length)).step(2) do|n|
+                asciiChar = encoded[n].to_s + encoded[n+1].to_s
+                decoded = decoded + asciiChar.to_i.chr
+              end
+              return decoded
+            end
+
+            #Real solution: use primes as the first 14000 primes (~1 minute runtime)
+            #Fast solution for Rails site: use the hardcoded list of primes
+            primes = [98519, 98893, 98899, 98963, 99181, 99487, 99661, 99787, 99923, 100003, 100129, 100313, 100363, 100549, 100613, 100799, 100957, 100987, 101113, 101267, 101293, 101501, 101513, 101627, 101723, 101929, 102001, 102061, 102161, 102229, 102337, 102503, 102607, 102811, 102871, 103001, 103123, 103319, 103483, 103549, 103651, 103801, 103967, 103991, 104089, 104161, 104239, 104323, 104417, 104579, 104729]
+            #primes = Prime.first(14000)
+
+            mySolution = ""
+            primes.each do |p|
+            #for p in primeLowerBound..primeUpperBound
+            #if (Prime.prime?(p)) then
+              primes.each do |q|
+              #for q in primeLowerBound..primeUpperBound
+              #if (Prime.prime?(q)) then
+                if (n == p*q) then
+                  totient = (p-1)*(q-1)
+                  g,x,y = extended_gcd(totient,publicKey)
+                  if (y < 0) then
+                    y = totient + y
+                  end
+                  d = y
+                  mySolution = ASCII_decode(ciphertext.rosetta_mod_exp(d,n).to_s)
+                end
+              end
+              #end
+            #end
+            end
+
+             correct = ContestsHelper::Dojo6.verify_level0(
               params[:solution], mySolution
             )
         end

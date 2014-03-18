@@ -7,6 +7,7 @@
 # level, returning true or false.
 
 require 'digest/md5'
+require 'prime'
 class Date
   class << self
     def wrap_day_fraction_to_time( day_frac )
@@ -148,6 +149,92 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
       # --- End problem generate code --- #
 
       return {ciphertext: ciphertext, partial: partial}
+    end
+
+    def self.generate_level2
+      # --- Problem generate code --- #
+      #Taken on 2014-03-09 from http://rosettacode.org/wiki/Modular_exponentiation
+            class Integer
+              def rosetta_mod_exp(exp, mod)
+                exp < 0 and raise ArgumentError, "negative exponent"
+                prod = 1
+                base = self % mod
+                until exp.zero?
+                  exp.odd? and prod = (prod * base) % mod
+                  exp >>= 1
+                  base = (base * base) % mod
+                end
+                prod
+              end
+            end
+
+            #Taken on 2014-03-02
+            def extended_gcd(a, b)
+            x = 0
+            y = 1
+            u = 1
+            v = 0
+              while a != 0 do
+                    q, r = (b/a).floor, b%a
+                    m, n = x-u*q, y-v*q
+                    b,a = a,r
+                    x,y = u,v
+                    u,v = m,n
+              end
+
+              return b,x,y
+            end
+
+            words = ["BEGIN", "COVER", "WOODS", "DECOY", "DUELS", "ALONE", "MAJOR", "PEEKS", "TREES", "BLUFF", "CATCH", "FALSE", "CAMPS", "CARGO", "SPIES", "SIGNS", "BRIBE", "HILLS", "RIVER", "ROADS", "TRAPS", "NORTH", "SOUTH", "BELOW", "ABOVE", "SWAMP", "SONAR", "RADAR", "RAIDS", "SCOUT"]
+            primes = [98519, 98893, 98899, 98963, 99181, 99487, 99661, 99787, 99923, 100003, 100129, 100313, 100363, 100549, 100613, 100799, 100957, 100987, 101113, 101267, 101293, 101501, 101513, 101627, 101723, 101929, 102001, 102061, 102161, 102229, 102337, 102503, 102607, 102811, 102871, 103001, 103123, 103319, 103483, 103549, 103651, 103801, 103967, 103991, 104089, 104161, 104239, 104323, 104417, 104579, 104729]
+
+            p = -1 
+            q = p
+
+            until (p != q)
+              p = primes.sample
+              q = primes.sample
+            end
+
+            plaintext = words.sample #ARGV[0]
+            plaintext_as_array = plaintext.split(//)
+            encoded_text = ""
+
+            for i in 0..plaintext_as_array.length - 1
+              char = (plaintext_as_array[i].ord).to_s
+              encoded_text = encoded_text + char
+            end
+
+            n = p*q
+            totient = (p-1)*(q-1)
+
+            primesToGenerate = 1000
+            publicKey = totient + 1 #so the second condition in the 'until' below is false initially
+            until ((totient.gcd(publicKey) == 1) && (publicKey < totient)) do
+              publicKey = (Prime.first(primesToGenerate))[Random.rand(primesToGenerate -1)] 
+            end
+
+            g,x,y = extended_gcd(totient,publicKey)
+            if (y < 0) then
+              y = totient + y
+            end
+
+            d = y
+
+            private1 = d  
+            private2 = n
+
+            public1 = publicKey
+            public2 = n
+            ciphertext = (((encoded_text.to_i)**public1)%public2)
+
+      # --- End problem generate code --- #
+
+      return {ciphertext: ciphertext, publicKey: public1, n: n}
+    end
+
+    def self.generate_level2
+      return Dojo3::generate_level2 #XOR cipher
     end
 
      def self.verify_level0 our_plaintext, their_plaintext
