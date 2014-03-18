@@ -2,6 +2,20 @@
   require 'cgi'
   require 'prime'
 
+class Integer
+      def rosetta_mod_exp(exp, mod)
+        exp < 0 and raise ArgumentError, "negative exponent"
+        prod = 1
+        base = self % mod
+        until exp.zero?
+          exp.odd? and prod = (prod * base) % mod
+          exp >>= 1
+          base = (base * base) % mod
+        end
+        prod
+      end
+    end
+
   class ContestsController < ApplicationController
     protect_from_forgery
     before_filter :authenticate_user!, :except => [:show, :index]
@@ -299,19 +313,7 @@
         elsif level == '2'
             #RSA bruteforce
             d = -1
-            class Integer
-              def rosetta_mod_exp(exp, mod)
-                exp < 0 and raise ArgumentError, "negative exponent"
-                prod = 1
-                base = self % mod
-                until exp.zero?
-                  exp.odd? and prod = (prod * base) % mod
-                  exp >>= 1
-                  base = (base * base) % mod
-                end
-                prod
-              end
-            end
+       
 
             #Taken on 2014-03-02
             def extended_gcd(a, b)

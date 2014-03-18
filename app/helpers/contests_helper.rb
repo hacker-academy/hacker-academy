@@ -16,6 +16,23 @@ class Date
   end
 end
 
+
+
+class Integer #modular exponentiation used in dojo7
+  def rosetta_mod_exp(exp, mod)
+    exp < 0 and raise ArgumentError, "negative exponent"
+    prod = 1
+    base = self % mod
+    until exp.zero?
+      exp.odd? and prod = (prod * base) % mod
+      exp >>= 1
+      base = (base * base) % mod
+    end
+    prod
+  end
+end
+
+
 module ContestsHelper
   def duration_between(from_date, to_date)
     hours, minutes, seconds, frac =
@@ -154,19 +171,7 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
     def self.generate_level2
       # --- Problem generate code --- #
       #Taken on 2014-03-09 from http://rosettacode.org/wiki/Modular_exponentiation
-            class Integer
-              def rosetta_mod_exp(exp, mod)
-                exp < 0 and raise ArgumentError, "negative exponent"
-                prod = 1
-                base = self % mod
-                until exp.zero?
-                  exp.odd? and prod = (prod * base) % mod
-                  exp >>= 1
-                  base = (base * base) % mod
-                end
-                prod
-              end
-            end
+        
 
             #Taken on 2014-03-02
             def extended_gcd(a, b)
