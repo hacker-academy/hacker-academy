@@ -168,9 +168,9 @@
           msg = @prob[:number]
         end
       elsif contest_ident == 7 #nowieveniwouldcelebrate
-        if @level == 1
+        if @level == 0
           msg = @prob[:ciphertext] + @prob[:otp]
-        elsif @level == 2
+        elsif @level == 1
           msg = @prob[:ciphertext] + @prob[:partial]
         end
 	
