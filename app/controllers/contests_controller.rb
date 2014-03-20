@@ -188,9 +188,9 @@ class Integer #modular exponentiation used in dojo7
         elsif @level == 1
           msg = @prob[:ciphertext] + @prob[:partial]
         elsif @level == 2
-          puts "grep for this:" + @prob[:encrypted].to_s + ")(" + @prob[:publicKey].to_s + ")(" + @prob[:n].to_s + ")"
+          puts "grep for this:" + @prob[:rsa_ciphertext].to_s + ")(" + @prob[:publicKey].to_s + ")(" + @prob[:exponentN].to_s + ")"
           puts "do these exist? partial(" + @prob[:partial].to_s + "), otp" + @prob[:otp].to_s + ")"
-          msg = @prob[:encrypted] + @prob[:publicKey] + @prob[:n]
+          msg = @prob[:rsa_ciphertext] + @prob[:publicKey] + @prob[:exponentN]
         end
 	
       end

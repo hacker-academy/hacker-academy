@@ -235,7 +235,7 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
 
       # --- End problem generate code --- #
       puts "grep for this: in contests_helper: ciphertext as (" + ciphertext.to_s + ") publickey as (" + publickey.to_s + ") n as (" + n.to_s + ")"
-      return {encrypted: ciphertext.to_s, publicKey: publicKey.to_s, n: n.to_s}
+      return {rsa_ciphertext: ciphertext.to_s, publicKey: publicKey.to_s, exponentN: n.to_s}
     end
 
     def self.generate_level2

@@ -21,12 +21,12 @@
 %h2 Actual Problem
 %h4 Ciphertext
 .data
-  %code= @prob[:encrypted]
+  %code= @prob[:rsa_ciphertext]
 %h4 Public Key: exponent
 .data
   %code= @prob[:publicKey]
 %h4 Public Key: modulus
 .data
-  %code= @prob[:n]
+  %code= @prob[:exponentN]
 
 = render partial: 'submit'

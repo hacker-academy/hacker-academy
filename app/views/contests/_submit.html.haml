@@ -28,7 +28,7 @@
     - elsif @level == 2
       = hidden_field_tag :encrypted, @prob[:encrypted]
       = hidden_field_tag :publicKey, @prob[:publicKey]
-      = hidden_field_tag :n, @prob[:n]
+      = hidden_field_tag :exponentN, @prob[:exponentN]
   - elsif @contest.puzzle_ident == 6
     - if @level < 3
     = hidden_field_tag :clubs, @prob[:clubs]
