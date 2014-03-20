@@ -164,7 +164,7 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
             ciphertext = ciphertext + ciphertext_as_array[i].chr
           end
       # --- End problem generate code --- #
-
+      puts "VIGNERE GREP HELPER"
       return {ciphertext: ciphertext, partial: partial}
     end
 

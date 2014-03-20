@@ -186,13 +186,13 @@ class Integer #modular exponentiation used in dojo7
         if @level == 0
           msg = @prob[:ciphertext] + @prob[:otp]
         elsif @level == 1
+          puts "VIGNERE GREP CONTROLLER"
           msg = @prob[:ciphertext] + @prob[:partial]
         elsif @level == 2
           puts "grep for this:" + @prob[:rsa_ciphertext].to_s + ")(" + @prob[:publicKey].to_s + ")(" + @prob[:exponentN].to_s + ")"
           puts "do these exist? partial(" + @prob[:partial].to_s + "), otp" + @prob[:otp].to_s + ")"
           msg = @prob[:rsa_ciphertext] + @prob[:publicKey] + @prob[:exponentN]
         end
-      end
 	
       end
       key = ENV['HMAC_KEY'] || "derp"
