@@ -369,6 +369,8 @@ class Integer #modular exponentiation used in dojo7
                     y = totient + y
                   end
                   d = y
+                  puts "DBG IN LOOP: d is " + d.to_s
+                  puts "DBG IN LOOP: ASCII ENCODED IS " + ciphertext.rosetta_mod_exp(d,n).to_s
                   mySolution = ASCII_decode(ciphertext.rosetta_mod_exp(d,n).to_s)
                   puts "DBG IN LOOP: mySolution is " + mySolution
                 end
