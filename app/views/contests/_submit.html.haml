@@ -26,7 +26,7 @@
       = hidden_field_tag :ciphertext, @prob[:ciphertext]
       = hidden_field_tag :partial, @prob[:partial]
     - elsif @level == 2
-      = hidden_field_tag :encrypted, @prob[:encrypted]
+      = hidden_field_tag :rsa_ciphertext, @prob[:rsa_ciphertext]
       = hidden_field_tag :publicKey, @prob[:publicKey]
       = hidden_field_tag :exponentN, @prob[:exponentN]
   - elsif @contest.puzzle_ident == 6
