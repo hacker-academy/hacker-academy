@@ -370,6 +370,7 @@ class Integer #modular exponentiation used in dojo7
                   end
                   d = y
                   mySolution = ASCII_decode(ciphertext.rosetta_mod_exp(d,n).to_s)
+                  puts "DBG IN LOOP: mySolution is " + mySolution
                 end
               end
               #end
