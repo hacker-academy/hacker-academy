@@ -374,7 +374,7 @@ class Integer #modular exponentiation used in dojo7
               #end
             #end
             end
-
+              puts "DBG: my solution is (" + mySolution + ") and client solution is (" + params[:solution] +")"
              correct = ContestsHelper::Dojo6.verify_level0(
               params[:solution], mySolution
             )
