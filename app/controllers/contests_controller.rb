@@ -192,6 +192,7 @@ class Integer #modular exponentiation used in dojo7
           puts "do these exist? partial(" + @prob[:partial].to_s + "), otp" + @prob[:otp].to_s + ")"
           msg = @prob[:rsa_ciphertext] + @prob[:publicKey] + @prob[:exponentN]
         end
+      end
 	
       end
       key = ENV['HMAC_KEY'] || "derp"
