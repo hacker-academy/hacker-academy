@@ -49,6 +49,25 @@ module ContestsHelper
 
 
 
+  #Taken on 2014-03-02
+  def extended_gcd(a, b)
+  x = 0
+  y = 1
+  u = 1
+  v = 0
+    while a != 0 do
+          q, r = (b/a).floor, b%a
+          m, n = x-u*q, y-v*q
+          b,a = a,r
+          x,y = u,v
+          u,v = m,n
+    end
+
+    return b,x,y
+  end
+
+
+
   def self.generate_puzzle(dojo, level, args)
     return self.const_get(:"Dojo#{dojo}").generate_puzzle(level, *args)
   end
@@ -174,22 +193,6 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
       puts "DBG self.generate_level2"
 
 
-            #Taken on 2014-03-02
-            def extended_gcd(a, b)
-            x = 0
-            y = 1
-            u = 1
-            v = 0
-              while a != 0 do
-                    q, r = (b/a).floor, b%a
-                    m, n = x-u*q, y-v*q
-                    b,a = a,r
-                    x,y = u,v
-                    u,v = m,n
-              end
-
-              return b,x,y
-            end
 
             words = ["BEGIN", "COVER", "WOODS", "DECOY", "DUELS", "ALONE", "MAJOR", "PEEKS", "TREES", "BLUFF", "CATCH", "FALSE", "CAMPS", "CARGO", "SPIES", "SIGNS", "BRIBE", "HILLS", "RIVER", "ROADS", "TRAPS", "NORTH", "SOUTH", "BELOW", "ABOVE", "SWAMP", "SONAR", "RADAR", "RAIDS", "SCOUT"]
             primes = [98519, 98893, 98899, 98963, 99181, 99487, 99661, 99787, 99923, 100003, 100129, 100313, 100363, 100549, 100613, 100799, 100957, 100987, 101113, 101267, 101293, 101501, 101513, 101627, 101723, 101929, 102001, 102061, 102161, 102229, 102337, 102503, 102607, 102811, 102871, 103001, 103123, 103319, 103483, 103549, 103651, 103801, 103967, 103991, 104089, 104161, 104239, 104323, 104417, 104579, 104729]
