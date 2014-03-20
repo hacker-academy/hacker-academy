@@ -342,9 +342,9 @@ class Integer #modular exponentiation used in dojo7
         elsif level == '2'
             #RSA bruteforce
             d = -1
-            ciphertext = params[:rsa_ciphertext]
-            publicKey = params[:publicKey]
-            n = params[:exponentN]
+            ciphertext = params[:rsa_ciphertext].to_i
+            publicKey = params[:publicKey].to_i
+            n = params[:exponentN].to_i
        
 
 
@@ -362,6 +362,7 @@ class Integer #modular exponentiation used in dojo7
               #for q in primeLowerBound..primeUpperBound
               #if (Prime.prime?(q)) then
                 if (n == p*q) then
+                  puts "DBG: n = pq"
                   totient = (p-1)*(q-1)
                   g,x,y = extended_gcd(totient,publicKey)
                   if (y < 0) then
