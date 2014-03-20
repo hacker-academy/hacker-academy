@@ -2,6 +2,32 @@
   require 'cgi'
   require 'prime'
 
+
+    #Taken on 2014-03-02
+  def extended_gcd(a, b)
+  x = 0
+  y = 1
+  u = 1
+  v = 0 
+    while a != 0 do
+          q, r = (b/a).floor, b%a
+          m, n = x-u*q, y-v*q
+          b,a = a,r
+          x,y = u,v
+          u,v = m,n
+    end
+    return b,x,y
+  end
+
+  def ASCII_decode (encoded)
+    decoded = ""
+    (0..(encoded.length)).step(2) do|n|
+      asciiChar = encoded[n].to_s + encoded[n+1].to_s
+      decoded = decoded + asciiChar.to_i.chr
+    end
+    return decoded
+  end
+
 class Integer #modular exponentiation used in dojo7
       def rosetta_mod_exp(exp, mod)
         exp < 0 and raise ArgumentError, "negative exponent"
@@ -57,7 +83,7 @@ class Integer #modular exponentiation used in dojo7
       @contest = Contest.find(params[:id])
       @num_probs = @contest.puzzle_ident == 3 ? 3 : 2
       if @contest.puzzle_ident == 7
-        @num_probs = 3 #nowieveniwouldcelebrate
+        @num_probs = 4 #nowieveniwouldcelebrate
       end
       if @contest.puzzle_ident == 5
         @num_probs = 5
@@ -321,30 +347,7 @@ class Integer #modular exponentiation used in dojo7
             n = param[:n]
        
 
-            #Taken on 2014-03-02
-            def extended_gcd(a, b)
-            x = 0
-            y = 1
-            u = 1
-            v = 0 
-              while a != 0 do
-                    q, r = (b/a).floor, b%a
-                    m, n = x-u*q, y-v*q
-                    b,a = a,r
-                    x,y = u,v
-                    u,v = m,n
-              end
-              return b,x,y
-            end
 
-            def ASCII_decode (encoded)
-              decoded = ""
-              (0..(encoded.length)).step(2) do|n|
-                asciiChar = encoded[n].to_s + encoded[n+1].to_s
-                decoded = decoded + asciiChar.to_i.chr
-              end
-              return decoded
-            end
 
             #Real solution: use primes as the first 14000 primes (~1 minute runtime)
             #Fast solution for Rails site: use the hardcoded list of primes
