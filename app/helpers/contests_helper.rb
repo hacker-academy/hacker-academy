@@ -173,6 +173,7 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
       #Taken on 2014-03-09 from http://rosettacode.org/wiki/Modular_exponentiation
       puts "DBG self.generate_level2"
 
+
             #Taken on 2014-03-02
             def extended_gcd(a, b)
             x = 0
