@@ -249,9 +249,9 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
       # return {ciphertext: ciphertext, partial: partial}
     end
 
-    #def self.generate_level2
-    #  return Dojo3::generate_level2 #XOR cipher
-    #end
+    def self.generate_level3
+      Dojo3::generate_level2 #XOR cipher
+    end
 
      def self.verify_level0 our_plaintext, their_plaintext
       return our_plaintext == their_plaintext
