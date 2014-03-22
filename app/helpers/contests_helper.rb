@@ -275,6 +275,17 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
       return {plaintext: phrase.join(' '), ciphertext: ciphered, hint: hint}
     end
 
+    def self.generate_level4
+      alphabet = ('a'..'z').to_a + [' ', '.', ',', ':', ';']
+      encoding = alphabet.zip(alphabet.shuffle).inject({}) do |hsh, (k,v)|
+        hsh[k] = v
+        hsh
+      end
+      phrase = TEXT[rand(TEXT.length), 6].join(' ')
+      ciphered = phrase.split(//).map {|char| encoding[char] }.join
+      return {plaintext: phrase, ciphertext: ciphered}
+    end
+
      def self.verify_level0 our_plaintext, their_plaintext
       return our_plaintext == their_plaintext
     end
