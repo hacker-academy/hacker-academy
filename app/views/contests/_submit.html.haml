@@ -31,6 +31,8 @@
       = hidden_field_tag :exponentN, @prob[:exponentN]
     - elsif @level == 3
       = hidden_field_tag :plaintext, @prob[:plaintext]
+    - elsif @level == 4
+      = hidden_field_tag :plaintext, @prob[:plaintext]
   - elsif @contest.puzzle_ident == 6
     - if @level < 3
     = hidden_field_tag :clubs, @prob[:clubs]

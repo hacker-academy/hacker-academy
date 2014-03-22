@@ -343,7 +343,7 @@ class Integer #modular exponentiation used in dojo7
         elsif level == '3'
             #XOR
             correct = ContestsHelper::Dojo3.verify_level3(
-              params[:solution], params[:plaintext]
+              params[:solution], 'PASS'
             )
         elsif level == '2'
             #RSA bruteforce
