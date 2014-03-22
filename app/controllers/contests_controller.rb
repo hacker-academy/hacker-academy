@@ -211,6 +211,8 @@ class Integer #modular exponentiation used in dojo7
       elsif contest_ident == 7 #nowieveniwouldcelebrate
         if @level == 0
           msg = @prob[:ciphertext] + @prob[:otp]
+        elsif @level == 4
+            msg = @prob[:plaintext]
         elsif @level == 1
           puts "VIGNERE GREP CONTROLLER"
           msg = @prob[:ciphertext] + @prob[:partial]
