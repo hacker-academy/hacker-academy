@@ -1,22 +1,38 @@
 = render partial: 'problem_header'
 %p
-  RSA Bruteforce
+  RSA Decryption
 
 %p 
-  http://en.wikipedia.org/wiki/RSA_(cryptosystem)
-  Known: primes used to generate n are both less than 110000
-  Text is an integer encoded as a concatenation of ASCII values.
-  ex. FREES = '70' + '82' + '69' + '69' + '83' = 7052696983
+  RSA is a public key cryptography algorithm, meaning that the information provided to encrypt a message (the public key) cannot easily be used to decrypt a message.
+  The RSA algorithm can be described with the following steps:
+%p
+  1. Choose two distinct prime numbers p and q. Find their product N (the public modulus), as well as their totient T = (n-1)(q-1).
+%p
+  2. Find a prime number E (the public exponent) that has a greatest common divisor of 1 with the totient and is less than the totient.
+%p
+  3. Find D (the private key) such that D*E = 1 mod T
+%p
+  4. Find D such that D*E = 1 mod T
+
+%p
+  5. Given the public exponent E and the public modulus N, plaintext P can now be encrypted as ciphertext C = (P^E)%N
+
+ %p
+  6. The plaintext P can be retrieved using the private key following formula: P = (C^D) mod N
+
+%p
+   In this problem, you are given the ciphertext, public exponent, and public modulus. Given this information, find the plaintext.
+   It is known that the primes used to generate n are both less than 110000. Text is an integer encoded as a concatenation of ASCII values. ex. FREES = '70' + '82' + '69' + '69' + '83' = 7052696983
 
 
 %h2 Sample Problem
 %h4 Ciphertext
 .data
   %code 7798752209
-%h4 Public Key
+%h4 Public Key: Exponent E
 .data
   %code 6761
-%h4 Public Modulus
+%h4 Public Key: Modulus N
 .data
   %code 10531129331
 %h4 Solution
@@ -27,10 +43,10 @@
 %h4 Ciphertext
 .data
   %code= @prob[:rsa_ciphertext]
-%h4 Public Key: exponent
+%h4 Public Key: Exponent E
 .data
   %code= @prob[:publicKey]
-%h4 Public Key: modulus
+%h4 Public Key: Modulus N
 .data
   %code= @prob[:exponentN]
 

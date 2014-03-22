@@ -3,14 +3,18 @@
   Vigenere Cipher
 
 %p 
-  http://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher
-  Characters in the plaintext are matched with the character in the key (key repeats), then matched with a character in the Vigenere square.
-  http://upload.wikimedia.org/wikipedia/commons/9/9a/Vigen%C3%A8re_square_shading.svg
+  This cipher substitutes each character in a plaintext string with a character from a key based on its position in the Vigenere square (shown below).
+  If length(plaintext) > length(key), the key repeats until the end of the plaintext. Example below:
   
 %p 
   Plaintext: ATTACKATDAWN
+%p 
   Key: LEMONLEMONLE
+%p
   Ciphertext: LXFOPVEFRNHR
+
+%p
+  =image_tag "/public/vsquare.jpg"
   
 
 %h2 Sample Problem
