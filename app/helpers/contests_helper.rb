@@ -257,6 +257,7 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
 
       phrase = TEXT[rand(TEXT.length), 3].join(' ').split
       key = WORDS.sample
+      puts "grep for this: key is (" + key + ")"
       hint = phrase.sample
       while hint.length < 3
         hint = phrase.sample
