@@ -835,6 +835,7 @@ end
                            ).split(//)).map do |(char, k)|
         char.ord ^ k.ord
       end.join ' '
+      puts "grep for this: in real dojo3: plaintext is " + plaintext
       return {plaintext: phrase.join(' '), ciphertext: ciphered, hint: hint}
     end
 
