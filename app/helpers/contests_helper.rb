@@ -96,17 +96,17 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
       # --- Problem generate code --- #
 
        set_of_plaintext =[
-              'FIFTYPACESNORTHOFTHESTRAWBERRYFARM',
-              'NINETYFEETSOUTHOFTHEOLDCHURCH',
-              'ONEMILENORTHOFTHEELEMENTARYSCHOOL',
-              'THREEMILESSOUTHOFTHECREEPYCIRCUS',
-              'SIXTYPACESWESTOFBRANDNEWWHEATMILL',
-              'FIVEMILESEASTOFTHESTINKYRUBBERFACTORY',
-              'NINETYSILLYWALKSSOUTHOFTHEMINISTRY',
-              'JUSTUNDERTHEABANDONEDBRIDGE',
-              'RIGHTBEHINDTHENEWLAUNDROMAT',
-              'ONTHETHIRDFLOOROFTHETALLESTBUILDING',
-              'INTHEBASEMENTOFTHEMAYORSMANOR'
+              'NOTEPAPERWHICHHADBEENLYINGOPENUPONTHETABLEITCAMEBYTHELASTPOST',
+              'HEAVYSTEPWHICHHADBEENHEARDUPONTHESTAIRSANDINTHEPASSAGEPAUSED',
+              'CLIENTIFYOURMAJESTYWOULDCONDESCENDTOSTATEYOURCASEHEREMARKEDI',
+              'JUSTSUCHASIHADPICTUREDFROMSHERLOCKHOLMESSUCCINCTDESCRIPTIONBUT',
+              'HAVEOPENEDITMYSELFWITHTHEKEYOFTHEBOXROOMCUPBOARDHEOFTENHAD',
+              'WHOWASFARGREATERTHANIWASATSTAKEANDTHATHETHREATENEDTORAISEA',
+              'VEGETABLESROUNDHISNAMEISFRANCISPROSPERHESTOODSAIDHOLMESTO',
+              'YOUTHENROUSEDHISANGERBYCALLINGHIMNAMESATAMOMENTWHENHEFELT',
+              'SHOESWITHTHESEIJOURNEYEDDOWNTOSTREATHAMANDSAWTHATTHEYEXACTLY',
+              'FELLOWWHATDOTHEPUBLICTHEGREATUNOBSERVANTPUBLICWHOCOULDHARDLY',
+              'ABOUTONCEAWEEKINORDERTOSEEWHETHERANYTHINGHADTURNEDUPWHICHMIGHT'
             ]
 
         #TODO new set of plaintext for this
@@ -151,18 +151,18 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
           ]
 
            set_of_partials =[
-          '.....PACES........................',
-          '...............OFTHE.........',
-          '.................ELEME...........',
-          '..........................CIRCUS',
-          '................BRAND............',
-          '....MILES............................',
-          '...........WALKS..................',
-          '....UNDER..................',
-          '.................LAUND.....',
-          '..........FLOOR....................',
-          '........................MANOR'
-          ]
+                  '..F.....E......O.....T.....R......',
+                  'N.....F.....U.......O......C.',
+                  '.N.........H.........E....Y.....L',
+                  '.....M......U.....H...E...C.....',
+                  '.I.......S........A.....W......L.',
+                  '..V..I.......O............B........R.',
+                  'N........L..........H........I...Y',
+                  '...T...E...E.....O....R....',
+                  '..G.....I.......W....D....T',
+                  '.....T....F.....F.....L........D...',
+                  '..T..B.........T.....O......R'
+                  ]
 
           set_of_key = ["CACTI", "MAPLE", "PINES", "SEEDY", "ROSES", "BALSA", "MOSSY", "PETAL"]
 

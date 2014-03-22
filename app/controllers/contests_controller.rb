@@ -83,7 +83,7 @@ class Integer #modular exponentiation used in dojo7
       @contest = Contest.find(params[:id])
       @num_probs = @contest.puzzle_ident == 3 ? 3 : 2
       if @contest.puzzle_ident == 7
-        @num_probs = 4 #nowieveniwouldcelebrate
+        @num_probs = 3 #nowieveniwouldcelebrate
       end
       if @contest.puzzle_ident == 5
         @num_probs = 5
@@ -314,17 +314,17 @@ class Integer #modular exponentiation used in dojo7
                 ]
 
                 set_of_partials =[
-                  '.....PACES........................',
-                  '...............OFTHE.........',
-                  '.................ELEME...........',
-                  '..........................CIRCUS',
-                  '................BRAND............',
-                  '....MILES............................',
-                  '...........WALKS..................',
-                  '....UNDER..................',
-                  '.................LAUND.....',
-                  '..........FLOOR....................',
-                  '........................MANOR'
+                  '..F.....E......O.....T.....R......',
+                  'N.....F.....U.......O......C.',
+                  '.N.........H.........E....Y.....L',
+                  '.....M......U.....H...E...C.....',
+                  '.I.......S........A.....W......L.',
+                  '..V..I.......O............B........R.',
+                  'N........L..........H........I...Y',
+                  '...T...E...E.....O....R....',
+                  '..G.....I.......W....D....T',
+                  '.....T....F.....F.....L........D...',
+                  '..T..B.........T.....O......R'
                   ]
 
 
