@@ -342,7 +342,7 @@ class Integer #modular exponentiation used in dojo7
 
         elsif level == '3'
             #XOR
-            correct = ContestsHelper::Dojo2.verify_level0(
+            correct = ContestsHelper::Dojo3.verify_level3(
               params[:solution], mySolution
             )
         elsif level == '2'
