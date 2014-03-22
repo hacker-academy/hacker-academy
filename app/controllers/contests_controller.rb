@@ -83,7 +83,7 @@ class Integer #modular exponentiation used in dojo7
       @contest = Contest.find(params[:id])
       @num_probs = @contest.puzzle_ident == 3 ? 3 : 2
       if @contest.puzzle_ident == 7
-        @num_probs = 3 #nowieveniwouldcelebrate
+        @num_probs = 4 #nowieveniwouldcelebrate
       end
       if @contest.puzzle_ident == 5
         @num_probs = 5
