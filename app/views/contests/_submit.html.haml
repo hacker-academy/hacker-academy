@@ -29,6 +29,8 @@
       = hidden_field_tag :rsa_ciphertext, @prob[:rsa_ciphertext]
       = hidden_field_tag :publicKey, @prob[:publicKey]
       = hidden_field_tag :exponentN, @prob[:exponentN]
+    - elsif @level == 3
+      = hidden_field_tag :plaintext, @prob[:plaintext]
   - elsif @contest.puzzle_ident == 6
     - if @level < 3
     = hidden_field_tag :clubs, @prob[:clubs]
