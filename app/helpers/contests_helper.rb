@@ -88,6 +88,9 @@ module ContestsHelper
 
 
 module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
+
+
+    TEXT = open('lib/corpus.txt').readlines.map(&:chomp).map(&:downcase)
     
     def self.generate_level0
       # --- Problem generate code --- #
@@ -251,7 +254,7 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
 
     def self.generate_level3
       #copy+paste from dojo3
-      TEXT = open('lib/corpus.txt').readlines.map(&:chomp).map(&:downcase)
+
       phrase = TEXT[rand(TEXT.length), 3].join(' ').split
       key = WORDS.sample
       hint = phrase.sample
