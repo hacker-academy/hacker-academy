@@ -855,6 +855,7 @@ end
     end
 
     def self.verify_level3 our_plaintext, their_plaintext
+      puts "grep for this: ours=(" + our_plaintext + "), theirs=(" + their_plaintext + ")"
       return our_plaintext == their_plaintext
     end
 
