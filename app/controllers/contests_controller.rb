@@ -243,16 +243,16 @@ class Integer #modular exponentiation used in dojo7
           return
         end
         msg = nil
-        if level == "3" or level == "4"
-          msg = params[:searches] + params[:locations]
-          key = ENV['HMAC_KEY'] || "derp"
-          hmac = OpenSSL::HMAC.hexdigest('sha256', msg, key)
-          if hmac != session[:key]
-            redirect_to contest, alert: 'Cheating detected...'
-            return
-          end
-          session.delete :key
-        end
+        #if level == "3" or level == "4"
+        #  msg = params[:searches] + params[:locations]
+        #  key = ENV['HMAC_KEY'] || "derp"
+        #  hmac = OpenSSL::HMAC.hexdigest('sha256', msg, key)
+        #  if hmac != session[:key]
+        #    redirect_to contest, alert: 'Cheating detected...'
+        #    return
+        #  end
+        #  session.delete :key
+        #end
         if time_elapsed > 180 && level >= 3
           redirect_to contest,
             alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
