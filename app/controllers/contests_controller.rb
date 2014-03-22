@@ -160,7 +160,7 @@ class Integer #modular exponentiation used in dojo7
           return
         end
       elsif contest_ident == 7
-        unless (0..4).member? @level #nowieveniwouldcelebrate
+        unless (0..5).member? @level #nowieveniwouldcelebrate
           redirect_to @contest, alert: "Invalid level"
           return
         end  
