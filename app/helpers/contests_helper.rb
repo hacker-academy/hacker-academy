@@ -250,7 +250,24 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
     end
 
     def self.generate_level3
-      Dojo3::generate_level2 #XOR cipher
+      #copy+paste from dojo3
+      phrase = TEXT[rand(TEXT.length), 3].join(' ').split
+      key = WORDS.sample
+      hint = phrase.sample
+      while hint.length < 3
+        hint = phrase.sample
+      end
+      attempts = 0
+      while hint.length < key.length
+        hint = phrase[rand(phrase.length), 2 + (attempts % 10)].join ' '
+        attempts += 1
+      end
+      plain = phrase.join(' ').split(//)
+      ciphered = plain.zip((key * ((plain.length / key.length) + 1)
+                           ).split(//)).map do |(char, k)|
+        char.ord ^ k.ord
+      end.join ' '
+      return {plaintext: phrase.join(' '), ciphertext: ciphered, hint: hint}
     end
 
      def self.verify_level0 our_plaintext, their_plaintext

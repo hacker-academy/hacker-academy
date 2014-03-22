@@ -339,6 +339,12 @@ class Integer #modular exponentiation used in dojo7
             correct = ContestsHelper::Dojo6.verify_level0(
               params[:solution], mySolution
             )
+
+        elsif level == '3'
+            #XOR
+            correct = ContestsHelper::Dojo2.verify_level0(
+              params[:solution], mySolution
+            )
         elsif level == '2'
             #RSA bruteforce
             d = -1
