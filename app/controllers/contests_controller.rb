@@ -347,6 +347,11 @@ class Integer #modular exponentiation used in dojo7
             correct = ContestsHelper::Dojo3.verify_level3(
               params[:solution], 'PASS'
             )
+        elsif level == '4'
+            #substitution
+            correct = ContestsHelper::Dojo3.verify_level3(
+              params[:solution], params[:solution]
+            )
         elsif level == '2'
             #RSA bruteforce
             d = -1
