@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # To add generation and verification for a new Dojo, you should create a new
 # submodule named "Dojo[N]" (e.g. Dojo1) which will contain all the code to
 # generate/verify the puzzles. The module should also contain two methods with
@@ -2197,5 +2197,4 @@ end
     end
   end
 
->>>>>>> b121625856f51f13501ca3224ba17236805d0b83
 end
