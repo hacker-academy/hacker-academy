@@ -31,6 +31,7 @@ GEM
     arel (2.0.10)
     barista (1.3.0)
       coffee-script (~> 2.2)
+    bcrypt-ruby (2.1.4)
     bcrypt-ruby (2.1.4-x86-mingw32)
     bson (1.5.2)
     bson_ext (1.5.2)
@@ -70,6 +71,7 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
+    ffi (1.3.1)
     ffi (1.3.1-x86-mingw32)
     fssm (0.2.10)
     gibbon (0.3.5)
@@ -110,6 +112,7 @@ GEM
       rspec (~> 2)
     multi_json (1.5.1)
     multi_xml (0.5.3)
+    nokogiri (1.5.6)
     nokogiri (1.5.6-x86-mingw32)
     orm_adapter (0.0.7)
     polyglot (0.3.3)
@@ -176,6 +179,7 @@ GEM
       nokogiri (~> 1.3)
 
 PLATFORMS
+  ruby
   x86-mingw32
 
 DEPENDENCIES
