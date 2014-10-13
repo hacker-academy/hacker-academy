@@ -91,6 +91,9 @@ class Integer #modular exponentiation used in dojo7
       if @contest.puzzle_ident == 6
         @num_probs = 4
       end
+      if @contest.puzzle_ident == 8
+        @num_probs = 4
+      end
       if @contest.start > DateTime.now
         unless current_user.is_admin
           redirect_to contests_path, alert: "That contest has not yet started"
@@ -163,7 +166,12 @@ class Integer #modular exponentiation used in dojo7
         unless (0..5).member? @level #nowieveniwouldcelebrate
           redirect_to @contest, alert: "Invalid level"
           return
-        end  
+        end
+      elsif contest_ident == 8
+        unless (0..4).member? @level #nowieveniwouldcelebrate
+          redirect_to @contest, alert: "Invalid level"
+          return
+        end    
       else
         redirect_to @contest, alert: "Invalid contest"
       end
@@ -221,6 +229,18 @@ class Integer #modular exponentiation used in dojo7
           puts "do these exist? partial(" + @prob[:partial].to_s + "), otp" + @prob[:otp].to_s + ")"
           msg = @prob[:rsa_ciphertext] + @prob[:publicKey] + @prob[:exponentN]
         end
+      elsif contest_ident == 8 #nowieveniwouldcelebrate
+        if @level == 0
+          msg = @prob[:text]
+        elsif @level == 1
+          msg = @prob[:text]
+        elsif @level == 2
+          msg = @prob[:text]
+        elsif @level == 3
+          msg = @prob[:text]
+        elsif @level == 4
+          msg = @prob[:text]
+        end
 	
       end
       key = ENV['HMAC_KEY'] || "derp"
@@ -234,6 +254,92 @@ class Integer #modular exponentiation used in dojo7
       contest = Contest.find(params[:contest])
       correct = false
       perf = -1
+
+
+
+  if contest.puzzle_ident == 8
+        time_elapsed = Time.now.to_i - session[:time]
+        session.delete :time
+        level = params[:level]
+        if time_elapsed > 120  && level.to_i < 5
+           redirect_to contest,
+            alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
+          return
+        end
+        msg = nil
+        #if level == "3" or level == "4"
+        #  msg = params[:searches] + params[:locations]
+        #  key = ENV['HMAC_KEY'] || "derp"
+        #  hmac = OpenSSL::HMAC.hexdigest('sha256', msg, key)
+        #  if hmac != session[:key]
+        #    redirect_to contest, alert: 'Cheating detected...'
+        #    return
+        #  end
+        #  session.delete :key
+        #end
+        if time_elapsed > 180 && level >= 3
+          redirect_to contest,
+            alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
+          return
+        end
+
+        if level == '0'
+          text = params[:text].to_s
+
+          # --- Solution code --- #
+          mySolution = 'zeroth'
+          # --- End solution code --- #
+
+          correct = ContestsHelper::Dojo8.verify_level0(
+            params[:solution], mySolution
+          )
+        elsif level == '1'
+          text = params[:text].to_s
+
+          # --- Solution code --- #
+          mySolution = 'first'
+          # --- End solution code --- #
+
+          correct = ContestsHelper::Dojo8.verify_level1(
+            params[:solution], mySolution
+          )
+
+        elsif level == '2'
+          text = params[:text].to_s
+
+          # --- Solution code --- #
+          mySolution = 'second'
+          # --- End solution code --- #
+
+          correct = ContestsHelper::Dojo8.verify_level2(
+            params[:solution], mySolution
+          )
+        elsif level == '3'
+          text = params[:text].to_s
+
+          # --- Solution code --- #
+          mySolution = 'third'
+          # --- End solution code --- #
+
+          correct = ContestsHelper::Dojo8.verify_level3(
+            params[:solution], mySolution
+          )
+        elsif level == '4'
+          text = params[:text].to_s
+
+          # --- Solution code --- #
+          mySolution = 'fourth'
+          # --- End solution code --- #
+
+          correct = ContestsHelper::Dojo8.verify_level4(
+            params[:solution], mySolution
+          )
+        end
+      end
+
+
+
+
 
   if contest.puzzle_ident == 7 #nowieveniwouldcelebrate
         time_elapsed = Time.now.to_i - session[:time]

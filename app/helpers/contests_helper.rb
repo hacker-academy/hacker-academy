@@ -81,7 +81,57 @@ module ContestsHelper
 
 
 
+module Dojo8
 
+  def self.generate_level0
+    return {text: 'zeroth'}
+  end
+
+  def self.verify_level0 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+  end
+    
+  def self.generate_level1
+    return {text: 'first'}
+  end
+
+  def self.verify_level1 our_plaintext, their_plaintext
+    return our_plaintext == their_plaintext
+  end
+
+  def self.generate_level2
+    return {text: 'second'}
+  end
+
+  def self.verify_level2 our_plaintext, their_plaintext
+    return our_plaintext == their_plaintext
+  end
+
+  def self.generate_level3
+    return {text: 'third'}
+  end
+
+  def self.verify_level3 our_plaintext, their_plaintext
+    return our_plaintext == their_plaintext
+  end
+
+  def self.generate_level4
+    return {text: 'fourth'}
+  end
+
+  def self.verify_level4 our_plaintext, their_plaintext
+    return our_plaintext == their_plaintext
+  end
+
+  def self.generate_puzzle(level, *args)
+    return self.send("generate_level#{level}", *args)
+  end
+
+  def self.verify_puzzle(level, *args)
+    return self.send("verify_level#{level}", *args)
+  end
+
+end
 
 
 
@@ -286,7 +336,7 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
       return {plaintext: phrase, ciphertext: ciphered}
     end
 
-     def self.verify_level0 our_plaintext, their_plaintext
+    def self.verify_level0 our_plaintext, their_plaintext
       return our_plaintext == their_plaintext
     end
 

@@ -1,0 +1,28 @@
+= render partial: 'problem_header'
+%p
+  third Problem
+
+%p 
+  Enter 'third'.
+ 
+
+%h2 Sample Problem
+%h4 Input
+.data
+  %code anything
+%h4 Hint
+.data
+  %code anything
+%h4 Solution
+.data
+  %code third	
+
+%h2 Actual Problem
+%h4 Input
+.data
+  %code= @prob[:text]
+%h4 Hint
+.data
+  %code= @prob[:text]
+
+= render partial: 'submit'
