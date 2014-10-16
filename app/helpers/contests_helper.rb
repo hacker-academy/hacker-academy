@@ -83,6 +83,60 @@ module ContestsHelper
 
 module Dojo8
 
+   def self.escapeString
+      outText = ""
+      randNum = 1 + rand(4)
+
+      case randNum
+      when 1
+        outText = "*"
+      when 2
+        outText = "^"
+      when 3
+        outText = "$"
+      when 4
+        outText = "?"
+      end
+
+      return outText
+    end
+
+    def self.numString
+      outText = ""
+      randNum = -1
+
+      for idx in 1..(1 + rand(2)) # Add 1 to 3 chars
+        randNum = rand(10) # Random from 0-9
+        outText = outText + randNum.to_s
+      end
+
+      return outText
+    end
+
+    def self.capitalString
+      outText = ""
+      randNum = -1
+
+      for idx in 1..(3 + rand(2)) # Add 3 to 5 chars
+        randNum = 64 + 1 + rand(26) # Random from A-Z
+        outText = outText + randNum.chr
+      end
+
+      return outText
+    end
+
+    def self.lowerString
+      outText = ""
+      randNum = -1
+
+      for idx in 1..(1 + rand(3)) # Add 1 to 4 chars
+        randNum = 96 + 1 + rand(26) # Random from a-z
+        outText = outText + randNum.chr
+      end
+
+      return outText
+    end
+
   def self.generate_level0
     return {text: 'zeroth'}
   end
@@ -92,7 +146,65 @@ module Dojo8
   end
     
   def self.generate_level1
-    return {text: 'first'}
+    dataType = -1     # If 1 or 2 or 3, one of: *,^,$,?
+                      # If 4 or 5 or 6: number from 1-9
+                      # If 7 or 8: A-Z character
+                      # If 9 or 10: a-z character
+
+    randNum = -1    # Used to determine length of substring.
+    numCharacters = 0   # Number of characters outputted so far.
+    outText = ""
+
+    tempOutText = ""
+
+    while numCharacters < 2048 do
+      dataType = 1 + rand(10) # Random from 1-10
+
+      if dataType <= 3
+        tempOutText = self.escapeString()
+        outText = outText + tempOutText
+        numCharacters = numCharacters + tempOutText.length
+      elsif dataType >= 4 and dataType <= 6
+        tempOutText = self.numString()
+        outText = outText + tempOutText
+        numCharacters = numCharacters + tempOutText.length
+      elsif dataType >= 7 and dataType <= 8
+        tempOutText = self.capitalString()
+        outText = outText + tempOutText
+        numCharacters = numCharacters + tempOutText.length
+      elsif dataType >= 9 and dataType <= 10
+        tempOutText = self.lowerString()
+        outText = outText + tempOutText
+        numCharacters = numCharacters + tempOutText.length
+      end
+    end
+
+    # Now guarantee we have at least one matching expression:
+    tempOutText = ""
+    tempOutText = tempOutText + (rand(2) == 0 ? "*" : "^")
+    if (rand(2) == 0)
+      for idx in 1..(3 + rand(3)) # Add 3 to 5 chars
+        randNum = 96 + 1 + rand(26) # Random from a-z
+        tempOutText = tempOutText + randNum.chr
+      end
+      for idx in 1..3 # Add 3 nums
+        randNum = rand(10) # Random from 0-9
+        tempOutText = tempOutText + randNum.to_s
+      end
+    else
+      for idx in 1..(3 + rand(3)) # Add 3 to 5 chars
+        randNum = 64 + 1 + rand(26) # Random from A-Z
+        tempOutText = tempOutText + randNum.chr
+      end
+      for idx in 1..(1 + rand(7)) # Add 1 to 6 nums
+        randNum = rand(10) # Random from 0-9
+        tempOutText = tempOutText + randNum.to_s
+      end 
+    end
+    tempOutText = tempOutText + (rand(2) == 0 ? "$" : "?")
+    outText.insert(rand(2000), tempOutText)
+
+    return {text: outText}
   end
 
   def self.verify_level1 our_plaintext, their_plaintext

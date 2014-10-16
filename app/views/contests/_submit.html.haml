@@ -18,6 +18,9 @@
   - elsif @contest.puzzle_ident == 5
     = hidden_field_tag :number, @prob[:number]
     = hidden_field_tag :riddle, @prob[:riddle]
+  - elsif @contest.puzzle_ident == 8
+    - if @level == 1
+      = hidden_field_tag :text, @prob[:text]
   - elsif @contest.puzzle_ident == 7
     - if @level == 0
       = hidden_field_tag :ciphertext, @prob[:ciphertext]

@@ -1,21 +1,28 @@
 = render partial: 'problem_header'
 %p
-  first Problem
+  First Problem
 
 %p 
-  Enter 'first'.
- 
+  More detail to be added to the description.
+%p
+  You run a website that takes user-written code as an input. This is an unusal programming language, as it only uses alphanumeric characters and ?,^,$,* characters in its syntax and does not contain whitespace.
+%p
+  You, however, do not want users to run malicious code that may cause a security breach. After careful analysis, you've determined that you must remove any strings of text that:
+%ul
+  %li starts with a * or ^ 
+  %li contains 3-5 capital letters followed by 1 or more numbers OR contains 3 lowercase letters followed by 3 numbers
+  %li ends with a $ or ? characters
+%p
+%p
+  Any strings that match this pattern should be removed and replaced with the text '(sanitized)'.
 
 %h2 Sample Problem
 %h4 Input
 .data
-  %code anything
-%h4 Hint
-.data
-  %code anything
+  %code 42^AHFW423534$3A426^rwgs243$A$*fwd534?EWF
 %h4 Solution
 .data
-  %code first	
+  %code 42(sanitized)3A426^rwgs243$A$(sanitized)EWF	
 
 %h2 Actual Problem
 %h4 Input

@@ -287,7 +287,9 @@ class Integer #modular exponentiation used in dojo7
           text = params[:text].to_s
 
           # --- Solution code --- #
+          # ---               --- #
           mySolution = 'zeroth'
+          # ---                   --- #
           # --- End solution code --- #
 
           correct = ContestsHelper::Dojo8.verify_level0(
@@ -296,8 +298,17 @@ class Integer #modular exponentiation used in dojo7
         elsif level == '1'
           text = params[:text].to_s
 
+          puts "TEXT FROM USER"
+          puts text
+
           # --- Solution code --- #
-          mySolution = 'first'
+          # ---               --- #
+          matches = []
+          inText = text.gsub(/\s+/, "")
+          result = inText.gsub(/((\*|\^)(([a-z]{3,}[1-9]{3})|([A-Z]{3,5}[0-9]{1,}))(\$|\?))/ix, "(sanitized)")
+          
+          mySolution = result
+          # ---                   --- #
           # --- End solution code --- #
 
           correct = ContestsHelper::Dojo8.verify_level1(
