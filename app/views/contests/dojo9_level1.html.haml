@@ -1,0 +1,49 @@
+= render partial: 'problem_header'
+%p P2
+
+%p
+  p2 desc
+
+%h2 Sample Problem
+%h4 EvenOdd
+.data
+  %code
+    6 
+    %br
+    12
+    %br 
+    24
+    %br 
+    25
+    %br
+    8
+    %br
+    45
+    %br
+    16
+
+%h4 Solution
+.data
+  %code
+    even
+    %br
+    even
+    %br
+    both
+    %br
+    odd
+    %br
+    even
+    %br
+    both
+
+
+%h2 Actual Problem
+%h4 EvenOdd
+.data
+  %code
+    - @prob[:lines].each do |word|
+      = word
+      %br
+
+= render partial: 'submit'

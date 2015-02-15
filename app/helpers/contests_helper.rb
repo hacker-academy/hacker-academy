@@ -78,7 +78,7 @@ module ContestsHelper
   module Dojo9
     def self.generate_level0
       lines = []
-      n = Random.rand(5...10)
+      n = Random.rand(100...200)
       i = 0
       lines.push(n)
       while (i < n)
@@ -122,6 +122,81 @@ module ContestsHelper
       Rails.logger.debug roundedUpPayment
       roundedUpPayment = total.to_i + 1
       return roundedUpPayment == their_plaintext.to_i
+    end
+
+    def self.generate_level1
+      lines = []
+      n = Random.rand(50...100)
+      i = 0
+      lines.push(n)
+      while (i < n)
+        num = Random.rand(5...100)
+        lines.push(num)
+        i += 1
+      end
+
+      return {lines: lines}
+    end
+
+    def self.verify_level1(lines, their_plaintext)
+      their_solution = their_plaintext.split("\r\n")
+      lines_array = lines.split("+")
+      numCount = lines_array[0].to_i
+      i = 0
+      while (i < numCount)
+        Rails.logger.debug "\n \n "
+        Rails.logger.debug their_solution[i]
+        Rails.logger.debug "\n \n "
+        Rails.logger.debug self.oddOddEvenEvenFactors(lines_array[i+1].to_i)
+        
+        if (their_solution[i] != self.oddOddEvenEvenFactors(lines_array[i+1].to_i))
+          return false
+        end
+        i += 1
+      end
+      return true
+    end
+
+    def self.oddOddEvenEvenFactors(num)
+
+      numOddFactors = 0
+      numEvenFactors = 0
+      ee = false
+      oo = false
+
+      i = 2
+      while (i<=num) do
+          if (num%i == 0)
+              numEvenFactors += 1
+          end
+          i = i + 2
+      end
+      if (numEvenFactors%2 == 0)
+          ee = true
+      end
+
+      j = 1
+      while (j<=num) do
+          if (num%j == 0)
+              numOddFactors += 1
+          end
+          j = j + 2
+      end
+      if (numOddFactors%2 == 1)
+          oo = true
+      end
+
+
+      if (ee && oo)
+          return "both"
+      elsif (ee)
+          return "even"
+      elsif (oo)
+          return "odd"
+      else
+          return "neither"
+      end
+
     end
 
     def self.generate_puzzle(level, *args)
