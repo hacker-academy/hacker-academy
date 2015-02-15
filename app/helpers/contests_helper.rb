@@ -51,10 +51,10 @@ module ContestsHelper
 
   #Taken on 2014-03-02
   def extended_gcd(a, b)
-  x = 0
-  y = 1
-  u = 1
-  v = 0
+    x = 0
+    y = 1
+    u = 1
+    v = 0
     while a != 0 do
           q, r = (b/a).floor, b%a
           m, n = x-u*q, y-v*q
@@ -65,8 +65,6 @@ module ContestsHelper
 
     return b,x,y
   end
-
-
 
   def self.generate_puzzle(dojo, level, args)
     return self.const_get(:"Dojo#{dojo}").generate_puzzle(level, *args)
@@ -79,11 +77,9 @@ module ContestsHelper
   WORDS = Marshal.load(open('lib/words2.dump'))
 
 
+  module Dojo8
 
-
-module Dojo8
-
-   def self.escapeString
+    def self.escapeString
       outText = ""
       randNum = 1 + rand(4)
 
@@ -137,323 +133,103 @@ module Dojo8
       return outText
     end
 
-  def self.generate_level0
-    return {text: 'zeroth'}
-  end
-
-  def self.verify_level0 our_plaintext, their_plaintext
-      return our_plaintext == their_plaintext
-  end
-    
-  def self.generate_level1
-    dataType = -1     # If 1 or 2 or 3, one of: *,^,$,?
-                      # If 4 or 5 or 6: number from 1-9
-                      # If 7 or 8: A-Z character
-                      # If 9 or 10: a-z character
-
-    randNum = -1    # Used to determine length of substring.
-    numCharacters = 0   # Number of characters outputted so far.
-    outText = ""
-
-    tempOutText = ""
-
-    while numCharacters < 2048 do
-      dataType = 1 + rand(10) # Random from 1-10
-
-      if dataType <= 3
-        tempOutText = self.escapeString()
-        outText = outText + tempOutText
-        numCharacters = numCharacters + tempOutText.length
-      elsif dataType >= 4 and dataType <= 6
-        tempOutText = self.numString()
-        outText = outText + tempOutText
-        numCharacters = numCharacters + tempOutText.length
-      elsif dataType >= 7 and dataType <= 8
-        tempOutText = self.capitalString()
-        outText = outText + tempOutText
-        numCharacters = numCharacters + tempOutText.length
-      elsif dataType >= 9 and dataType <= 10
-        tempOutText = self.lowerString()
-        outText = outText + tempOutText
-        numCharacters = numCharacters + tempOutText.length
-      end
-    end
-
-    # Now guarantee we have at least one matching expression:
-    tempOutText = ""
-    tempOutText = tempOutText + (rand(2) == 0 ? "*" : "^")
-    if (rand(2) == 0)
-      for idx in 1..(3 + rand(3)) # Add 3 to 5 chars
-        randNum = 96 + 1 + rand(26) # Random from a-z
-        tempOutText = tempOutText + randNum.chr
-      end
-      for idx in 1..3 # Add 3 nums
-        randNum = rand(10) # Random from 0-9
-        tempOutText = tempOutText + randNum.to_s
-      end
-    else
-      for idx in 1..(3 + rand(3)) # Add 3 to 5 chars
-        randNum = 64 + 1 + rand(26) # Random from A-Z
-        tempOutText = tempOutText + randNum.chr
-      end
-      for idx in 1..(1 + rand(7)) # Add 1 to 6 nums
-        randNum = rand(10) # Random from 0-9
-        tempOutText = tempOutText + randNum.to_s
-      end 
-    end
-    tempOutText = tempOutText + (rand(2) == 0 ? "$" : "?")
-    outText.insert(rand(2000), tempOutText)
-
-    return {text: outText}
-  end
-
-  def self.verify_level1 our_plaintext, their_plaintext
-    return our_plaintext == their_plaintext
-  end
-
-  def self.generate_level2
-    return {text: 'second'}
-  end
-
-  def self.verify_level2 our_plaintext, their_plaintext
-    return our_plaintext == their_plaintext
-  end
-
-  def self.generate_level3
-    return {text: 'third'}
-  end
-
-  def self.verify_level3 our_plaintext, their_plaintext
-    return our_plaintext == their_plaintext
-  end
-
-  def self.generate_level4
-    return {text: 'fourth'}
-  end
-
-  def self.verify_level4 our_plaintext, their_plaintext
-    return our_plaintext == their_plaintext
-  end
-
-  def self.generate_puzzle(level, *args)
-    return self.send("generate_level#{level}", *args)
-  end
-
-  def self.verify_puzzle(level, *args)
-    return self.send("verify_level#{level}", *args)
-  end
-
-end
-
-
-
-
-
-module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
-
-
-    TEXT = open('lib/corpus.txt').readlines.map(&:chomp).map(&:downcase)
-    
     def self.generate_level0
-      # --- Problem generate code --- #
-
-       set_of_plaintext =[
-              'NOTEPAPERWHICHHADBEENLYINGOPENUPONTHETABLEITCAMEBYTHELASTPOST',
-              'HEAVYSTEPWHICHHADBEENHEARDUPONTHESTAIRSANDINTHEPASSAGEPAUSED',
-              'CLIENTIFYOURMAJESTYWOULDCONDESCENDTOSTATEYOURCASEHEREMARKEDI',
-              'JUSTSUCHASIHADPICTUREDFROMSHERLOCKHOLMESSUCCINCTDESCRIPTIONBUT',
-              'HAVEOPENEDITMYSELFWITHTHEKEYOFTHEBOXROOMCUPBOARDHEOFTENHAD',
-              'WHOWASFARGREATERTHANIWASATSTAKEANDTHATHETHREATENEDTORAISEA',
-              'VEGETABLESROUNDHISNAMEISFRANCISPROSPERHESTOODSAIDHOLMESTO',
-              'YOUTHENROUSEDHISANGERBYCALLINGHIMNAMESATAMOMENTWHENHEFELT',
-              'SHOESWITHTHESEIJOURNEYEDDOWNTOSTREATHAMANDSAWTHATTHEYEXACTLY',
-              'FELLOWWHATDOTHEPUBLICTHEGREATUNOBSERVANTPUBLICWHOCOULDHARDLY',
-              'ABOUTONCEAWEEKINORDERTOSEEWHETHERANYTHINGHADTURNEDUPWHICHMIGHT'
-            ]
-
-        #TODO new set of plaintext for this
-        plaintext = set_of_plaintext.sample
-        #puts "ptx is " + plaintext
-
-        pad = (0...plaintext.length).map { (65 + rand(26)).chr }.join
-        #puts "pad is " + pad
-
-
-        plaintext_as_array = plaintext.split(//)
-        pad_as_array = pad.split(//)
-        ciphertext_as_array = Array.new
-        ciphertext = ""
-
-        for i in 0..plaintext_as_array.length - 1
-          n1 = plaintext_as_array[i].ord - 65
-          n2 = pad_as_array[i].ord - 65
-          ciphertext_as_array[i] = (n1 + n2)%26
-          ciphertext_as_array[i] = ciphertext_as_array[i] + 65
-          ciphertext = ciphertext + ciphertext_as_array[i].chr
-        end
-
-      # --- End problem generate code --- #
-      return {ciphertext: ciphertext, otp: pad}
-    end
-
-    def self.generate_level1
-      # --- Problem generate code --- #
-               set_of_plaintext =[
-          'FIFTYPACESNORTHOFTHESTRAWBERRYFARM',
-          'NINETYFEETSOUTHOFTHEOLDCHURCH',
-          'ONEMILENORTHOFTHEELEMENTARYSCHOOL',
-          'THREEMILESSOUTHOFTHECREEPYCIRCUS',
-          'SIXTYPACESWESTOFBRANDNEWWHEATMILL',
-          'FIVEMILESEASTOFTHESTINKYRUBBERFACTORY',
-          'NINETYSILLYWALKSSOUTHOFTHEMINISTRY',
-          'JUSTUNDERTHEABANDONEDBRIDGE',
-          'RIGHTBEHINDTHENEWLAUNDROMAT',
-          'ONTHETHIRDFLOOROFTHETALLESTBUILDING',
-          'INTHEBASEMENTOFTHEMAYORSMANOR'
-          ]
-
-           set_of_partials =[
-                  '..F.....E......O.....T.....R......',
-                  'N.....F.....U.......O......C.',
-                  '.N.........H.........E....Y.....L',
-                  '.....M......U.....H...E...C.....',
-                  '.I.......S........A.....W......L.',
-                  '..V..I.......O............B........R.',
-                  'N........L..........H........I...Y',
-                  '...T...E...E.....O....R....',
-                  '..G.....I.......W....D....T',
-                  '.....T....F.....F.....L........D...',
-                  '..T..B.........T.....O......R'
-                  ]
-
-          set_of_key = ["CACTI", "MAPLE", "PINES", "SEEDY", "ROSES", "BALSA", "MOSSY", "PETAL"]
-
-          r = Random.new
-          pt_index = r.rand(0..set_of_plaintext.length - 1)
-
-          plaintext = set_of_plaintext[pt_index]
-          partial = set_of_partials[pt_index]
-          key = set_of_key.sample
-
-          plaintext_as_array = plaintext.split(//)
-          key_as_array = key.split(//)
-          ciphertext_as_array = Array.new
-          ciphertext = ""
-
-          for i in 0..plaintext_as_array.length - 1
-            n1 = plaintext_as_array[i].ord - 65
-            n2 = key_as_array[i%(key_as_array.length)].ord - 65
-            ciphertext_as_array[i] = (n1 + n2)%26
-            ciphertext_as_array[i] = ciphertext_as_array[i] + 65
-            ciphertext = ciphertext + ciphertext_as_array[i].chr
-          end
-      # --- End problem generate code --- #
-      puts "VIGNERE GREP HELPER"
-      return {ciphertext: ciphertext, partial: partial}
-    end
-
-    def self.generate_level2
-      # --- Problem generate code --- #
-      #Taken on 2014-03-09 from http://rosettacode.org/wiki/Modular_exponentiation
-      puts "DBG self.generate_level2"
-
-
-
-            words = ["BEGIN", "COVER", "WOODS", "DECOY", "DUELS", "ALONE", "MAJOR", "PEEKS", "TREES", "BLUFF", "CATCH", "FALSE", "CAMPS", "CARGO", "SPIES", "SIGNS", "BRIBE", "HILLS", "RIVER", "ROADS", "TRAPS", "NORTH", "SOUTH", "BELOW", "ABOVE", "SWAMP", "SONAR", "RADAR", "RAIDS", "SCOUT"]
-            primes = [98519, 98893, 98899, 98963, 99181, 99487, 99661, 99787, 99923, 100003, 100129, 100313, 100363, 100549, 100613, 100799, 100957, 100987, 101113, 101267, 101293, 101501, 101513, 101627, 101723, 101929, 102001, 102061, 102161, 102229, 102337, 102503, 102607, 102811, 102871, 103001, 103123, 103319, 103483, 103549, 103651, 103801, 103967, 103991, 104089, 104161, 104239, 104323, 104417, 104579, 104729]
-            puts "DBG primes defined"
-
-            p = -1 
-            q = p
-
-            until (p != q)
-              p = primes.sample
-              q = primes.sample
-            end
-
-            plaintext = words.sample #ARGV[0]
-            plaintext_as_array = plaintext.split(//)
-            encoded_text = ""
-
-            for i in 0..plaintext_as_array.length - 1
-              char = (plaintext_as_array[i].ord).to_s
-              encoded_text = encoded_text + char
-            end
-
-            n = p*q
-            totient = (p-1)*(q-1)
-
-            primesToGenerate = 1000
-            publicKey = totient + 1 #so the second condition in the 'until' below is false initially
-            until ((totient.gcd(publicKey) == 1) && (publicKey < totient)) do
-              publicKey = (Prime.first(primesToGenerate))[Random.rand(primesToGenerate -1)] 
-            end
-            puts "DBG found my publickey"
-
-            g,x,y = extended_gcd(totient,publicKey)
-            if (y < 0) then
-              y = totient + y
-            end
-
-            d = y
-
-            private1 = d  
-            private2 = n
-
-            public1 = publicKey
-            public2 = n
-            ciphertext = (((encoded_text.to_i)**public1)%public2)
-            puts "DBG encrypted my ciphertext"
-
-      # --- End problem generate code --- #
-      puts "grep for this: in contests_helper: ciphertext as (" + ciphertext.to_s + ") publickey as (" + publicKey.to_s + ") n as (" + n.to_s + ")"
-
-      puts "DBG about to return problem2 values"
-      #return {rsa_ciphertext: "1234", publicKey: "5678", exponentN: "910"}
-      return {rsa_ciphertext: ciphertext.to_s, publicKey: publicKey.to_s, exponentN: n.to_s}
-      # return {ciphertext: ciphertext, partial: partial}
-    end
-
-    def self.generate_level3
-      #copy+paste from dojo3
-
-      phrase = TEXT[rand(TEXT.length), 3].join(' ').split
-      key = WORDS.sample
-      puts "grep for this: key is (" + key + ")"
-      hint = phrase.sample
-      while hint.length < 3
-        hint = phrase.sample
-      end
-      attempts = 0
-      while hint.length < key.length
-        hint = phrase[rand(phrase.length), 2 + (attempts % 10)].join ' '
-        attempts += 1
-      end
-      plain = phrase.join(' ').split(//)
-      ciphered = plain.zip((key * ((plain.length / key.length) + 1)
-                           ).split(//)).map do |(char, k)|
-        char.ord ^ k.ord
-      end.join ' '
-      return {plaintext: phrase.join(' '), ciphertext: ciphered, hint: hint}
-    end
-
-    def self.generate_level4
-      alphabet = ('a'..'z').to_a + [' ', '.', ',', ':', ';']
-      encoding = alphabet.zip(alphabet.shuffle).inject({}) do |hsh, (k,v)|
-        hsh[k] = v
-        hsh
-      end
-      phrase = TEXT[rand(TEXT.length), 6].join(' ')
-      ciphered = phrase.split(//).map {|char| encoding[char] }.join
-      return {plaintext: phrase, ciphertext: ciphered}
+      return {text: 'zeroth'}
     end
 
     def self.verify_level0 our_plaintext, their_plaintext
       return our_plaintext == their_plaintext
     end
+      
+    def self.generate_level1
+      dataType = -1     # If 1 or 2 or 3, one of: *,^,$,?
+                        # If 4 or 5 or 6: number from 1-9
+                        # If 7 or 8: A-Z character
+                        # If 9 or 10: a-z character
 
-    LOCATIONS = Marshal.load(open('lib/ecdojolocations.dump'))
-    SALT = "nacl"
+      randNum = -1    # Used to determine length of substring.
+      numCharacters = 0   # Number of characters outputted so far.
+      outText = ""
+
+      tempOutText = ""
+
+      while numCharacters < 2048 do
+        dataType = 1 + rand(10) # Random from 1-10
+
+        if dataType <= 3
+          tempOutText = self.escapeString()
+          outText = outText + tempOutText
+          numCharacters = numCharacters + tempOutText.length
+        elsif dataType >= 4 and dataType <= 6
+          tempOutText = self.numString()
+          outText = outText + tempOutText
+          numCharacters = numCharacters + tempOutText.length
+        elsif dataType >= 7 and dataType <= 8
+          tempOutText = self.capitalString()
+          outText = outText + tempOutText
+          numCharacters = numCharacters + tempOutText.length
+        elsif dataType >= 9 and dataType <= 10
+          tempOutText = self.lowerString()
+          outText = outText + tempOutText
+          numCharacters = numCharacters + tempOutText.length
+        end
+      end
+
+      # Now guarantee we have at least one matching expression:
+      tempOutText = ""
+      tempOutText = tempOutText + (rand(2) == 0 ? "*" : "^")
+      if (rand(2) == 0)
+        for idx in 1..(3 + rand(3)) # Add 3 to 5 chars
+          randNum = 96 + 1 + rand(26) # Random from a-z
+          tempOutText = tempOutText + randNum.chr
+        end
+        for idx in 1..3 # Add 3 nums
+          randNum = rand(10) # Random from 0-9
+          tempOutText = tempOutText + randNum.to_s
+        end
+      else
+        for idx in 1..(3 + rand(3)) # Add 3 to 5 chars
+          randNum = 64 + 1 + rand(26) # Random from A-Z
+          tempOutText = tempOutText + randNum.chr
+        end
+        for idx in 1..(1 + rand(7)) # Add 1 to 6 nums
+          randNum = rand(10) # Random from 0-9
+          tempOutText = tempOutText + randNum.to_s
+        end 
+      end
+      tempOutText = tempOutText + (rand(2) == 0 ? "$" : "?")
+      outText.insert(rand(2000), tempOutText)
+
+      return {text: outText}
+    end
+
+    def self.verify_level1 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+
+    def self.generate_level2
+      return {text: 'second'}
+    end
+
+    def self.verify_level2 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+
+    def self.generate_level3
+      return {text: 'third'}
+    end
+
+    def self.verify_level3 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
+
+    def self.generate_level4
+      return {text: 'fourth'}
+    end
+
+    def self.verify_level4 our_plaintext, their_plaintext
+      return our_plaintext == their_plaintext
+    end
 
     def self.generate_puzzle(level, *args)
       return self.send("generate_level#{level}", *args)
@@ -462,11 +238,222 @@ module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
     def self.verify_puzzle(level, *args)
       return self.send("verify_level#{level}", *args)
     end
-end
+  end
+
+  module Dojo7 #nowieveniwouldcelebrate dojoN_levelM.haml
+
+
+      TEXT = open('lib/corpus.txt').readlines.map(&:chomp).map(&:downcase)
+      
+      def self.generate_level0
+        # --- Problem generate code --- #
+
+         set_of_plaintext =[
+                'NOTEPAPERWHICHHADBEENLYINGOPENUPONTHETABLEITCAMEBYTHELASTPOST',
+                'HEAVYSTEPWHICHHADBEENHEARDUPONTHESTAIRSANDINTHEPASSAGEPAUSED',
+                'CLIENTIFYOURMAJESTYWOULDCONDESCENDTOSTATEYOURCASEHEREMARKEDI',
+                'JUSTSUCHASIHADPICTUREDFROMSHERLOCKHOLMESSUCCINCTDESCRIPTIONBUT',
+                'HAVEOPENEDITMYSELFWITHTHEKEYOFTHEBOXROOMCUPBOARDHEOFTENHAD',
+                'WHOWASFARGREATERTHANIWASATSTAKEANDTHATHETHREATENEDTORAISEA',
+                'VEGETABLESROUNDHISNAMEISFRANCISPROSPERHESTOODSAIDHOLMESTO',
+                'YOUTHENROUSEDHISANGERBYCALLINGHIMNAMESATAMOMENTWHENHEFELT',
+                'SHOESWITHTHESEIJOURNEYEDDOWNTOSTREATHAMANDSAWTHATTHEYEXACTLY',
+                'FELLOWWHATDOTHEPUBLICTHEGREATUNOBSERVANTPUBLICWHOCOULDHARDLY',
+                'ABOUTONCEAWEEKINORDERTOSEEWHETHERANYTHINGHADTURNEDUPWHICHMIGHT'
+              ]
+
+          #TODO new set of plaintext for this
+          plaintext = set_of_plaintext.sample
+          #puts "ptx is " + plaintext
+
+          pad = (0...plaintext.length).map { (65 + rand(26)).chr }.join
+          #puts "pad is " + pad
+
+
+          plaintext_as_array = plaintext.split(//)
+          pad_as_array = pad.split(//)
+          ciphertext_as_array = Array.new
+          ciphertext = ""
+
+          for i in 0..plaintext_as_array.length - 1
+            n1 = plaintext_as_array[i].ord - 65
+            n2 = pad_as_array[i].ord - 65
+            ciphertext_as_array[i] = (n1 + n2)%26
+            ciphertext_as_array[i] = ciphertext_as_array[i] + 65
+            ciphertext = ciphertext + ciphertext_as_array[i].chr
+          end
+
+        # --- End problem generate code --- #
+        return {ciphertext: ciphertext, otp: pad}
+      end
+
+      def self.generate_level1
+        # --- Problem generate code --- #
+                 set_of_plaintext =[
+            'FIFTYPACESNORTHOFTHESTRAWBERRYFARM',
+            'NINETYFEETSOUTHOFTHEOLDCHURCH',
+            'ONEMILENORTHOFTHEELEMENTARYSCHOOL',
+            'THREEMILESSOUTHOFTHECREEPYCIRCUS',
+            'SIXTYPACESWESTOFBRANDNEWWHEATMILL',
+            'FIVEMILESEASTOFTHESTINKYRUBBERFACTORY',
+            'NINETYSILLYWALKSSOUTHOFTHEMINISTRY',
+            'JUSTUNDERTHEABANDONEDBRIDGE',
+            'RIGHTBEHINDTHENEWLAUNDROMAT',
+            'ONTHETHIRDFLOOROFTHETALLESTBUILDING',
+            'INTHEBASEMENTOFTHEMAYORSMANOR'
+            ]
+
+             set_of_partials =[
+                    '..F.....E......O.....T.....R......',
+                    'N.....F.....U.......O......C.',
+                    '.N.........H.........E....Y.....L',
+                    '.....M......U.....H...E...C.....',
+                    '.I.......S........A.....W......L.',
+                    '..V..I.......O............B........R.',
+                    'N........L..........H........I...Y',
+                    '...T...E...E.....O....R....',
+                    '..G.....I.......W....D....T',
+                    '.....T....F.....F.....L........D...',
+                    '..T..B.........T.....O......R'
+                    ]
+
+            set_of_key = ["CACTI", "MAPLE", "PINES", "SEEDY", "ROSES", "BALSA", "MOSSY", "PETAL"]
+
+            r = Random.new
+            pt_index = r.rand(0..set_of_plaintext.length - 1)
+
+            plaintext = set_of_plaintext[pt_index]
+            partial = set_of_partials[pt_index]
+            key = set_of_key.sample
+
+            plaintext_as_array = plaintext.split(//)
+            key_as_array = key.split(//)
+            ciphertext_as_array = Array.new
+            ciphertext = ""
+
+            for i in 0..plaintext_as_array.length - 1
+              n1 = plaintext_as_array[i].ord - 65
+              n2 = key_as_array[i%(key_as_array.length)].ord - 65
+              ciphertext_as_array[i] = (n1 + n2)%26
+              ciphertext_as_array[i] = ciphertext_as_array[i] + 65
+              ciphertext = ciphertext + ciphertext_as_array[i].chr
+            end
+        # --- End problem generate code --- #
+        puts "VIGNERE GREP HELPER"
+        return {ciphertext: ciphertext, partial: partial}
+      end
+
+      def self.generate_level2
+        # --- Problem generate code --- #
+        #Taken on 2014-03-09 from http://rosettacode.org/wiki/Modular_exponentiation
+        puts "DBG self.generate_level2"
 
 
 
+              words = ["BEGIN", "COVER", "WOODS", "DECOY", "DUELS", "ALONE", "MAJOR", "PEEKS", "TREES", "BLUFF", "CATCH", "FALSE", "CAMPS", "CARGO", "SPIES", "SIGNS", "BRIBE", "HILLS", "RIVER", "ROADS", "TRAPS", "NORTH", "SOUTH", "BELOW", "ABOVE", "SWAMP", "SONAR", "RADAR", "RAIDS", "SCOUT"]
+              primes = [98519, 98893, 98899, 98963, 99181, 99487, 99661, 99787, 99923, 100003, 100129, 100313, 100363, 100549, 100613, 100799, 100957, 100987, 101113, 101267, 101293, 101501, 101513, 101627, 101723, 101929, 102001, 102061, 102161, 102229, 102337, 102503, 102607, 102811, 102871, 103001, 103123, 103319, 103483, 103549, 103651, 103801, 103967, 103991, 104089, 104161, 104239, 104323, 104417, 104579, 104729]
+              puts "DBG primes defined"
 
+              p = -1 
+              q = p
+
+              until (p != q)
+                p = primes.sample
+                q = primes.sample
+              end
+
+              plaintext = words.sample #ARGV[0]
+              plaintext_as_array = plaintext.split(//)
+              encoded_text = ""
+
+              for i in 0..plaintext_as_array.length - 1
+                char = (plaintext_as_array[i].ord).to_s
+                encoded_text = encoded_text + char
+              end
+
+              n = p*q
+              totient = (p-1)*(q-1)
+
+              primesToGenerate = 1000
+              publicKey = totient + 1 #so the second condition in the 'until' below is false initially
+              until ((totient.gcd(publicKey) == 1) && (publicKey < totient)) do
+                publicKey = (Prime.first(primesToGenerate))[Random.rand(primesToGenerate -1)] 
+              end
+              puts "DBG found my publickey"
+
+              g,x,y = extended_gcd(totient,publicKey)
+              if (y < 0) then
+                y = totient + y
+              end
+
+              d = y
+
+              private1 = d  
+              private2 = n
+
+              public1 = publicKey
+              public2 = n
+              ciphertext = (((encoded_text.to_i)**public1)%public2)
+              puts "DBG encrypted my ciphertext"
+
+        # --- End problem generate code --- #
+        puts "grep for this: in contests_helper: ciphertext as (" + ciphertext.to_s + ") publickey as (" + publicKey.to_s + ") n as (" + n.to_s + ")"
+
+        puts "DBG about to return problem2 values"
+        #return {rsa_ciphertext: "1234", publicKey: "5678", exponentN: "910"}
+        return {rsa_ciphertext: ciphertext.to_s, publicKey: publicKey.to_s, exponentN: n.to_s}
+        # return {ciphertext: ciphertext, partial: partial}
+      end
+
+      def self.generate_level3
+        #copy+paste from dojo3
+
+        phrase = TEXT[rand(TEXT.length), 3].join(' ').split
+        key = WORDS.sample
+        puts "grep for this: key is (" + key + ")"
+        hint = phrase.sample
+        while hint.length < 3
+          hint = phrase.sample
+        end
+        attempts = 0
+        while hint.length < key.length
+          hint = phrase[rand(phrase.length), 2 + (attempts % 10)].join ' '
+          attempts += 1
+        end
+        plain = phrase.join(' ').split(//)
+        ciphered = plain.zip((key * ((plain.length / key.length) + 1)
+                             ).split(//)).map do |(char, k)|
+          char.ord ^ k.ord
+        end.join ' '
+        return {plaintext: phrase.join(' '), ciphertext: ciphered, hint: hint}
+      end
+
+      def self.generate_level4
+        alphabet = ('a'..'z').to_a + [' ', '.', ',', ':', ';']
+        encoding = alphabet.zip(alphabet.shuffle).inject({}) do |hsh, (k,v)|
+          hsh[k] = v
+          hsh
+        end
+        phrase = TEXT[rand(TEXT.length), 6].join(' ')
+        ciphered = phrase.split(//).map {|char| encoding[char] }.join
+        return {plaintext: phrase, ciphertext: ciphered}
+      end
+
+      def self.verify_level0 our_plaintext, their_plaintext
+        return our_plaintext == their_plaintext
+      end
+
+      LOCATIONS = Marshal.load(open('lib/ecdojolocations.dump'))
+      SALT = "nacl"
+
+      def self.generate_puzzle(level, *args)
+        return self.send("generate_level#{level}", *args)
+      end
+
+      def self.verify_puzzle(level, *args)
+        return self.send("verify_level#{level}", *args)
+      end
+  end
 
   module Dojo6
     
@@ -678,7 +665,6 @@ end
       return self.send("verify_level#{level}", *args)
     end
   end
-
 
   module Dojo5
 
