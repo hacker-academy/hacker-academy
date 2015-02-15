@@ -1,0 +1,37 @@
+#Dojo creation Guidelines
+
+1) Install a mongo viewer GUI on your computer.
+2) Make sure you can edit users to be admin / normal
+3) Create a new contest on local host with a new contest_ident. (Using an admin user)
+4) Contests_controller.rb -> Edit the show function. Set @num_probs to be the number of problems you want - 1. 
+5) In problem add an elsif block for your contest_ident , add the following block if you wish problems to be solved sequentially
+unless (0..insert num of problems).member? @level
+	redirect_to @contest, alert: "Invalid level"
+	return
+end    
+6) Go to contests_help.rb and add a module for your contest_ident ex: Module9
+7) Within the module add 
+def self.generate_puzzle(level, *args)
+  return self.send("generate_level#{level}", *args)
+end
+
+def self.verify_puzzle(level, *args)
+  return self.send("verify_level#{level}", *args)
+end
+
+8) Then you need a view. Go to app->views->contests and add views in the form
+dojoX_levelY.html.haml (where x is your contest_ident, and Y is your level).
+Use dojo1_level0 as a template.
+
+9) Write a generate function to generate a levels problem 
+self.generate_levelX where X is the appropriate level.
+
+10) Add self.verify_levelX to the module, this function will take the user solution passed from constests_controller#solution and verify it 
+
+11) In views go to _submit.html.haml and add another elsif block to pass the correct params as hidden fields on the submit form.
+
+11) In contests_controller#solution add another if contest_ident block to get the correct variable set by calling
+something similar to:
+correct = ContestsHelper::Dojo9.verify_puzzle(0, params[:solution])
+
+12) Finish implementing the verify_levelX function to properly compare a users answer

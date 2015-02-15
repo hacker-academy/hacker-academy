@@ -34,6 +34,7 @@ end
 
 
 module ContestsHelper
+
   def duration_between(from_date, to_date)
     hours, minutes, seconds, frac =
     Date.wrap_day_fraction_to_time( to_date - from_date )
@@ -46,8 +47,6 @@ module ContestsHelper
       pluralize(seconds, "second"),
     ].join(', ')
   end
-
-
 
   #Taken on 2014-03-02
   def extended_gcd(a, b)
@@ -76,6 +75,63 @@ module ContestsHelper
 
   WORDS = Marshal.load(open('lib/words2.dump'))
 
+  module Dojo9
+    def self.generate_level0
+      lines = []
+      n = Random.rand(5...10)
+      i = 0
+      lines.push(n)
+      while (i < n)
+        numHours = Random.rand(30...50)
+        wage = Random.rand(15.0...30.0).round(2)
+        lines.push(numHours)
+        lines.push(wage)
+        i += 1
+      end
+
+      return {lines: lines}
+    end
+
+    def self.verify_level0(lines, their_plaintext)
+      lines_array = lines.split("+")
+      #Constants
+      $overtimeRequirementInHours = 40
+      $overtimeBonus = 1.1
+
+      #Variables
+      wage = 0.0
+      hours = 0
+      total = 0.0
+      roundedUpPayment = 0
+      numResearchers = lines_array[0].to_i
+      i = 0
+      while (i < numResearchers)
+        hours = lines_array[i*2+1].to_i
+        Rails.logger.debug "hours is: "
+        Rails.logger.debug hours
+        wage = lines_array[i*2+2].to_f
+        #Check if the researcher worked overtime
+        if (hours > $overtimeRequirementInHours)
+            total += ($overtimeRequirementInHours)*wage + (hours-$overtimeRequirementInHours)*wage*$overtimeBonus
+        else
+            total += hours*wage
+        end
+        i += 1
+      end
+      Rails.logger.debug "Payment is:"
+      Rails.logger.debug roundedUpPayment
+      roundedUpPayment = total.to_i + 1
+      return roundedUpPayment == their_plaintext.to_i
+    end
+
+    def self.generate_puzzle(level, *args)
+      return self.send("generate_level#{level}", *args)
+    end
+
+    def self.verify_puzzle(level, *args)
+      return self.send("verify_level#{level}", *args)
+    end
+  end
 
   module Dojo8
 

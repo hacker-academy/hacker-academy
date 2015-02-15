@@ -45,6 +45,8 @@
     - else
       = hidden_field_tag :searches, @prob[:searches].map{|x| x[0]}.join('+')
       = hidden_field_tag :locations, @prob[:locations].join('+')
+  - elsif @contest.puzzle_ident == 9
+    = hidden_field_tag :lines, @prob[:lines].join('+')
   .field
     = label_tag :solution
     %br

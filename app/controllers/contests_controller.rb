@@ -80,18 +80,13 @@ class ContestsController < ApplicationController
     # GET /contests/1.xml
   def show
     @contest = Contest.find(params[:id])
+    id = @contest.puzzle_ident
     @num_probs = @contest.puzzle_ident == 3 ? 3 : 2
-    if @contest.puzzle_ident == 7
-      @num_probs = 4 #nowieveniwouldcelebrate
+    if id == 7 || id == 6 || id == 8 || id == 9
+      @num_probs = 4 
     end
-    if @contest.puzzle_ident == 5
+    if id == 5 
       @num_probs = 5
-    end
-    if @contest.puzzle_ident == 6
-      @num_probs = 4
-    end
-    if @contest.puzzle_ident == 8
-      @num_probs = 4
     end
     if @contest.start > DateTime.now
       unless current_user.is_admin
@@ -171,6 +166,11 @@ class ContestsController < ApplicationController
         redirect_to @contest, alert: "Invalid level"
         return
       end    
+    elsif contest_ident == 9
+      unless (0..4).member? @level #nowieveniwouldcelebrate
+        redirect_to @contest, alert: "Invalid level"
+        return
+      end    
     else
       redirect_to @contest, alert: "Invalid contest"
     end
@@ -240,6 +240,12 @@ class ContestsController < ApplicationController
       elsif @level == 4
         msg = @prob[:text]
       end
+    elsif contest_ident == 9
+      if @level == 0
+        msg = @prob[:lines].join(' ')
+        logger.debug "Message is \n"
+        logger.debug msg
+      end
     end
     key = ENV['HMAC_KEY'] || "derp"
     session[:key] = OpenSSL::HMAC.hexdigest('sha256', msg, key)
@@ -252,7 +258,13 @@ class ContestsController < ApplicationController
     correct = false
     perf = -1
 
+    logger.debug "\n Printing Params \n "
+    logger.debug params
 
+    if contest.puzzle_ident == 9
+      level = params[:level]
+      correct = ContestsHelper::Dojo9.verify_puzzle(level, params[:lines], params[:solution])
+    end
 
     if contest.puzzle_ident == 8
       time_elapsed = Time.now.to_i - session[:time]
@@ -262,8 +274,8 @@ class ContestsController < ApplicationController
        redirect_to contest,
        alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
        return
-     end
-     msg = nil
+      end
+      msg = nil
       #if level == "3" or level == "4"
       #  msg = params[:searches] + params[:locations]
       #  key = ENV['HMAC_KEY'] || "derp"
@@ -344,6 +356,7 @@ class ContestsController < ApplicationController
           )
       end
     end
+
     if contest.puzzle_ident == 7 #nowieveniwouldcelebrate
       time_elapsed = Time.now.to_i - session[:time]
       session.delete :time
@@ -451,35 +464,32 @@ class ContestsController < ApplicationController
             params[:solution], mySolution
             )
 
-        elsif level == '3'
-          #XOR
-          correct = ContestsHelper::Dojo3.verify_level3(
-            params[:solution], 'PASS'
-            )
-        elsif level == '4'
-          #substitution
-          correct = ContestsHelper::Dojo3.verify_level3(
-            params[:solution], params[:solution]
-            )
-        elsif level == '2'
-          #RSA bruteforce
-          d = -1
-          ciphertext = params[:rsa_ciphertext].to_i
-          publicKey = params[:publicKey].to_i
-          n = params[:exponentN].to_i
+      elsif level == '3'
+        #XOR
+        correct = ContestsHelper::Dojo3.verify_level3(
+          params[:solution], 'PASS'
+          )
+      elsif level == '4'
+        #substitution
+        correct = ContestsHelper::Dojo3.verify_level3(
+          params[:solution], params[:solution]
+          )
+      elsif level == '2'
+        #RSA bruteforce
+        d = -1
+        ciphertext = params[:rsa_ciphertext].to_i
+        publicKey = params[:publicKey].to_i
+        n = params[:exponentN].to_i
 
+        #Real solution: use primes as the first 14000 primes (~1 minute runtime)
+        #Fast solution for Rails site: use the hardcoded list of primes
+        primes = [98519, 98893, 98899, 98963, 99181, 99487, 99661, 99787, 99923, 100003, 100129, 100313, 100363, 100549, 100613, 100799, 100957, 100987, 101113, 101267, 101293, 101501, 101513, 101627, 101723, 101929, 102001, 102061, 102161, 102229, 102337, 102503, 102607, 102811, 102871, 103001, 103123, 103319, 103483, 103549, 103651, 103801, 103967, 103991, 104089, 104161, 104239, 104323, 104417, 104579, 104729]
+        #primes = Prime.first(14000)
 
-
-
-          #Real solution: use primes as the first 14000 primes (~1 minute runtime)
-          #Fast solution for Rails site: use the hardcoded list of primes
-          primes = [98519, 98893, 98899, 98963, 99181, 99487, 99661, 99787, 99923, 100003, 100129, 100313, 100363, 100549, 100613, 100799, 100957, 100987, 101113, 101267, 101293, 101501, 101513, 101627, 101723, 101929, 102001, 102061, 102161, 102229, 102337, 102503, 102607, 102811, 102871, 103001, 103123, 103319, 103483, 103549, 103651, 103801, 103967, 103991, 104089, 104161, 104239, 104323, 104417, 104579, 104729]
-          #primes = Prime.first(14000)
-
-          mySolution = ""
-          primes.each do |p|
-          #for p in primeLowerBound..primeUpperBound
-          #if (Prime.prime?(p)) then
+        mySolution = ""
+        primes.each do |p|
+        #for p in primeLowerBound..primeUpperBound
+        #if (Prime.prime?(p)) then
           primes.each do |q|
             #for q in primeLowerBound..primeUpperBound
             #if (Prime.prime?(q)) then
@@ -497,49 +507,46 @@ class ContestsController < ApplicationController
               puts "DBG IN LOOP: mySolution is (" + mySolution + ")"
             end
           end
-            #end
           #end
+        #end
         end
-            mySolution = mySolution[0,5] #hacky but w/e
-            puts "DBG AT END: my solution is (" + mySolution + ") and client solution is (" + params[:solution] +")"
-            correct = ContestsHelper::Dojo6.verify_level0(
-              params[:solution], mySolution
-              )
-          end
+        mySolution = mySolution[0,5] #hacky but w/e
+        puts "DBG AT END: my solution is (" + mySolution + ") and client solution is (" + params[:solution] +")"
+        correct = ContestsHelper::Dojo6.verify_level0(params[:solution], mySolution)
+      end
+    end
+
+    if contest.puzzle_ident == 6
+      time_elapsed = Time.now.to_i - session[:time]
+      session.delete :time
+      level = params[:level]
+      if time_elapsed > 120 && level < 3
+        redirect_to contest,
+        alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
+        return
+      end
+      msg = nil
+      if level == "3" or level == "4"
+        msg = params[:searches] + params[:locations]
+        key = ENV['HMAC_KEY'] || "derp"
+        hmac = OpenSSL::HMAC.hexdigest('sha256', msg, key)
+        if hmac != session[:key]
+          redirect_to contest, alert: 'Cheating detected...'
+          return
         end
+        session.delete :key
+      end
+      if time_elapsed > 180 && level >= 3
+        redirect_to contest,
+        alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
+        return
+      end
 
-
-        if contest.puzzle_ident == 6
-          time_elapsed = Time.now.to_i - session[:time]
-          session.delete :time
-          level = params[:level]
-          if time_elapsed > 120 && level < 3
-            redirect_to contest,
-            alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
-            return
-          end
-          msg = nil
-          if level == "3" or level == "4"
-            msg = params[:searches] + params[:locations]
-            key = ENV['HMAC_KEY'] || "derp"
-            hmac = OpenSSL::HMAC.hexdigest('sha256', msg, key)
-            if hmac != session[:key]
-              redirect_to contest, alert: 'Cheating detected...'
-              return
-            end
-            session.delete :key
-          end
-          if time_elapsed > 180 && level >= 3
-            redirect_to contest,
-            alert: "Sorry, you took too long with your answer (#{time_elapsed} seconds)"
-            return
-          end
-
-          if level == '0'
-            number = params[:number].to_i
-            our_sum = 0
-            len = (number.to_s().length)
-            for digit in 0..len-1
+      if level == '0'
+        number = params[:number].to_i
+        our_sum = 0
+        len = (number.to_s().length)
+        for digit in 0..len-1
           #count 2s in range at current digit
           a = num2s_helper(number,digit)
           our_sum = our_sum + a

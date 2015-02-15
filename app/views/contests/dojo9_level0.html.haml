@@ -1,0 +1,44 @@
+= render partial: 'problem_header'
+%p Calculate how much a research team must pay out to all their employees.
+
+%p
+  Given a employees and their wages.
+  %br
+  Return the total amount owed by the research team. Rounded up to an int.
+
+
+%h2 Sample Problem
+%h4 Researchers & Wages
+.data
+  %code
+    4 
+    %br
+    42
+    %br 
+    15.60
+    %br 
+    40
+    %br
+    16.30
+    %br
+    40
+    %br
+    17.00
+    %br
+    45
+    %br
+    15.45
+
+%h4 Solution
+.data
+  %code 2694
+
+%h2 Actual Problem
+%h4 Researchers & Wages
+.data
+  %code
+    - @prob[:lines].each do |word|
+      = word
+      %br
+
+= render partial: 'submit'
