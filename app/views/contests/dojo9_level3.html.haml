@@ -1,0 +1,51 @@
+= render partial: 'problem_header'
+%p P4
+
+%p
+  p4 desc
+
+%h2 Sample Problem
+%h4 Teleportals
+.data
+  %code
+    4
+    %br
+    0 1
+    %br
+    \-1 -1
+    %br
+    0 -1
+    %br
+    1 -1
+    %br
+    6
+    %br
+    \-1 1
+    %br
+    0 1
+    %br
+    1 1
+    %br
+    \-1 -1
+    %br
+    0 -1
+    %br
+    1 -1
+
+%h4 Solution
+.data
+  %code
+    1
+    %br
+    2
+
+
+%h2 Actual Problem
+%h4 Teleportals
+.data
+  %code
+    - @prob[:lines].each do |word|
+      = word
+      %br
+
+= render partial: 'submit'

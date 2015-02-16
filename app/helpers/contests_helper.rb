@@ -199,6 +199,264 @@ module ContestsHelper
 
     end
 
+    $largestDistance = 0
+    $largestPath = ""
+
+    def self.generate_level2
+
+      lines = []
+
+      #The main variable of interest ("magnitude order" of vines)
+      n = 8
+
+      numVines = 0
+      parents = 0
+
+      for i in 1...n
+        numVines = numVines + 3**i
+      end
+
+       for i in 1...(n-1)
+        parents = parents + 3**i
+      end
+
+      level = 4
+      for i in 1...(numVines+1)
+        if (i > parents)
+            lines.push("("+i.to_s+","+rand(10).to_s+","+"0"+","+"0"+","+"0"+")")
+        else
+            lines.push("("+i.to_s+","+rand(10).to_s+","+(level).to_s+","+(level+1).to_s+","+(level+2).to_s+")")
+        end
+        level += 3
+      end
+
+      return {lines: lines}
+    end
+
+    class Vine_class
+      def initialize(n, le, l, c, r)
+          @number = n
+          @length = le
+          @left = l
+          @centre = c
+          @right = r
+      end
+      attr_reader :number
+      attr_reader :length
+      attr_reader :left
+      attr_reader :centre
+      attr_reader :right
+    end
+
+    def self.verify_level2(lines, their_plaintext)
+      lines_array = lines.split("+")
+
+      their_solution = their_plaintext.split("\r\n")
+      #The main variable of interest ("magnitude order" of vines)
+      n = 8
+
+      numVines = 0
+      parents = 0
+      vines = []
+
+      for i in 1...n
+        numVines = numVines + 3**i
+      end
+
+      k = 0
+      
+      while( k < numVines)
+        if (lines[k] != "X")
+            nums = lines_array[k].split(/[\(,\)]/)
+            vines << Vine_class.new(nums[1], nums[2], nums[3], nums[4], nums[5])
+        end
+        k = k+1
+      end
+
+      self.swing(0,0,0,vines[0],vines,"")
+      self.swing(0,0,0,vines[1],vines,"")
+      self.swing(0,0,0,vines[2],vines,"")
+
+      return $largestPath[0, $largestPath.length-1] == their_solution[0]
+    end
+
+    def self.swing(distance, pLength, p2Length, vine, vines, pathName)
+      num = vine.number
+      len = vine.length.to_i
+      l = vine.left.to_i
+      c = vine.centre.to_i
+      r = vine.right.to_i
+      p3Length = len + pLength + p2Length
+      distance += len
+
+      pathName = pathName + ""
+      pathName = pathName + num.to_s
+      pathName = pathName + "-"
+
+      if (distance > $largestDistance)
+        $largestDistance = distance
+        $largestPath = pathName
+      end
+
+      if ((distance % 7) == 0)
+          return
+      end
+      if (isPrime(distance)==0)
+          return
+      end
+      if ((p3Length == 6) || (p3Length == 9) || (p3Length == 15))
+          return
+      end
+
+      if (l == 0)
+
+          return
+      end
+
+      swing(distance, p2Length, len, vines[l], vines, pathName)
+      swing(distance, p2Length, len, vines[c], vines, pathName)
+      swing(distance, p2Length, len, vines[r], vines, pathName)
+    end
+
+    def self.isPrime(num)
+        value = 0
+        endNum = (Math.sqrt(num)+1).to_i
+        if (endNum < 6)
+            value = 1
+            return
+        end
+        for j in 2...endNum
+            if (num%j == 0)
+                value = 1
+            end
+        end
+        return value
+    end
+
+
+    def self.generate_level3
+
+      lines = []
+
+      lines.push("4")
+      lines.push("-1 -1") 
+      lines.push("0 1") 
+      lines.push("0 -1") 
+      lines.push("1 -1") 
+      lines.push("6") 
+      lines.push("0 1") 
+      lines.push("-1 1")
+      lines.push("1 1") 
+      lines.push("-1 -1") 
+      lines.push("0 -1") 
+      lines.push("1 -1") 
+      lines.push("3") 
+      lines.push("1 0") 
+      lines.push("2 0") 
+      lines.push("1 1") 
+      lines.push("3") 
+      lines.push("-1000 -1000")
+      lines.push("1000 -1000")
+      lines.push(" 0 1000") 
+      lines.push(" 8")
+      lines.push(" -2 4") 
+      lines.push(" 1 3") 
+      lines.push(" -3 -2") 
+      lines.push(" 4 -5") 
+      lines.push(" 2 0") 
+      lines.push(" 0 3 ")
+      lines.push(" 4 1") 
+      lines.push(" -2 5")
+
+      return {lines: lines}
+    end
+
+    def self.checkTriangle(x1,y1,x2,y2,x3,y3)
+
+      x4 = (x1+x2+x3)/3.0
+      y4 = (y1+y2+y3)/3.0
+      a1 = self.cross(0,0,x1,y1,x2,y2)
+      a2 = self.cross(x4,y4,x1,y1,x2,y2)
+      b1 = self.cross(0,0,x2,y2,x3,y3)
+      b2 = self.cross(x4,y4,x2,y2,x3,y3)
+      c1 = self.cross(0,0,x3,y3,x1,y1)
+      c2 = self.cross(x4,y4,x3,y3,x1,y1)
+
+      if (self.sameSign(a1,a2) && self.sameSign(b1,b2) && self.sameSign(c1,c2))
+          return 1
+      else
+          return 0
+      end
+    end
+
+    def self.cross(x,y,x1,y1,x2,y2)
+        return (((x1-x)*(y2-y))-((y1-y)*(x2-x)))
+    end
+
+    def self.sameSign(n1,n2)
+        if (n1>0 && n2>0)
+            return true
+        elsif (n1<0 && n2<0)
+            return true
+        else
+            return false
+        end
+    end
+
+    def self.verify_level3(lines, their_plaintext)
+      lines_array = lines.split("+")
+
+      their_solution = their_plaintext.split("\r\n")
+      i = 0
+      j = 0
+      x = []
+      y = []
+      input = ""
+      inputCounter = 0
+      numInputs = 5
+
+      while (inputCounter < numInputs)
+          numLines = lines_array[j].to_i
+          j += 1
+          while (i < numLines)
+              input = lines_array[j]
+              p = input.split(" ")
+              x[i] = p[0].to_i
+              y[i] = p[1].to_i
+              j += 1
+              i += 1
+          end
+          i = 0
+          a = 0
+          b = 1
+          c = 2
+          numSolutions = 0
+
+          while (a < numLines - 2)
+
+              while (b < numLines - 1)
+
+                  while (c < numLines)
+                      numSolutions += self.checkTriangle(x[a],y[a],x[b],y[b],x[c],y[c])
+                      c += 1
+                  end
+                  b += 1
+                  c = b + 1
+              end
+              a += 1
+              b = a + 1
+              c = b + 1
+          end
+
+          if (numSolutions != their_solution[inputCounter].to_i)
+            return false
+          end
+          inputCounter += 1
+      end
+      return true
+    end
+
+
     def self.generate_puzzle(level, *args)
       return self.send("generate_level#{level}", *args)
     end
