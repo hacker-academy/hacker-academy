@@ -1,0 +1,53 @@
+= render partial: 'problem_header'
+%p P6
+
+%p
+  p6 desc
+
+%h2 Sample Problem
+%h4 Ice Maze
+.data
+  %code
+    \A....E...B
+    %br
+    \..........
+    %br
+    \..........
+    %br
+    \..........
+    %br
+    \..........
+    %br
+    \..........
+    %br
+    \F.........
+    %br
+    \#.........
+    %br
+    \......#...
+    %br
+    \.....D...C
+
+%h4 Solution
+.data
+  %code
+    9
+    %br
+    9
+    %br
+    16
+    %br
+    9
+    %br
+    11
+
+
+%h2 Actual Problem
+%h4 Ice Maze
+.data
+  %code
+    - @prob[:lines].each do |word|
+      = word
+      %br
+
+= render partial: 'submit'

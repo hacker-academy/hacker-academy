@@ -456,6 +456,294 @@ module ContestsHelper
       return true
     end
 
+    def self.generate_level4
+
+      lines = []
+
+      lines.push(".......#############################")
+      lines.push("#######C#....##D##.................#")
+      lines.push("#######.#....##.##.................#")
+      lines.push("#######.......#.##.................#")
+      lines.push("#######.......#.##....#............#")
+      lines.push("#######............#...............#")
+      lines.push("#######..#.......#.....#.........#.#")
+      lines.push("#######.......#...................##")
+      lines.push("#######.........#....#.#..........##")
+      lines.push("#######.............#.....#........#")
+      lines.push("#######.................#..........#")
+      lines.push("#######.#...............#..........#")
+      lines.push("######...#....#......#.............#")
+      lines.push("######.........#...#...............#")
+      lines.push("######........##.....#.............#")
+      lines.push("######......###..#.........#.......#")
+      lines.push("######......#B#....................#")
+      lines.push("######......#.#...................##")
+      lines.push("######......#.#....................#")
+      lines.push("######........#.......#...........##")
+      lines.push("######..#..........................#")
+      lines.push("######......#..............#...#...#")
+      lines.push("######..#..........................#")
+      lines.push("#####...........#.......#..........#")
+      lines.push("#####....................#..#......#")
+      lines.push("#####...............#........#.....#")
+      lines.push("#####....#..#......................#")
+      lines.push("#####............................#.#")
+      lines.push("#####...............#...........#..#")
+      lines.push("#####................#.............#")
+      lines.push("#####..............................#")
+      lines.push("#####.......#.....................##")
+      lines.push("##A.......................#......###")
+
+      return {lines: lines}
+    end
+
+    def self.slide(x,y, lengthTravelled, map, visitedLocations, letter, letterIndex, d, startX, startY,foundLetter)
+
+      if  (letterIndex>=$printIndex)
+          print(letter[letterIndex]+"--------")
+      end
+      i = 0
+      j = 0
+      yetToSlide = true
+      #Check Location
+
+      #lengthTravelled += d
+
+      if (visitedLocations[y][x]==true && map[y][x]!= letter[letterIndex])
+          if (letterIndex >=$printIndex)
+              print("!")
+          end
+      else
+          lengthTravelled += d
+      end
+
+      if (letterIndex>=$printIndex)
+          puts("FROM: " + startX.to_s + "    " + startY.to_s + "      TO: " + x.to_s + "   " + y.to_s + "   LENGTH TRAVELLED: " + lengthTravelled.to_s + "-------" + $distance.to_s)
+      end
+
+      if (lengthTravelled > 240)
+          return
+      end
+
+      if ($distance > 0 && lengthTravelled > $distance)
+          return
+      end
+
+      if (visitedLocations[y][x]==true && map[y][x]!= letter[letterIndex])
+          return
+      end
+      visitedLocations[y][x] = true
+
+      if (letterIndex >=$printIndex)
+          puts(letter[letterIndex])
+      end
+
+      #if (foundLetter == true && lengthTravelled > $distance)
+      #    return
+      #end
+
+
+      if (map[y][x] == letter[letterIndex])
+          foundLetter = true
+          #while (i < $height)
+          #    while (j < $width)
+          #        visitedLocations [i][j] = false
+          #        j += 1
+          #    end
+          #    j = 0
+          #    i += 1
+          #end        name = prompt "Step"
+          if (letterIndex >=$printIndex)
+              print("FOUND LETTER: ")
+          end
+          if ($distance == 0 || lengthTravelled < $distance)
+              $distance = lengthTravelled
+              $letX = x
+              $letY = y
+          end
+          return
+      end
+
+
+
+      #Check Directions
+      d = 0
+
+      #Check North
+      while (y-d>=0 && yetToSlide == true)
+          if (map[y-d][x] == $wall || y-d == 0)
+              if (map[y-d][x] == $wall)
+                  d = d - 1
+              end
+              yetToSlide = false
+              if (letterIndex >=$printIndex)
+                  print("_North_")
+              end
+              self.slide(x, y-d, lengthTravelled, map, visitedLocations, letter, letterIndex, d,x,y,foundLetter)
+          end
+          d += 1
+      end
+      d = 0
+      yetToSlide = true
+
+      #Check East
+      while (x+d<$width && yetToSlide == true)
+          if (map[y][x+d] == $wall || x+d == ($width-1))
+              if (map[y][x+d] == $wall)
+                  d = d - 1
+              end
+              yetToSlide = false
+              if (letterIndex >=$printIndex)
+                  print("_East _")
+              end
+              self.slide(x+d, y, lengthTravelled, map, visitedLocations, letter, letterIndex, d,x,y,foundLetter)
+          end
+          d += 1
+      end
+      d = 0
+      yetToSlide = true
+
+      #Check South
+      while (y+d<$height && yetToSlide == true)
+          if (map[y+d][x] == $wall || y+d == ($height-1))
+              if (map[y+d][x] == $wall)
+                  d = d - 1
+              end
+              yetToSlide = false
+              if (letterIndex >=$printIndex)
+                  print("_South_")
+              end
+              self.slide(x, y+d, lengthTravelled, map, visitedLocations, letter, letterIndex, d,x,y,foundLetter)
+          end
+          d += 1
+      end
+      d = 0
+      yetToSlide = true
+
+      #Check West
+      while (x-d>=0 && yetToSlide == true)
+          if (map[y][x-d] == $wall || x-d == 0)
+              if (map[y][x-d] == $wall)
+                  d = d - 1
+              end
+              yetToSlide = false
+              if (letterIndex >=$printIndex)
+                  print("_west _")
+              end
+              self.slide(x-d, y, lengthTravelled, map, visitedLocations, letter, letterIndex, d,x,y,foundLetter)
+          end
+          d += 1
+      end
+
+      visitedLocations[y][x] = false
+
+      return
+    end
+
+    def self.verify_level4(lines, their_plaintext)
+      lines_array = lines.gsub(/[+]/, '').chars.to_a
+
+      their_solution = their_plaintext.split("\r\n")
+      
+      #Variables
+      $width = 36 #36
+      $height = 33 #33
+
+      visitedLocations = Array.new($height) { Array.new($width) }
+      travelLengths = Array.new($height) { Array.new($width) }
+
+      $letters = []
+      letters = ["A", "B", "C", "D", "E", "F"]
+      letterIndex = 0
+      $finalLetter = 3
+      $distance = 1000
+      $letterDistance = 0
+      $wall = "#"
+      $letX = 0
+      $letY = 10
+      $printIndex = 10
+      lengthTravelled = 0
+      x = 0
+      y = 0
+
+      #Acquire Map
+      map = Array.new($height) { Array.new($width) }
+
+      i = 0
+      j = 0
+      k = 0
+
+      while (i < $height)
+          while (j < $width)
+              map [i][j] = lines_array[k]
+
+              visitedLocations [i][j] = false
+              travelLengths [i][j] = 1000
+              j += 1
+              k += 1
+          end
+          j = 0
+          i += 1
+      end
+
+      #Find Start Location
+      i = 0
+      j = 0
+
+      while (i < $height)
+          while (j < $width)
+              if (map [i][j] == "A")
+                  x = j
+                  y = i
+                  $letX = x
+                  $letY = y
+              end
+              j += 1
+          end
+          j = 0
+          i += 1
+      end
+
+      #Begin Sliding
+      letterIndex = 0
+      while (letterIndex < $finalLetter)
+          $distance = 0
+          lengthTravelled = 0
+          letterIndex += 1
+          x = $letX
+          y = $letY
+          i = 0
+          j = 0
+          while (i < $height)
+              while (j < $width)
+                  visitedLocations [i][j] = false
+                  j += 1
+              end
+              j = 0
+              i += 1
+          end
+          self.slide(x,y, lengthTravelled, map, visitedLocations, letters, letterIndex, 0,x,y,false)
+          #name = prompt "Step"
+
+          Rails.logger.debug ("\n")
+          Rails.logger.debug ("Letter index: ")
+          Rails.logger.debug letterIndex
+
+          Rails.logger.debug ("\n")
+          Rails.logger.debug ("Our distance: ")
+          Rails.logger.debug $distance.to_i
+
+          Rails.logger.debug ("\n")
+          Rails.logger.debug ("Their distance: ")
+          Rails.logger.debug their_solution[letterIndex-1]
+
+          if ($distance.to_i != their_solution[letterIndex-1].to_i)
+            return false
+          end
+      end
+
+      return true
+    end
 
     def self.generate_puzzle(level, *args)
       return self.send("generate_level#{level}", *args)
