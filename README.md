@@ -4,7 +4,9 @@ Contact:
 --------
 
 info@hackeracademy.org
+
 [Facebook Page](https://www.facebook.com/pages/Hacker-Academy/233826676647237)
+
 [Visit Hacker Academy](www.hackeracademy.org)
 
 Project Overview:
