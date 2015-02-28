@@ -17,8 +17,9 @@ Hacker Academy is a student club started at the University of Toronto as a commu
 The code in this repository is what you see at www.hackeracademy.org and is a Ruby on Rails App with MongoDB served on Heroku. It currently doesn't have tests but we're hoping to improve that soon. 
 
 The main components of the website are: 
-1) News Postings
-2) A Points, Achievements and Leaderboard system
-3) A programming competition (DevDojo) system.
+
+1. News Postings
+2. A Points, Achievements and Leaderboard system
+3. A programming competition (DevDojo) system.
 
 More documentation detailing the DevDojo system will be coming soon. 
