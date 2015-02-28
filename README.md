@@ -3,9 +3,11 @@ Hacker Academy
 Contact:
 --------
 
-info@hackeracademy.org
+Email: info@hackeracademy.org
 
 [Facebook Page](https://www.facebook.com/pages/Hacker-Academy/233826676647237)
+
+Twitter: [@adamhueniken](www.twitter.com/adamhueniken)
 
 [Visit Hacker Academy](www.hackeracademy.org)
 
