@@ -5,9 +5,9 @@ Contact:
 
 Email: info@hackeracademy.org
 
-[Facebook Page](https://www.facebook.com/pages/Hacker-Academy/233826676647237)
-
 Twitter: [@adamhueniken](www.twitter.com/adamhueniken)
+
+[Facebook Page](https://www.facebook.com/pages/Hacker-Academy/233826676647237)
 
 [Visit Hacker Academy](www.hackeracademy.org)
 
