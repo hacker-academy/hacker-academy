@@ -1,8 +1,41 @@
 = render partial: 'problem_header'
-%p P3
+%p Vines
 
 %p
-  p3 desc
+  "There's been an accident at the main lab!", yells a researcher. As the researchers scramble to their cars, George can't help his curiosity and desire to help, so he decides to head to the lab himself. 
+  %br
+  %br
+  Between George and the main laboratory, there is a jungle full of vines. George can swing from vine to vine to travel through the jungle. George has a choice of 3 vines to start from, and can select one vine from three at every vine. In other words, each vine has exactly 3 "child" vines. Each of these vines are equidistant from the "parent" vine. No child vine has multiple parents. The vines all terminate at the same depth. At some depth, all vines will have no children. A path that ends in such a vine is a valid path. 
+  %br
+  %br
+  When George swings on a vine, he travels a distance equal to the length of the vine. Your task is to help George find the longest path through the jungle, as this would help reach his destination in the least time. 
+  %br
+  %br
+  However, some vines are actually snakes in disguise! In the following criteria, distance travelled is the total distance travelled by swinging on all of the previous vines in the path and the length of the current vine. A vine is a snake if: 
+  %br
+  1) distance travelled is divisible by 7 
+  %br
+  2) distance travelled is a prime greater than 6 
+  %br
+  3) the sum of the lengths of this vine and the previous two vines is 6,9, or 16 
+  %br
+  %br
+  A path cannot have a snake in it. 
+  %br
+  %br
+  You will be given the vines as input in the following format:
+  %br
+  (vine_number, vine_length, left_child_number, centre_child_number, right_child_number)
+  %br
+  A vine with no children will have zeros in the last three spots. 
+  %br
+  %br
+  You must enter the longest path as:
+  %br
+  vine_number-vine_number-...-vine_number
+  %br
+  where the vine_numbers are the vines in your sequence. 
+
 
 %h2 Sample Problem
 %h4 Vines
@@ -91,7 +124,7 @@
 %h4 Solution
 .data
   %code
-    1-6-20
+    1-6-21
 
 
 %h2 Actual Problem
