@@ -92,7 +92,7 @@ class User
   end
 
   def puzzle_available? dojo, level
-    return level == 0 || self.has_solved?(dojo, level) ||
+    return dojo == 9 || level == 0 || self.has_solved?(dojo, level) ||
       self.has_solved?(dojo, level-1)
   end
 

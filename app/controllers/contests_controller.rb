@@ -1000,6 +1000,10 @@ class ContestsController < ApplicationController
             :to => 'huenikad@gmail.com',
             :from => 'dojobot@hackeracademy.org',
             :subject => "#{current_user.name} has solved problem #{level} of dojo #{contest.puzzle_ident} at #{Time.now}")
+          Pony.mail(
+            :to => 'alan.daniels@mail.utoronto.ca',
+            :from => 'dojobot@hackeracademy.org',
+            :subject => "#{current_user.name} has solved problem #{level} of dojo #{contest.puzzle_ident} at #{Time.now}")
           if perf != -1
            Pony.mail(
             :to => 'huenikad@gmail.com',
