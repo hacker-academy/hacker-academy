@@ -293,11 +293,6 @@ module ContestsHelper
       pathName = pathName + num.to_s
       pathName = pathName + "-"
 
-      if (distance > $largestDistance)
-        $largestDistance = distance
-        $largestPath = pathName
-      end
-
       if ((distance % 7) == 0)
           return
       end
@@ -306,6 +301,11 @@ module ContestsHelper
       end
       if ((p3Length == 6) || (p3Length == 9) || (p3Length == 16))
           return
+      end
+
+      if (distance > $largestDistance)
+        $largestDistance = distance
+        $largestPath = pathName
       end
 
       if (l == 0)
