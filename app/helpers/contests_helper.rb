@@ -277,7 +277,7 @@ module ContestsHelper
       self.swing(0,0,0,vines[1],vines,"")
       self.swing(0,0,0,vines[2],vines,"")
 
-      return $largestPath[0, $largestPath.length-1] == their_solution[0]
+      return $largestDistance == their_solution[0]
     end
 
     def self.swing(distance, pLength, p2Length, vine, vines, pathName)
@@ -321,7 +321,7 @@ module ContestsHelper
     def self.isPrime(num)
         value = 0
         endNum = (Math.sqrt(num)+1).to_i
-        if (endNum < 6)
+        if (num < 6)
             value = 1
             return
         end
