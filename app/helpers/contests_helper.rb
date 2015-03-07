@@ -277,7 +277,7 @@ module ContestsHelper
       self.swing(0,0,0,vines[1],vines,"")
       self.swing(0,0,0,vines[2],vines,"")
 
-      return $largestDistance == their_solution
+      return $largestDistance == their_solution[0]
     end
 
     def self.swing(distance, pLength, p2Length, vine, vines, pathName)
