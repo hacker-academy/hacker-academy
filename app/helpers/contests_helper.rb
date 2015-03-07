@@ -313,9 +313,9 @@ module ContestsHelper
           return
       end
 
-      swing(distance, p2Length, len, vines[l], vines, pathName)
-      swing(distance, p2Length, len, vines[c], vines, pathName)
-      swing(distance, p2Length, len, vines[r], vines, pathName)
+      swing(distance, p2Length, len, vines[l-1], vines, pathName)
+      swing(distance, p2Length, len, vines[c-1], vines, pathName)
+      swing(distance, p2Length, len, vines[r-1], vines, pathName)
     end
 
     def self.isPrime(num)
