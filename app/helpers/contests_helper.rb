@@ -277,7 +277,10 @@ module ContestsHelper
       self.swing(0,0,0,vines[1],vines,"")
       self.swing(0,0,0,vines[2],vines,"")
 
-      return $largestDistance == their_solution[0]
+      Rails.logger.debug ("\n")
+      Rails.logger.debug $largestDistance
+
+      return $largestDistance == their_solution[0].to_i
     end
 
     def self.swing(distance, pLength, p2Length, vine, vines, pathName)
