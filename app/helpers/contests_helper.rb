@@ -1,4 +1,4 @@
-# To add generation and verification for a new Dojo, you should create a new
+  # To add generation and verification for a new Dojo, you should create a new
 # submodule named "Dojo[N]" (e.g. Dojo1) which will contain all the code to
 # generate/verify the puzzles. The module should also contain two methods with
 # the following names and signatures: self.generate_puzzle(level, *args) which
@@ -304,7 +304,7 @@ module ContestsHelper
       if (isPrime(distance)==0)
           return
       end
-      if ((p3Length == 6) || (p3Length == 9) || (p3Length == 15))
+      if ((p3Length == 6) || (p3Length == 9) || (p3Length == 16))
           return
       end
 
