@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     abstract (1.0.0)
     actionmailer (3.0.20)
@@ -199,6 +199,7 @@ DEPENDENCIES
   mongo (~> 1.5.2)
   mongoid (~> 2.2.6)
   mongoid-rspec
+  nokogiri
   pony
   rails (= 3.0.20)
   redcarpet (= 1.17.2)
